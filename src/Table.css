@@ -1,0 +1,19 @@
+table, th, td {
+    width: auto;
+    border:1px solid black;
+  }
+  
+  table{
+    width: 100%;
+  }
+  .table-scroll::-webkit-scrollbar {
+    background: transparent; /* Chrome/Safari/Webkit */
+    width: 0px;
+    /* margin-top: 30px; */
+  }
+  @media screen and (max-width: 750px) {
+    .table-scroll {
+      
+      margin-top: 30px;
+    }
+  }

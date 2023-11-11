@@ -1,0 +1,79 @@
+*{
+    margin: 0px;
+    padding: 0px;
+  }
+  
+  
+  .admin__card{
+    border:2px solid white ;
+     color:white;
+     width: 20%;
+  }
+  .admin__card:hover{
+    color: green;
+    border: 2px solid green;
+    cursor: pointer;
+  }
+  .note__btn:hover{
+    background-color: rgb(53, 53, 88);
+    color: white;
+    
+  }
+  .super-choose{
+    flex-direction: column;
+    height: 98vh;
+    width: 15%;
+    border-right: 2px solid white;
+  }
+  .super-choose::-webkit-scrollbar {
+    display: none;
+  }
+  .note__btn{
+    align-items: center;
+    display: flex;
+  }
+  .hide__btn{
+    display: none;
+  }
+  
+  @media screen and (max-width: 750px) {
+    .hide__btn{
+      display: flex;
+    }
+    .admin__card{
+      margin: auto;
+       width: 80%;
+    }
+    .admin__row{
+      flex-direction: column;
+      gap: 20px;
+    }
+    /* .super-container{
+      flex-direction: column;
+    } */
+    .super-choose{
+      width: 0%;
+      margin-top: 50px;
+    }
+    .slider__close{
+      width: 0% !important;
+      transition: .5s all ease-in-out;
+    }
+    .slider__open{
+      width: 60%;
+      transition: .5s all ease-in-out;
+    }
+    /* .hide__btn:focus + .super-choose {
+      width: 50%;
+      transition: 1s all ease-in-out;
+    } */
+    
+    
+  }
+  @media screen and (min-width: 650px) {
+    .cross{
+      display: none;
+      
+    }
+    
+  }
