@@ -5,18 +5,23 @@
   
   
   .admin__card{
-    border:2px solid white ;
-     color:white;
+    /* border:2px solid white ; */
+     color:black;
+     background-color: #00ffff;
+     transition: .2s all ease-in-out ;
+
+     box-shadow: rgba(3, 147, 137, 0.35) 0px 5px 15px;
      width: 20%;
   }
   .admin__card:hover{
-    color: green;
-    border: 2px solid green;
+    background-color: rgb(255, 255, 255);
+    color: rgb(25, 137, 137);
+    transition: .2s all ease-in-out ;
     cursor: pointer;
   }
   .note__btn:hover{
-    background-color: rgb(53, 53, 88);
-    color: white;
+    background-color: cyan;
+    color: black;
     
   }
   .super-choose{

@@ -1,11 +1,11 @@
 .navBox {
     position: absolute;
-  top: 50px;
+  top: 60px;
   right: 10px;
-  background-color:red;
+  /* background-color:red; */
   border: 1px solid #ccc;
   padding: 10px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); */
   }
 
   

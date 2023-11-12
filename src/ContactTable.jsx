@@ -1,33 +1,12 @@
-import { Box, Button, Modal } from "@mui/material";
-import React, { useState } from "react";
+import { Button} from "@mui/material";
+import React from "react";
 import "./Table.css";
 import "./Form.css";
 
 const ContactTable = (props) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState("");
-  const [modal, setModal] = useState(false);
-  const [updateId, setUpdateId] = useState("");
+  
 
-  const handleCustomerClose = () => setModal(false);
-
-  const CustomerModalOpen = (
-    id,
-    contactName,
-    contactEmail,
-    contactPhone,
-    contactMessage
-  ) => {
-    const key = id;
-    setUpdateId(key);
-    setName(contactName);
-    setEmail(contactEmail);
-    setPhone(contactPhone);
-    setMessage(contactMessage);
-    setModal(true);
-  };
+  
 
   const handleDelete = async (id) => {
     const key = JSON.parse(id);
@@ -61,38 +40,38 @@ const ContactTable = (props) => {
     }
   };
 
-  const updateList = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch(
-        `https://orijeen-main.vercel.app/contact/${updateId}`,
-        {
-          method: "PUT",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            contactName: name,
-            contactEmail: email,
-            contactPhone: phone,
-            contactMessage: message,
-          }),
-        }
-      );
+  // const updateList = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await fetch(
+  //       `https://orijeen-main.vercel.app/contact/${updateId}`,
+  //       {
+  //         method: "PUT",
+  //         headers: {
+  //           Accept: "application/json",
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           contactName: name,
+  //           contactEmail: email,
+  //           contactPhone: phone,
+  //           contactMessage: message,
+  //         }),
+  //       }
+  //     );
 
-      const resJson = await response.json();
-      console.log(resJson);
-      if (response.status === 201) {
-        console.log("fine");
-      } else {
-        console.log("Some error occured");
-      }
-    } catch (err) {
-      console.log(err);
-    }
-    window.location.reload();
-  };
+  //     const resJson = await response.json();
+  //     console.log(resJson);
+  //     if (response.status === 201) {
+  //       console.log("fine");
+  //     } else {
+  //       console.log("Some error occured");
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  //   window.location.reload();
+  // };
 
   return (
     <>
@@ -153,7 +132,7 @@ const ContactTable = (props) => {
                   >
                     Delete
                   </Button>
-                  <Button
+                  {/* <Button
                     style={{ marginBottom: 5, marginLeft: 5 }}
                     variant="contained"
                     color="success"
@@ -169,7 +148,7 @@ const ContactTable = (props) => {
                     }
                   >
                     Update
-                  </Button>
+                  </Button> */}
                 </td>
               </tr>
             ))}
@@ -177,7 +156,7 @@ const ContactTable = (props) => {
         </table>
       </div>
 
-      <Modal
+      {/* <Modal
         open={modal}
         onClose={handleCustomerClose}
         aria-labelledby="modal-modal-title"
@@ -231,7 +210,7 @@ const ContactTable = (props) => {
             </form>
           </div>
         </Box>
-      </Modal>
+      </Modal> */}
     </>
   );
 };
