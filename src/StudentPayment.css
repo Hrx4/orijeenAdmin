@@ -1,0 +1,11 @@
+@media (max-width:750px) {
+    #heading{
+        margin-top: 40px;
+    }
+    .PayBox{
+        width: 90% !important;
+    }
+}
+.PayBox{
+    width: 30%;
+}

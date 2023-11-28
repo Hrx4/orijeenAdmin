@@ -1,0 +1,57 @@
+.add-form {
+    width: 90%;
+}
+.studentHeading{
+    margin-top:15px;
+    margin-left: 35px;
+}
+.guardianHeading{
+    margin-top: 15px;
+}
+.form-part {
+    width: 50%; 
+    float:left; 
+    /* margin:20px; */
+    
+    /* box-sizing: border-box; */
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.student__field{
+    width: 60% !important;
+}
+.form-part{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+#rightForm{
+    margin-top: 90px;
+}
+ @media (max-width:750px) {
+    .form-part{
+        width: 70%;
+        float: none;
+    }
+    .student__field{
+        width: 100% !important;
+    }
+    .studentHeading{
+        margin-top: 43px;
+
+    }
+    .guardianHeading{
+        margin-left: 35px;
+    }
+    .Guardian{
+        margin-left: 40px;
+    }
+    .form-part{
+        width: 90% !important;
+    }
+    #rightForm{
+        margin-top: -20px;
+    }
+ }
