@@ -1,0 +1,18 @@
+.dSearchBox {
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+}
+
+@media (max-width: 768px) {
+    .dSearchBox {
+        width: auto;
+        max-width: none;
+    }
+    .dashTab{
+        font-size: small ;
+    }
+}
