@@ -63,7 +63,6 @@ const StudentForm = () =>{
           style={{color:'black'}}
           value={studentCourse} onChange={(e) => {
             setStudentCourse(e.target.value) 
-            setStudentSubjects([''])
             }
            } 
         >
