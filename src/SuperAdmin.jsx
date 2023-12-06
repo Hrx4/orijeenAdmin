@@ -6,6 +6,12 @@ import ContactTable from "./ContactTable";
 
 import ApplyTable from "./ApplyTable";
 import SnavBar from "./SnavBar";
+import Dashboard from "./Dashboard";
+import AddClass from "./AddClass";
+import AddSubject from "./AddSubject";
+import AddCourses from "./AddCourses";
+import StudentForm from "./StudentForm";
+import StudentPayment from "./StudentPayment";
 
 // import SnavBar from './SnavBar';
 
@@ -15,6 +21,15 @@ const SuperAdmin = () => {
   const [applyList, setApplyList] = useState([]);
   const [noteView, setNoteView] = useState("noteform");
   const [slideOpen, setSlideOpen] = useState(false);
+  const [classManagement, setClassManagement] = useState([{ id: 1, name: '▶ Class Management ', isOpen: false, subItems: ['Add Class', 'Add Subject', 'Add Courses'] }]);
+
+  const toggleClassManagement = (itemId) => {
+    setClassManagement((prevItems) =>
+      prevItems.map((item) =>
+        item.id === itemId ? { ...item, isOpen: !item.isOpen } : item
+      )
+    );
+  };
 
   const handleContactTable = async () => {
     ref.current.classList.add("slider__close");
@@ -74,6 +89,9 @@ const SuperAdmin = () => {
       console.log(err);
     }
   };
+  const handleDashboard = () => {
+    setNoteView('Dashboard');
+  }
 
   const btnclicked = () => {
     if (!slideOpen) {
@@ -86,6 +104,22 @@ const SuperAdmin = () => {
       setSlideOpen(false);
     }
   };
+  const handleClassForm = () => {
+    setNoteView('classForm');
+  }
+  const handleSubjectForm = () => {
+    setNoteView('subjectForm');
+  }
+  const handleCoursetForm = () => {
+    setNoteView('courseForm');
+  }
+  const handleStudentForm = () => {
+    setNoteView('studentForm');
+  }
+  const handleStudentPaymentForm = () => {
+    setNoteView('studentPaymentForm');
+  }
+
 
   return (
     <>
@@ -116,6 +150,13 @@ const SuperAdmin = () => {
           style={{ display: "flex", overflowY: "scroll" }}
         >
           <div
+            onClick={handleDashboard}
+            style={{ padding: 20, cursor: "pointer", paddingLeft: 30 }}
+            className="note__btn"
+          >
+            ▶ Dashboard
+          </div>
+          <div
             onClick={handleContactTable}
             style={{ padding: 20, cursor: "pointer", paddingLeft: 30 }}
             className="note__btn"
@@ -129,18 +170,74 @@ const SuperAdmin = () => {
           >
             ▶ Apply Details
           </div>
-        </div>
+          <div style={{ paddingTop: 20 }} className='note__btn'>
+            <ul style={{ listStyleType: 'none' }}>
+              {classManagement.map((classManagementItems) => (
+                <li key={classManagementItems.id}>
+                  <span
+                    onClick={() => toggleClassManagement(classManagementItems.id)}
+                    style={{ cursor: 'pointer' }} className='note__btn'
+                  >
+                    {classManagementItems.name}
+                  </span>
+                  {classManagementItems.isOpen && (
+                    <ul style={{ padding: 10 }}>
 
-        {noteView === "contacttable" ? (
-          <ContactTable
-            contactList={contactList}
-            setContactList={setContactList}
-          />
-        ) : null}
-        {noteView === "applytable" ? (
-          <ApplyTable applyList={applyList} setApplyList={setApplyList} />
-        ) : null}
+                      <li style={{ cursor: "pointer" }} onClick={handleClassForm}>Add Class</li>
+                      <li style={{ marginTop: 10, cursor: "pointer" }} onClick={handleSubjectForm}>Add Subject</li>
+                      <li style={{ marginTop: 10, cursor: "pointer" }} onClick={handleCoursetForm}>Add Courses</li>
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ul>
+
+          </div>
+          <div
+            onClick={handleStudentForm}
+            style={{ padding: 20, cursor: "pointer", paddingLeft: 30 }}
+            className="note__btn"
+          >
+            ▶ Student
+          </div>
+          <div
+            onClick={handleStudentPaymentForm}
+            style={{ padding: 20, cursor: "pointer", paddingLeft: 30 }}
+            className="note__btn"
+          >
+            ▶ Student Payment
+          </div>
+        
+
       </div>
+      {noteView === "Dashboard" ? (
+        <Dashboard />
+      ) : null}
+      {noteView === "contacttable" ? (
+        <ContactTable
+          contactList={contactList}
+          setContactList={setContactList}
+        />
+      ) : null}
+      {noteView === "applytable" ? (
+        <ApplyTable applyList={applyList} setApplyList={setApplyList} />
+      ) : null}
+      {noteView === "classForm" ? (
+        <AddClass />
+      ) : null}
+      {noteView === "subjectForm" ? (
+        <AddSubject />
+      ) : null}
+      {noteView === "courseForm" ? (
+        <AddCourses />
+      ) : null}
+      {noteView === "studentForm" ? (
+        <StudentForm />
+      ) : null}
+      {noteView === "studentPaymentForm" ? (
+        <StudentPayment />
+      ) : null}
+    </div>
     </>
   );
 };

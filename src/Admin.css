@@ -20,7 +20,7 @@
     cursor: pointer;
   }
   .note__btn:hover{
-    background-color: cyan;
+    background-color: rgb(30, 144, 255);
     color: black;
     
   }
@@ -28,7 +28,7 @@
     flex-direction: column;
     height: 98vh;
     width: 15%;
-    border-right: 2px solid white;
+    border-right: 2px solid rgb(30, 144, 255);
   }
   .super-choose::-webkit-scrollbar {
     display: none;
