@@ -28,7 +28,7 @@ const SnavBar = () => {
       </Link>
 
         <div style={{ height: 100, width: 100,cursor:"pointer" }}>
-          <a href="https://orijeen.in/">
+          <a href="https://radiant-heliotrope-3a5cd7.netlify.app/">
           <img src={logo} alt="" style={{ height: "100%", width: "100%" }} />
           </a>
         </div>
