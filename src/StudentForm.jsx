@@ -12,17 +12,17 @@ const StudentForm = () =>{
     const [studentName,setStudentName] = useState('')
     const [studentClass , setStudentClass] = useState('IV')
     const [studentCourse , setStudentCourse] = useState('')  
-    const [studentSubjects , setStudentSubjects ] = useState([])
+    // const [studentSubjects , setStudentSubjects ] = useState([])
     const [fatherName , setFatherName] = useState('')  
     const [studentPhone , setStudentPhone] = useState('')
     const [studentAddress , setStudentAddress ] = useState('')
     const [studentPaymentType , setStudentPaymentType] = useState('Monthly Payment') 
     const [monthlyFee , setMonthlyFee ] = useState('') 
-    const [studentPhoto , setStudentPhoto] = useState('')  
+    // const [studentPhoto , setStudentPhoto] = useState('')  
     const [bloodGroup , setBloodGroup] = useState('')
    const [ category , setCategory] = useState('') 
-    const [guardianEmail , setGuardianEmail ] = useState('') 
-    const [guardianAddress , setGuardianAddress ] = useState('')
+    // const [guardianEmail , setGuardianEmail ] = useState('') 
+    // const [guardianAddress , setGuardianAddress ] = useState('')
     return(
         <div className="add-form">
       <form >
@@ -67,7 +67,7 @@ const StudentForm = () =>{
           style={{color:'black'}}
           value={studentCourse} onChange={(e) => {
             setStudentCourse(e.target.value) 
-            setStudentSubjects([''])
+            // setStudentSubjects([''])
             }
            } 
         >
