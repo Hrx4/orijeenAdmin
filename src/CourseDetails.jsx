@@ -31,9 +31,6 @@ const CourseDetails = () =>{
                   Pamela Roy choudhury
                 </td>
                 <td style={{ border: "1px solid #000", padding: "8px" }}>
-                <Button style={{margin:5}} variant='contained' color='success' size='small' >
-                  Edit
-                </Button>
                 <Button  style={{margin:5}} variant='contained' color='error' size='small' >
                   Delete
                 </Button>
