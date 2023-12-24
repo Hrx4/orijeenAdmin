@@ -4,9 +4,29 @@ import SubjectDetails from "./SubjectDetails";
 
 const AddSubject = () =>{
     const [subjectDetails, setSubjectDetails] = useState();
-    const handleSubjectDetails = (e) => {
+    const handleSubjectDetails = async (e) => {
         e.preventDefault();
         setSubjectDetails('subjectDetails')
+
+
+        try {
+            const response = await fetch(`https://orijeen-main.vercel.app/subject/`, {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              body: {
+                subjectName : subjectDetails
+              }
+            });
+      
+            const resJson = await response.json();
+      
+            console.log(resJson);
+          } catch (err) {
+            console.log(err);
+          }
     }
     return(
         <div style={{ marginTop: 40, margin: 20, width: "100%" }}>

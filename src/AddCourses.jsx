@@ -4,9 +4,28 @@ import CourseDetails from "./CourseDetails";
 
 const AddCourses = () =>{
     const [subjectDetails, setSubjectDetails] = useState();
-    const handleSubjectDetails = (e) => {
+    const handleSubjectDetails = async (e) => {
         e.preventDefault();
         setSubjectDetails('subjectDetails')
+
+        try {
+            const response = await fetch(`https://orijeen-main.vercel.app/course/`, {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              body: {
+                courseName : CourseDetails
+              }
+            });
+      
+            const resJson = await response.json();
+      
+            console.log(resJson);
+          } catch (err) {
+            console.log(err);
+          }
     }
     return(
         <div style={{ marginTop: 40, margin: 20, width: "100%" }}>
