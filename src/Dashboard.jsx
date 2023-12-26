@@ -6,36 +6,43 @@ import { FaCreativeCommonsNc } from "react-icons//fa6";
 import { FaCommentDollar } from "react-icons//fa6";
 import SubDashBoard from "./SubDashboard";
 
-const Dashboard = () =>{
-        const [subDash, setSubDash] = useState("noteform");
-      
-        const handleMonthlyIncome = () => {
-          setSubDash("MonthlyIncome");
-        };
-      
-        const handleTotalIncome = () => {
-          setSubDash("TotalIncome");
-        };
-      
-        const handleMonthlyDue = () => {
-          setSubDash("MonthlyDue");
-        };
-      
-        const handleTotalDue = () => {
-          setSubDash("TotalDue");
-        };
-        
+const Dashboard = ({ income }) => {
+  const [subDash, setSubDash] = useState("noteform");
 
-    return(
-        <div className="dContainer" style={{ marginTop: 40, margin: 20 }}>
-            <h1 className="dHeading" style={{ marginLeft: 15 }}>
+  const handleMonthlyIncome = () => {
+    setSubDash("MonthlyIncome");
+  };
+
+  const handleTotalIncome = () => {
+    setSubDash("TotalIncome");
+  };
+
+  const handleMonthlyDue = () => {
+    setSubDash("MonthlyDue");
+  };
+
+  const handleTotalDue = () => {
+    setSubDash("TotalDue");
+  };
+
+  return (
+    <div
+      className="dContainer"
+      style={{ marginTop: 40, margin: 20, width: "100%" }}
+    >
+      <h1 className="dHeading" style={{ marginLeft: 15, display: "flex" }}>
         Dashboard
       </h1>
       <div
         className="dInnerContainer"
-        style={{ display: "flex", margin: "20px" }}
+        style={{
+          display: "flex",
+          marginTop: "20px",
+          width: "100%",
+          justifyContent: "space-evenly",
+        }}
       >
-         <div className="dBox">
+        <div className="dBox">
           <div className="inner-box">
             <div
               className="half yellow-bg"
@@ -52,7 +59,7 @@ const Dashboard = () =>{
               }}
             >
               TOTAL STUDENT
-              
+              <div>{income?.totalStudent}</div>
             </div>
           </div>
         </div>
@@ -91,13 +98,19 @@ const Dashboard = () =>{
               }}
             >
               MONTHLY INCOME
+              <div>{income?.monthlyIncome}</div>
             </div>
           </div>
         </div>
       </div>
       <div
         className="dInnerContainer"
-        style={{ display: "flex", margin: "20px" }}
+        style={{
+          display: "flex",
+          marginTop: "20px",
+          width: "100%",
+          justifyContent: "space-evenly",
+        }}
       >
         <div className="dBox">
           <div className="inner-box">
@@ -109,16 +122,22 @@ const Dashboard = () =>{
             </div>
             <div
               className="Dhalf dText"
-              style={{ color: "black", cursor: "pointer" }}
+              style={{
+                color: "black",
+                cursor: "pointer",
+                flexDirection: "column",
+              }}
               onClick={handleMonthlyDue}
               onDoubleClick={(e) => {
                 setSubDash("");
               }}
             >
               MONTHLY DUE
+              <div>{income?.monthlyDue}</div>
             </div>
           </div>
         </div>
+
         <div className="dBox">
           <div className="inner-box">
             <div
@@ -141,6 +160,7 @@ const Dashboard = () =>{
               }}
             >
               TOTAL INCOME
+              <div>{income?.totalIncome}</div>
             </div>
           </div>
         </div>
@@ -154,30 +174,37 @@ const Dashboard = () =>{
             </div>
             <div
               className="Dhalf dText"
-              style={{ color: "black", cursor: "pointer" }}
+              style={{
+                color: "black",
+                cursor: "pointer",
+                flexDirection: "column",
+              }}
               onClick={handleTotalDue}
               onDoubleClick={(e) => {
                 setSubDash("");
               }}
             >
               TOTAL DUE
+              <div>{income?.totalDue}</div>
             </div>
           </div>
         </div>
-
       </div>
+
       {subDash === "MonthlyIncome" ? (
-        <SubDashBoard headingDash="Monthly Income" />
+        <SubDashBoard headingDash="Monthly Income"/>
       ) : null}
       {subDash === "TotalIncome" ? (
         <SubDashBoard headingDash="Total Income" />
       ) : null}
       {subDash === "MonthlyDue" ? (
-        <SubDashBoard headingDash="Monthly Due" />
+        <SubDashBoard headingDash="Monthly Due"  />
       ) : null}
-      {subDash === "TotalDue" ? <SubDashBoard headingDash="Total Due" /> : null}
-        </div>
-    )
-}
+      {subDash === "TotalDue" ? (
+        <SubDashBoard headingDash="Total Due"  />
+      ) : null}
+    </div>
+  );
+};
 
 export default Dashboard;
