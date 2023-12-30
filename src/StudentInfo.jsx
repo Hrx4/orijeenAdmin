@@ -10,6 +10,18 @@ const StudentInfo = ({ studentList, setStudentList }) => {
 
     try {
       
+      const response = await fetch(`http://localhost:8080/student/${key}`, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+
+      await response.json();
+      console.log("====================================");
+      console.log(response);
+      console.log("====================================");
 
       setStudentList([...studentList.filter((item) => item._id !== id)]);
       window.location.reload(true);

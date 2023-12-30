@@ -25,6 +25,7 @@ const SuperAdmin = () => {
   const [slideOpen, setSlideOpen] = useState(false);
   const [classManagement, setClassManagement] = useState([{ id: 1, name: '▶ Class Management ', isOpen: false, subItems: ['Add Class', 'Add Subject', 'Add Courses', 'Add Batch'] }]);
   const [studentItem, setStudentItem] = useState([ { id: 1, name: '▶ Student', isOpen: false, subItems: ['Add Student', 'All Students'] } ])
+  const [income, setIncome] = useState([]);
 
   const toggleClassManagement = (itemId) => {
     setClassManagement((prevItems) =>
@@ -100,9 +101,35 @@ const SuperAdmin = () => {
       console.log(err);
     }
   };
-  const handleDashboard = () => {
-    setNoteView('Dashboard');
-  }
+  const handleDashboard = async () => {
+    setNoteView("Dashboard");
+    ref.current.classList.add("slider__close");
+    ref.current.classList.remove("slider__open");
+    setSlideOpen(false);
+
+    try {
+      const response = await fetch(`http://localhost:8080/student/getpayment/`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+
+      const resJson = await response.json();
+
+      if (response.status === 200) {
+        setIncome(resJson);
+        console.log("====================================");
+        console.log(resJson);
+        console.log("====================================");
+      } else {
+        console.log("Some error occured");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const btnclicked = () => {
     if (!slideOpen) {
@@ -253,7 +280,7 @@ const SuperAdmin = () => {
 
       </div>
       {noteView === "Dashboard" ? (
-        <Dashboard />
+        <Dashboard income={income} />
       ) : null}
       {noteView === "contacttable" ? (
         <ContactTable

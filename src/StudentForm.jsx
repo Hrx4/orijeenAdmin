@@ -1,42 +1,4 @@
-import React, { useState } from "react";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Box from '@mui/material/Box';
-import './StudentForm.css';
 
-
-const StudentForm = () =>{
-    const [studentEnrollment , setStudentEnrollment] = useState('') 
-    const [studentName,setStudentName] = useState('')
-    const [studentClass , setStudentClass] = useState('IV')
-    const [studentCourse , setStudentCourse] = useState('')  
-    // const [studentSubjects , setStudentSubjects ] = useState([])
-    const [fatherName , setFatherName] = useState('')  
-    const [studentPhone , setStudentPhone] = useState('')
-    const [studentAddress , setStudentAddress ] = useState('')
-    const [studentPaymentType , setStudentPaymentType] = useState('Monthly Payment') 
-    const [monthlyFee , setMonthlyFee ] = useState('') 
-    // const [studentPhoto , setStudentPhoto] = useState('')  
-    const [bloodGroup , setBloodGroup] = useState('')
-   const [ category , setCategory] = useState('')
-   const [batch, setBatch] = useState(''); 
-   const [isChecked, setChecked] = useState(false);
-  const [admissionAmount, setAdmissionAmount] = useState('');
-    // const [guardianEmail , setGuardianEmail ] = useState('') 
-    // const [guardianAddress , setGuardianAddress ] = useState('')
-
-    const handleCheckboxChange = () => {
-      setChecked(!isChecked); 
-      if (!isChecked) {
-        setAdmissionAmount(''); 
-      }
-    };
-    return(
-        <div className="add-form">
-      <form >
-=======
 import React, { useEffect, useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -44,6 +6,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Box from "@mui/material/Box";
 import "./StudentForm.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const StudentForm = () => {
   const [studentEnrollment, setStudentEnrollment] = useState("");
@@ -55,13 +19,22 @@ const StudentForm = () => {
   const [studentAddress, setStudentAddress] = useState("");
   const [studentPaymentType, setStudentPaymentType] =
     useState("Monthly Payment");
+    const [studentSubjects , setstudentSubjects] = useState([])
   const [monthlyFee, setMonthlyFee] = useState("");
   const [bloodGroup, setBloodGroup] = useState("");
   const [category, setCategory] = useState("");
   const [classList, setClassList] = useState([])
   const [subjectList, setSubjectList] = useState([])
   const [courseList, setCourseList] = useState([])
-
+  const [batch, setBatch] = useState(''); 
+  const [isChecked, setChecked] = useState(false);
+ const [admissionAmount, setAdmissionAmount] = useState(0);
+   const handleCheckboxChange = () => {
+     setChecked(!isChecked); 
+     if (!isChecked) {
+       setAdmissionAmount(''); 
+     }
+   };
 
   const getSubjectList = async()=>{
     try {
@@ -120,6 +93,83 @@ const getClassList = async()=>{
     }
 }
 
+
+const handleCheck = (e)=>{
+        
+  (e.target.checked)?
+(setstudentSubjects ([...studentSubjects , e.target.value])):
+(
+  setstudentSubjects( [...studentSubjects.filter(item => item !== e.target.value)])
+)
+}
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  // setLoading(true)
+  const d = new Date();
+  // Handle form submission here (e.g., send the data to the server)
+  
+  try {
+    const res = await fetch(`http://localhost:8080/student/`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        studentEnrollment: studentEnrollment,
+    studentName: studentName,
+    studentClass: studentClass,
+    studentBatch: batch,
+    studentCourse: studentCourse,
+    studentSubjects: studentSubjects,
+    studentPhone: studentPhone,
+    studentAddress: studentAddress,
+    studentPaymentType: studentPaymentType,
+    studentFee : monthlyFee,
+    studentBlood : bloodGroup,
+    studentCategory : category,
+    guardianName: fatherName,
+    admissionAmount : admissionAmount,
+        createdMonth: d.getMonth(),
+        createdYear: d.getFullYear(),
+      }),
+    });
+    // let resJson = await res.json();
+    if (res.status === 200) {
+      console.log("fine");
+
+      toast.success("Form submitted", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      setStudentEnrollment("");
+  setStudentName("");
+  setStudentClass("");
+  setBatch("");
+  setStudentCourse("");
+  setSubjectList([]);
+  setStudentPhone("");
+  setStudentAddress("");
+  setStudentPaymentType("");
+  setFatherName("");
+    } else {
+      toast.error("All field fill required", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      console.log("Some error occured");
+    }
+  } catch (err) {
+    toast.error("All field fill required", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+    console.log(err);
+  }
+
+  // setLoading(false)
+  
+};
+
+
 useEffect(() => {
   getClassList()
   getSubjectList()
@@ -128,8 +178,10 @@ useEffect(() => {
 
 
   return (
-    <div className="add-form">
-      <form>
+    <>
+    <ToastContainer/>
+      <div className="add-form">
+      <form onSubmit={handleSubmit}>
         <div className="form-part">
           <h2 className="studentHeading">Student Details</h2>
           <div style={{ marginLeft: 40 }}>
@@ -170,7 +222,7 @@ useEffect(() => {
                 className="student__field"
               >
                 <InputLabel style={{ color: "black" }}>
-                  Select Your Course
+                  Select Your Class
                 </InputLabel>
                 <Select
                   // value={courseForPay}
@@ -203,17 +255,7 @@ useEffect(() => {
             <br />
 
             <Box sx={{ minWidth: 120 }}>
-      <FormControl style={{width:'60%', backgroundColor:'white'}} className="student__field">
-        <InputLabel  style={{color:'black'}}>Select Your Course</InputLabel>
-        <Select
-          
-          // value={courseForPay}
-          label=""
-          // onChange={(e) => setCourseForPay(e.target.value)}
-          style={{color:'black'}}
-          value={studentCourse} onChange={(e) => {
-            setStudentCourse(e.target.value) 
-            // setStudentSubjects([''])
+      
               <FormControl
                 style={{ width: "60%", backgroundColor: "white" }}
                 className="student__field"
@@ -260,7 +302,7 @@ useEffect(() => {
               className="checkbox"
               style={{ marginRight: 10, fontWeight: "lighter" }}
             >
-              <input type="checkbox" name="subject" value={item.subjectName} /> {item.subjectName}
+              <input type="checkbox" name="subject" value={item.subjectName} onClick={(e)=>handleCheck(e)} /> {item.subjectName}
             </label>
               ))
             }
@@ -367,51 +409,16 @@ useEffect(() => {
                 <option>General</option>
                 <option>SC/ST</option>
                 <option>OBC</option>
-          <div className="Guardian">
-            <label
-              className="checkbox"
-              style={{ marginRight: 10, marginTop: 10 }}
-            >
-              Addmission Fee
-              <input type="checkbox" style={{ marginLeft: 10 }} />
-            </label>
-          </div>
-          <div className="Guardian">
-            <label style={{ marginRight: "10px", marginTop: 10 }}>
-              Blood Group
-            </label>
-            <br />
-            <input
-              type="text"
-              className="student__field"
-              value={bloodGroup}
-              onChange={(e) => setBloodGroup(e.target.value)}
-              required
-            />
-          </div>
-          <div className="Guardian">
-            <label style={{ marginRight: 10, marginTop: 10, marginBottom: 10 }}>
-              Category{" "}
-            </label>
-            <br />
-            <select
-              className="student__field"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              required
-            >
-              <option>General</option>
-              <option>SC/ST</option>
-              <option>OBC</option>
             </select>
-          </div>
-
+            </div>
+          
           <div className="Guardian">
             <button style={{ marginTop: 15 }}>Submit</button>
           </div>
         </div>
       </form>
     </div>
+    </>
   );
 };
 
