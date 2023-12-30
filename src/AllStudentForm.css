@@ -1,0 +1,11 @@
+@media (max-width:750px) {
+    #heading{
+        margin-top: 40px;
+    }
+    .BoxStyle{
+        width: 90% !important;
+    }
+}
+.BoxStyle{
+    width: 30%;
+}

@@ -20,9 +20,19 @@ const StudentForm = () =>{
     const [monthlyFee , setMonthlyFee ] = useState('') 
     // const [studentPhoto , setStudentPhoto] = useState('')  
     const [bloodGroup , setBloodGroup] = useState('')
-   const [ category , setCategory] = useState('') 
+   const [ category , setCategory] = useState('')
+   const [batch, setBatch] = useState(''); 
+   const [isChecked, setChecked] = useState(false);
+  const [admissionAmount, setAdmissionAmount] = useState('');
     // const [guardianEmail , setGuardianEmail ] = useState('') 
     // const [guardianAddress , setGuardianAddress ] = useState('')
+
+    const handleCheckboxChange = () => {
+      setChecked(!isChecked); 
+      if (!isChecked) {
+        setAdmissionAmount(''); 
+      }
+    };
     return(
         <div className="add-form">
       <form >
@@ -123,6 +133,14 @@ const StudentForm = () =>{
             <label style={{marginRight:10, marginTop:10}}>Father's Name</label><br/>
             <input type="text" className="student__field" value={fatherName} onChange={(e) => setFatherName(e.target.value)}  />
           </div>
+          <div style={{marginLeft:40}}>
+            <label style={{marginRight:10, marginTop:10, marginBottom:5}}>Batch No.</label><br/>
+            <select className="student__field" value={batch} onChange={(e) => setBatch(e.target.value)}  required>
+                <option>Batch A</option>
+                <option>Batch B</option>
+                <option>Batch C</option>
+            </select>
+          </div>
          
         </div>
         <div className="form-part" id="rightForm" >
@@ -149,9 +167,20 @@ const StudentForm = () =>{
             <input type="text" className="student__field" value={monthlyFee} onChange={(e) => setMonthlyFee(e.target.value)}  required/>
           </div>
           <div className="Guardian" >
-        <label className="checkbox" style={{marginRight:10, marginTop:10}} >Addmission Fee
-            <input type="checkbox"  style={{marginLeft:10}}/> 
+        <label className="checkbox" style={{marginRight:10, marginTop:10}} >Admission Fee
+            <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} style={{marginLeft:10}}/> 
         </label>
+        {isChecked && (
+        <div className="Guardian">
+            <input
+              type="text"
+              placeholder="Admission Amount"
+              className="student__field"
+              value={admissionAmount}
+              onChange={(e) => setAdmissionAmount(e.target.value)}
+            />
+        </div>
+      )}
         </div>
             <div className="Guardian">
                 <label style={{marginRight:'10px',marginTop:10}}>Blood Group</label><br/>
