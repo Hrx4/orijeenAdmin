@@ -1,3 +1,42 @@
+import React, { useState } from "react";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Box from '@mui/material/Box';
+import './StudentForm.css';
+
+
+const StudentForm = () =>{
+    const [studentEnrollment , setStudentEnrollment] = useState('') 
+    const [studentName,setStudentName] = useState('')
+    const [studentClass , setStudentClass] = useState('IV')
+    const [studentCourse , setStudentCourse] = useState('')  
+    // const [studentSubjects , setStudentSubjects ] = useState([])
+    const [fatherName , setFatherName] = useState('')  
+    const [studentPhone , setStudentPhone] = useState('')
+    const [studentAddress , setStudentAddress ] = useState('')
+    const [studentPaymentType , setStudentPaymentType] = useState('Monthly Payment') 
+    const [monthlyFee , setMonthlyFee ] = useState('') 
+    // const [studentPhoto , setStudentPhoto] = useState('')  
+    const [bloodGroup , setBloodGroup] = useState('')
+   const [ category , setCategory] = useState('')
+   const [batch, setBatch] = useState(''); 
+   const [isChecked, setChecked] = useState(false);
+  const [admissionAmount, setAdmissionAmount] = useState('');
+    // const [guardianEmail , setGuardianEmail ] = useState('') 
+    // const [guardianAddress , setGuardianAddress ] = useState('')
+
+    const handleCheckboxChange = () => {
+      setChecked(!isChecked); 
+      if (!isChecked) {
+        setAdmissionAmount(''); 
+      }
+    };
+    return(
+        <div className="add-form">
+      <form >
+=======
 import React, { useEffect, useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -164,6 +203,17 @@ useEffect(() => {
             <br />
 
             <Box sx={{ minWidth: 120 }}>
+      <FormControl style={{width:'60%', backgroundColor:'white'}} className="student__field">
+        <InputLabel  style={{color:'black'}}>Select Your Course</InputLabel>
+        <Select
+          
+          // value={courseForPay}
+          label=""
+          // onChange={(e) => setCourseForPay(e.target.value)}
+          style={{color:'black'}}
+          value={studentCourse} onChange={(e) => {
+            setStudentCourse(e.target.value) 
+            // setStudentSubjects([''])
               <FormControl
                 style={{ width: "60%", backgroundColor: "white" }}
                 className="student__field"
@@ -229,6 +279,15 @@ useEffect(() => {
               onChange={(e) => setFatherName(e.target.value)}
             />
           </div>
+          <div style={{marginLeft:40}}>
+            <label style={{marginRight:10, marginTop:10, marginBottom:5}}>Batch No.</label><br/>
+            <select className="student__field" value={batch} onChange={(e) => setBatch(e.target.value)}  required>
+                <option>Batch A</option>
+                <option>Batch B</option>
+                <option>Batch C</option>
+            </select>
+          </div>
+         
         </div>
         <div className="form-part" id="rightForm">
           <div className="Guardian">
@@ -282,6 +341,32 @@ useEffect(() => {
               required
             />
           </div>
+          <div className="Guardian" >
+        <label className="checkbox" style={{marginRight:10, marginTop:10}} >Admission Fee
+            <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} style={{marginLeft:10}}/> 
+        </label>
+        {isChecked && (
+        <div className="Guardian">
+            <input
+              type="text"
+              placeholder="Admission Amount"
+              className="student__field"
+              value={admissionAmount}
+              onChange={(e) => setAdmissionAmount(e.target.value)}
+            />
+        </div>
+      )}
+        </div>
+            <div className="Guardian">
+                <label style={{marginRight:'10px',marginTop:10}}>Blood Group</label><br/>
+                <input type="text" className="student__field" value={bloodGroup} onChange={(e) => setBloodGroup(e.target.value)}  required />
+            </div>
+            <div className="Guardian">
+            <label style={{marginRight:10, marginTop:10,marginBottom:10}}>Category </label><br/>
+            <select className="student__field" value={category} onChange={(e) => setCategory(e.target.value)}  required>
+                <option>General</option>
+                <option>SC/ST</option>
+                <option>OBC</option>
           <div className="Guardian">
             <label
               className="checkbox"
