@@ -1,6 +1,5 @@
 import React from "react";
 
-
 const StudentInfo = ({ studentList, setStudentList }) => {
   const handleDelete = async (id) => {
     const key = JSON.parse(id);
@@ -9,7 +8,21 @@ const StudentInfo = ({ studentList, setStudentList }) => {
     console.log("====================================");
 
     try {
-      
+      const response = await fetch(
+        `https://orijeen-main.vercel.app/student/${key}`,
+        {
+          method: "DELETE",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      await response.json();
+      console.log("====================================");
+      console.log(response);
+      console.log("====================================");
 
       setStudentList([...studentList.filter((item) => item._id !== id)]);
       window.location.reload(true);

@@ -1,0 +1,27 @@
+.actionButtons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.actionButton {
+    padding: 5px 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+@media (max-width: 600px) {
+     
+
+    .actionButtons {
+        flex-direction: column;
+        text-align: center;
+    }
+    .PHT{
+        overflow-x:scroll;
+        font-size: xx-small;
+    }
+}

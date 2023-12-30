@@ -23,8 +23,23 @@ const SuperAdmin = () => {
   const [applyList, setApplyList] = useState([]);
   const [noteView, setNoteView] = useState("noteform");
   const [slideOpen, setSlideOpen] = useState(false);
-  const [classManagement, setClassManagement] = useState([{ id: 1, name: '▶ Class Management ', isOpen: false, subItems: ['Add Class', 'Add Subject', 'Add Courses', 'Add Batch'] }]);
-  const [studentItem, setStudentItem] = useState([ { id: 1, name: '▶ Student', isOpen: false, subItems: ['Add Student', 'All Students'] } ])
+  const [classManagement, setClassManagement] = useState([
+    {
+      id: 1,
+      name: "▶ Class Management ",
+      isOpen: false,
+      subItems: ["Add Class", "Add Subject", "Add Courses", "Add Batch"],
+    },
+  ]);
+  const [studentItem, setStudentItem] = useState([
+    {
+      id: 1,
+      name: "▶ Student",
+      isOpen: false,
+      subItems: ["Add Student", "All Students"],
+    },
+  ]);
+  const [income, setIncome] = useState([]);
 
   const toggleClassManagement = (itemId) => {
     setClassManagement((prevItems) =>
@@ -40,7 +55,6 @@ const SuperAdmin = () => {
       )
     );
   };
-
 
   const handleContactTable = async () => {
     ref.current.classList.add("slider__close");
@@ -100,9 +114,38 @@ const SuperAdmin = () => {
       console.log(err);
     }
   };
-  const handleDashboard = () => {
-    setNoteView('Dashboard');
-  }
+  const handleDashboard = async () => {
+    setNoteView("Dashboard");
+    ref.current.classList.add("slider__close");
+    ref.current.classList.remove("slider__open");
+    setSlideOpen(false);
+
+    try {
+      const response = await fetch(
+        `https://orijeen-main.vercel.app/student/getpayment/`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const resJson = await response.json();
+
+      if (response.status === 200) {
+        setIncome(resJson);
+        console.log("====================================");
+        console.log(resJson);
+        console.log("====================================");
+      } else {
+        console.log("Some error occured");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const btnclicked = () => {
     if (!slideOpen) {
@@ -116,27 +159,26 @@ const SuperAdmin = () => {
     }
   };
   const handleClassForm = () => {
-    setNoteView('classForm');
-  }
+    setNoteView("classForm");
+  };
   const handleSubjectForm = () => {
-    setNoteView('subjectForm');
-  }
+    setNoteView("subjectForm");
+  };
   const handleCourseForm = () => {
-    setNoteView('courseForm');
-  }
+    setNoteView("courseForm");
+  };
   const handleAddStudentDetails = () => {
-    setNoteView('addStudentForm');
-  }
+    setNoteView("addStudentForm");
+  };
   const handleAllStudentDetails = () => {
-    setNoteView('allStudentForm');
-  }
+    setNoteView("allStudentForm");
+  };
   const handleStudentPaymentForm = () => {
-    setNoteView('studentPaymentForm');
-  }
+    setNoteView("studentPaymentForm");
+  };
   const handleBatchForm = () => {
-    setNoteView('batchForm');
-  }
-
+    setNoteView("batchForm");
+  };
 
   return (
     <>
@@ -187,29 +229,50 @@ const SuperAdmin = () => {
           >
             ▶ Apply Details
           </div>
-          <div style={{ paddingTop: 20 }} className='note__btn'>
-            <ul style={{ listStyleType: 'none' }}>
+          <div style={{ paddingTop: 20 }} className="note__btn">
+            <ul style={{ listStyleType: "none" }}>
               {classManagement.map((classManagementItems) => (
                 <li key={classManagementItems.id}>
                   <span
-                    onClick={() => toggleClassManagement(classManagementItems.id)}
-                    style={{ cursor: 'pointer' }} className='note__btn'
+                    onClick={() =>
+                      toggleClassManagement(classManagementItems.id)
+                    }
+                    style={{ cursor: "pointer" }}
+                    className="note__btn"
                   >
                     {classManagementItems.name}
                   </span>
                   {classManagementItems.isOpen && (
                     <ul style={{ padding: 10 }}>
-
-                      <li style={{ cursor: "pointer" }} onClick={handleClassForm}>Add Class</li>
-                      <li style={{ marginTop: 10, cursor: "pointer" }} onClick={handleSubjectForm}>Add Subject</li>
-                      <li style={{ marginTop: 10, cursor: "pointer" }} onClick={handleCourseForm}>Add Courses</li>
-                      <li style={{ marginTop: 10, cursor: "pointer" }} onClick={handleBatchForm}>Add Batch</li>
+                      <li
+                        style={{ cursor: "pointer" }}
+                        onClick={handleClassForm}
+                      >
+                        Add Class
+                      </li>
+                      <li
+                        style={{ marginTop: 10, cursor: "pointer" }}
+                        onClick={handleSubjectForm}
+                      >
+                        Add Subject
+                      </li>
+                      <li
+                        style={{ marginTop: 10, cursor: "pointer" }}
+                        onClick={handleCourseForm}
+                      >
+                        Add Courses
+                      </li>
+                      <li
+                        style={{ marginTop: 10, cursor: "pointer" }}
+                        onClick={handleBatchForm}
+                      >
+                        Add Batch
+                      </li>
                     </ul>
                   )}
                 </li>
               ))}
             </ul>
-
           </div>
           {/* <div
             onClick={handleStudentForm}
@@ -218,30 +281,47 @@ const SuperAdmin = () => {
           >
             ▶ Student
           </div> */}
-          <div style={{paddingTop:20, textAlign:'left', marginLeft:0}} className='note__btn'>
-        <ul style={{listStyleType: 'none'}}>
-          {studentItem.map((studentItems) => (
-            <li key={studentItems.id}>
-              <span
-                onClick={() => toggleStudentManagement(studentItems.id)}
-                style={{cursor: 'pointer', fontSize:17, textAlign:'left' }} className='note__btn'
-              >
-                {studentItems.name}
-              </span>
-              {studentItems.isOpen && (
-                <ul style={{padding:10}}>
-                   {/* {studentItems.subItems.map((subItem) => (
+          <div
+            style={{ paddingTop: 20, textAlign: "left", marginLeft: 0 }}
+            className="note__btn"
+          >
+            <ul style={{ listStyleType: "none" }}>
+              {studentItem.map((studentItems) => (
+                <li key={studentItems.id}>
+                  <span
+                    onClick={() => toggleStudentManagement(studentItems.id)}
+                    style={{
+                      cursor: "pointer",
+                      fontSize: 17,
+                      textAlign: "left",
+                    }}
+                    className="note__btn"
+                  >
+                    {studentItems.name}
+                  </span>
+                  {studentItems.isOpen && (
+                    <ul style={{ padding: 10 }}>
+                      {/* {studentItems.subItems.map((subItem) => (
                     <li onClick={handleStudentDetails} key={subItem}>{subItem}</li>
                   ))}  */}
-                  <li style={{cursor:'pointer'}} onClick={handleAddStudentDetails}>Add Student</li>
-                  <li style={{marginTop:10, cursor:'pointer'}} onClick={handleAllStudentDetails}>All Student</li>
-                </ul>
-              )}
-            </li>
-          ))}
-        </ul>
-     
-    </div>
+                      <li
+                        style={{ cursor: "pointer" }}
+                        onClick={handleAddStudentDetails}
+                      >
+                        Add Student
+                      </li>
+                      <li
+                        style={{ marginTop: 10, cursor: "pointer" }}
+                        onClick={handleAllStudentDetails}
+                      >
+                        All Student
+                      </li>
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
           <div
             onClick={handleStudentPaymentForm}
             style={{ padding: 20, cursor: "pointer", paddingLeft: 30 }}
@@ -249,43 +329,25 @@ const SuperAdmin = () => {
           >
             ▶ Student Payment
           </div>
-        
-
+        </div>
+        {noteView === "Dashboard" ? <Dashboard income={income} /> : null}
+        {noteView === "contacttable" ? (
+          <ContactTable
+            contactList={contactList}
+            setContactList={setContactList}
+          />
+        ) : null}
+        {noteView === "applytable" ? (
+          <ApplyTable applyList={applyList} setApplyList={setApplyList} />
+        ) : null}
+        {noteView === "classForm" ? <AddClass /> : null}
+        {noteView === "subjectForm" ? <AddSubject /> : null}
+        {noteView === "courseForm" ? <AddCourses /> : null}
+        {noteView === "batchForm" ? <AddBatch /> : null}
+        {noteView === "addStudentForm" ? <StudentForm /> : null}
+        {noteView === "allStudentForm" ? <AllStudentForm /> : null}
+        {noteView === "studentPaymentForm" ? <StudentPayment /> : null}
       </div>
-      {noteView === "Dashboard" ? (
-        <Dashboard />
-      ) : null}
-      {noteView === "contacttable" ? (
-        <ContactTable
-          contactList={contactList}
-          setContactList={setContactList}
-        />
-      ) : null}
-      {noteView === "applytable" ? (
-        <ApplyTable applyList={applyList} setApplyList={setApplyList} />
-      ) : null}
-      {noteView === "classForm" ? (
-        <AddClass />
-      ) : null}
-      {noteView === "subjectForm" ? (
-        <AddSubject />
-      ) : null}
-      {noteView === "courseForm" ? (
-        <AddCourses />
-      ) : null}
-      {noteView === "batchForm" ? (
-        <AddBatch />
-      ) : null}
-      {noteView === "addStudentForm" ? (
-        <StudentForm />
-      ) : null}
-      {noteView === "allStudentForm" ? (
-        <AllStudentForm />
-      ) : null}
-      {noteView === "studentPaymentForm" ? (
-        <StudentPayment />
-      ) : null}
-    </div>
     </>
   );
 };
