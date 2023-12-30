@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import ClearIcon from "@mui/icons-material/Clear";
 
@@ -21,7 +21,7 @@ const SuperAdmin = () => {
   const ref = useRef(null);
   const [contactList, setContactList] = useState([]);
   const [applyList, setApplyList] = useState([]);
-  const [noteView, setNoteView] = useState("noteform");
+  const [noteView, setNoteView] = useState("Dashboard");
   const [slideOpen, setSlideOpen] = useState(false);
   const [classManagement, setClassManagement] = useState([
     {
@@ -179,6 +179,10 @@ const SuperAdmin = () => {
   const handleBatchForm = () => {
     setNoteView("batchForm");
   };
+
+  useEffect(() => {
+    handleDashboard();
+  }, []);
 
   return (
     <>
