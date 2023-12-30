@@ -16,7 +16,7 @@
   .admin__card:hover{
     background-color: rgb(255, 255, 255);
     color: rgb(25, 137, 137);
-    transition: .2s all ease-in-out ;
+    transition: .2s all ease-in-out;
     cursor: pointer;
   }
   .note__btn:hover{

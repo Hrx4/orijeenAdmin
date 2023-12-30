@@ -2,7 +2,30 @@ import React from "react";
 import {  Button } from '@mui/material'
 
 
-const SubjectDetails = () =>{
+const SubjectDetails = ({subjectList}) =>{
+
+  const handleDelete = async(id) =>{
+
+    try {
+      const response = await fetch(`https://orijeen-main.vercel.app/subject/${id}/`, {
+        method: "DELETE",
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      await response.json();
+      
+
+      // props.setApplyList( [...props.applyList.filter(item => item._id !== id)]);
+      window.location.reload(true);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+
     return(
         <div style={{ marginTop: 150 }}>
             <div>
@@ -25,20 +48,21 @@ const SubjectDetails = () =>{
               </tr>
             </thead>
             <tbody>
-            <tr style={{ backgroundColor: "#f2f2f2" }}>
+            {
+              subjectList?.map((item , index)=>(
+                <tr key={index+1} style={{ backgroundColor: "#f2f2f2" }}>
                 <td style={{ border: "1px solid #000", padding: "8px" }}>1</td>
                 <td style={{ border: "1px solid #000", padding: "8px" }}>
-                  Pamela Roy choudhury
+                  {item.subjectName}
                 </td>
                 <td style={{ border: "1px solid #000", padding: "8px" }}>
-                <Button style={{margin:5}} variant='contained' color='success' size='small' >
-                  Edit
-                </Button>
-                <Button  style={{margin:5}} variant='contained' color='error' size='small' >
+                <Button onClick={()=>handleDelete(item._id)} style={{margin:5}} variant='contained' color='error' size='small' >
                   Delete
                 </Button>
                 </td>
               </tr>
+              ))
+            }
             </tbody>
           </table>
             </div>
