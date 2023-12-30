@@ -14,40 +14,43 @@ const AllStudentForm = () => {
   const [course, setCourse] = useState();
   const [studentTab, setStudentTab] = useState();
   const [studentList, setStudentList] = useState([]);
-  const [courseList, setCourseList] = useState([])
+  const [courseList, setCourseList] = useState([]);
 
-  const getCourseList = async()=>{
+  const getCourseList = async () => {
     try {
-        const response = await fetch(`https://orijeen-main.vercel.app/course/`, {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        });
-  
-        const resJson = await response.json();
-  
-        console.log(resJson);
-        setCourseList(resJson)
-      } catch (err) {
-        console.log(err);
-      }
-  }
-  const handleAllStudentTable = async (e) => {
-    e.preventDefault();
-    setStudentTab("studentInfo");
-    try {
-      const res = await fetch(`http://localhost:8080/student/getstudent`, {
-        method: "POST",
+      const response = await fetch(`https://orijeen-main.vercel.app/course/`, {
+        method: "GET",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          studentCourse: course,
-        }),
       });
+
+      const resJson = await response.json();
+
+      console.log(resJson);
+      setCourseList(resJson);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleAllStudentTable = async (e) => {
+    e.preventDefault();
+    setStudentTab("studentInfo");
+    try {
+      const res = await fetch(
+        `https://orijeen-main.vercel.app/student/getstudent`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            studentCourse: course,
+          }),
+        }
+      );
       let resJson = await res.json();
       if (res.status === 200) {
         console.log("fine");
@@ -64,10 +67,9 @@ const AllStudentForm = () => {
     }
   };
 
-
   useEffect(() => {
-    getCourseList()
-  }, [])
+    getCourseList();
+  }, []);
   return (
     <>
       <ToastContainer />
@@ -79,7 +81,7 @@ const AllStudentForm = () => {
             <label>Course Name:</label>
 
             <Box>
-            <FormControl
+              <FormControl
                 style={{ width: "60%", backgroundColor: "white" }}
                 className="student__field"
               >
@@ -96,15 +98,11 @@ const AllStudentForm = () => {
                     setCourse(e.target.value);
                   }}
                 >
-                {
-                  courseList?.map((item , index)=>(
+                  {courseList?.map((item, index) => (
                     <MenuItem value={item.courseName}>
-                    {item.courseName}
-                  </MenuItem>
-                  ))
-                }
-                  
-                  
+                      {item.courseName}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </Box>

@@ -14,31 +14,31 @@ const SubDashBoard = (props) => {
   const [course, setCourse] = useState("");
   const [enrollment, setEnrollment] = useState("");
   const [incomeList, setIncomeList] = useState([]);
-  const [classList, setClassList] = useState([])
-  const [subjectList, setSubjectList] = useState([])
-  const [courseList, setCourseList] = useState([])
+  const [classList, setClassList] = useState([]);
+  const [subjectList, setSubjectList] = useState([]);
+  const [courseList, setCourseList] = useState([]);
 
-  const getSubjectList = async()=>{
+  const getSubjectList = async () => {
     try {
-        const response = await fetch(`https://orijeen-main.vercel.app/subject/`, {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        });
-  
-        const resJson = await response.json();
-  
-        console.log(resJson);
-        setSubjectList(resJson)
-      } catch (err) {
-        console.log(err);
-      }
-}
+      const response = await fetch(`https://orijeen-main.vercel.app/subject/`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
 
-const getCourseList = async()=>{
-  try {
+      const resJson = await response.json();
+
+      console.log(resJson);
+      setSubjectList(resJson);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getCourseList = async () => {
+    try {
       const response = await fetch(`https://orijeen-main.vercel.app/course/`, {
         method: "GET",
         headers: {
@@ -50,14 +50,14 @@ const getCourseList = async()=>{
       const resJson = await response.json();
 
       console.log(resJson);
-      setCourseList(resJson)
+      setCourseList(resJson);
     } catch (err) {
       console.log(err);
     }
-}
+  };
 
-const getClassList = async()=>{
-  try {
+  const getClassList = async () => {
+    try {
       const response = await fetch(`https://orijeen-main.vercel.app/class/`, {
         method: "GET",
         headers: {
@@ -69,29 +69,31 @@ const getClassList = async()=>{
       const resJson = await response.json();
 
       console.log(resJson);
-      setClassList(resJson)
+      setClassList(resJson);
     } catch (err) {
       console.log(err);
     }
-}
-
+  };
 
   const handleAllStudentTable = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:8080/student/${props.apiRoute}`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          studentClass: classs,
-          studentCourse: course,
-          studentSubject: subject,
-          studentEnrollment: enrollment,
-        }),
-      });
+      const res = await fetch(
+        `https://orijeen-main.vercel.app/student/${props.apiRoute}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            studentClass: classs,
+            studentCourse: course,
+            studentSubject: subject,
+            studentEnrollment: enrollment,
+          }),
+        }
+      );
       let resJson = await res.json();
       if (res.status === 200) {
         console.log("fine");
@@ -109,10 +111,10 @@ const getClassList = async()=>{
   };
 
   useEffect(() => {
-    getClassList()
-    getSubjectList()
-    getCourseList()
-  }, [])
+    getClassList();
+    getSubjectList();
+    getCourseList();
+  }, []);
 
   return (
     <>
@@ -131,98 +133,82 @@ const getClassList = async()=>{
         </div>
         <div style={{ marginTop: 10 }}>
           <Box sx={{ minWidth: "100%" }}>
-          <FormControl
-                style={{ width: "60%", backgroundColor: "white" }}
-                className="student__field"
+            <FormControl
+              style={{ width: "60%", backgroundColor: "white" }}
+              className="student__field"
+            >
+              <InputLabel style={{ color: "black" }}>
+                Select Your Course
+              </InputLabel>
+              <Select
+                // value={courseForPay}
+                label=""
+                // onChange={(e) => setCourseForPay(e.target.value)}
+                style={{ color: "black" }}
+                value={course}
+                onChange={(e) => {
+                  setCourse(e.target.value);
+                }}
               >
-                <InputLabel style={{ color: "black" }}>
-                  Select Your Course
-                </InputLabel>
-                <Select
-                  // value={courseForPay}
-                  label=""
-                  // onChange={(e) => setCourseForPay(e.target.value)}
-                  style={{ color: "black" }}
-                  value={course}
-                  onChange={(e) => {
-                    setCourse(e.target.value);
-                  }}
-                >
-                {
-                  courseList?.map((item , index)=>(
-                    <MenuItem value={item.courseName}>
-                    {item.courseName}
-                  </MenuItem>
-                  ))
-                }
-                  
-                  
-                </Select>
-              </FormControl>
+                {courseList?.map((item, index) => (
+                  <MenuItem value={item.courseName}>{item.courseName}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Box>
         </div>
         <div style={{ marginTop: 10 }}>
-        <Box sx={{ minWidth: "100%" }}>
-          <FormControl
-                style={{ width: "60%", backgroundColor: "white" }}
-                className="student__field"
+          <Box sx={{ minWidth: "100%" }}>
+            <FormControl
+              style={{ width: "60%", backgroundColor: "white" }}
+              className="student__field"
+            >
+              <InputLabel style={{ color: "black" }}>
+                Select Your Class
+              </InputLabel>
+              <Select
+                // value={courseForPay}
+                label=""
+                // onChange={(e) => setCourseForPay(e.target.value)}
+                style={{ color: "black" }}
+                value={classs}
+                onChange={(e) => {
+                  setClasss(e.target.value);
+                }}
               >
-                <InputLabel style={{ color: "black" }}>
-                  Select Your Class
-                </InputLabel>
-                <Select
-                  // value={courseForPay}
-                  label=""
-                  // onChange={(e) => setCourseForPay(e.target.value)}
-                  style={{ color: "black" }}
-                  value={classs}
-                  onChange={(e) => {
-                    setClasss(e.target.value);
-                  }}
-                >
-                {
-                  classList?.map((item , index)=>(
-                    <MenuItem value={item.className}>
-                    {item.className}
-                  </MenuItem>
-                  ))
-                }
-                  
-                  
-                </Select>
-              </FormControl>
+                {classList?.map((item, index) => (
+                  <MenuItem value={item.className}>{item.className}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Box>
         </div>
         <div style={{ marginTop: 10 }}>
-        <Box sx={{ minWidth: "100%" }}>
-          <FormControl
-                style={{ width: "60%", backgroundColor: "white" }}
-                className="student__field"
+          <Box sx={{ minWidth: "100%" }}>
+            <FormControl
+              style={{ width: "60%", backgroundColor: "white" }}
+              className="student__field"
+            >
+              <InputLabel style={{ color: "black" }}>
+                Select Your Subject
+              </InputLabel>
+              <Select
+                // value={courseForPay}
+                label=""
+                // onChange={(e) => setCourseForPay(e.target.value)}
+                style={{ color: "black" }}
+                value={course}
+                onChange={(e) => {
+                  setSubject(e.target.value);
+                }}
               >
-                <InputLabel style={{ color: "black" }}>
-                  Select Your Subject
-                </InputLabel>
-                <Select
-                  // value={courseForPay}
-                  label=""
-                  // onChange={(e) => setCourseForPay(e.target.value)}
-                  style={{ color: "black" }}
-                  value={course}
-                  onChange={(e) => {
-                    setSubject(e.target.value);
-                  }}
-                >
-                {
-                  subjectList?.map((item , index)=>(
-                    <MenuItem value={item.subjectName}>
+                {subjectList?.map((item, index) => (
+                  <MenuItem value={item.subjectName}>
                     {item.subjectName}
                   </MenuItem>
-                  ))
-                }
-                  
-                  
-                </Select>
-              </FormControl>
+                ))}
+              </Select>
+            </FormControl>
           </Box>
         </div>
 

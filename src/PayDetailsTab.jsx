@@ -17,16 +17,19 @@ const PayDetailsTab = ({ studentPayList, setStudentPayList }) => {
   const handleAllStudentTable = async (studentEnrollment) => {
     // e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:8080/student/getpayment`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          paymentId: studentEnrollment,
-        }),
-      });
+      const res = await fetch(
+        `https://orijeen-main.vercel.app/student/getpayment`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            paymentId: studentEnrollment,
+          }),
+        }
+      );
       let resJson = await res.json();
       if (res.status === 200) {
         console.log("fine");
@@ -46,16 +49,19 @@ const PayDetailsTab = ({ studentPayList, setStudentPayList }) => {
   const handleAllStudentTable1 = async (studentEnrollment) => {
     // e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:8080/student/getpayment`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          paymentId: studentEnrollment,
-        }),
-      });
+      const res = await fetch(
+        `https://orijeen-main.vercel.app/student/getpayment`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            paymentId: studentEnrollment,
+          }),
+        }
+      );
       let resJson = await res.json();
       if (res.status === 200) {
         console.log("fine");
@@ -135,7 +141,7 @@ const PayDetailsTab = ({ studentPayList, setStudentPayList }) => {
           ))}
         </table>
       </div>
-       {payHistory === "PaymentHistory" ? (
+      {payHistory === "PaymentHistory" ? (
         <PaymentHistoryTab
           paymentList={paymentList}
           setPaymentList={setPaymentList}

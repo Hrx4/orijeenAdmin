@@ -46,7 +46,7 @@ const PaymentModal = ({
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:8080/student/payment/${paymentId}`,
+        `https://orijeen-main.vercel.app/student/payment/${paymentId}`,
         {
           method: "PUT",
           headers: {
@@ -99,7 +99,7 @@ const PaymentModal = ({
           {paymentList.map((item, index) => (
             <div style={{ width: "auto" }} className="form-container">
               <div className="form-group">
-                <label>Student Enrollment Id : {item?.paymentId} </label> 
+                <label>Student Enrollment Id : {item?.paymentId} </label>
                 <label>Student Subjects : {item?.studentSubjects} </label>
                 <label>Student Course : {item?.studentCourse} </label>
                 <label>Student Payment Type : {item?.paymentType} </label>
