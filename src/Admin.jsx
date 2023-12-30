@@ -4,6 +4,7 @@ import React from "react";
 import "./Admin.css";
 import { useState } from "react";
 import Navbar from "./Navbar";
+// import SuperAdmin from "./SuperAdmin";
 // import Navbar from '../Navbar/Navbar'
 
 const Admin = () => {
@@ -25,10 +26,19 @@ const Admin = () => {
   };
 
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  
   const handleClose = () => setOpen(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [path, setPath] = useState("");
+  const handleOpen = () => {
+    setPath("/superadmin")
+    setOpen(true)
+  };
+  const handleStudentOpen = () =>{
+    setOpen(true);
+    setPath("/student");
+  }
 
   return (
     <>
@@ -78,7 +88,7 @@ const Admin = () => {
               justifyContent: "center",
               alignItems: "center",
             }}
-            onClick={handleOpen}
+            onClick={handleStudentOpen}
           >
             Student
           </div>
@@ -127,7 +137,7 @@ const Admin = () => {
           />
           {username === "username" && password === "password" ? (
             <Link
-              to={"/superadmin"}
+              to={path}
               style={{
                 backgroundColor: "blue",
                 height: 30,
