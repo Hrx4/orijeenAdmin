@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 
 const StudentPanel = () => {
     const navigate = useNavigate();
+    
+    
     return (
         <div>
             <AppBar position="static">
