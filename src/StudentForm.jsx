@@ -7,10 +7,13 @@ import Box from "@mui/material/Box";
 import "./StudentForm.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { CircularProgress } from "@mui/material";
 
 const StudentForm = () => {
   const [studentEnrollment, setStudentEnrollment] = useState("");
   const [studentName, setStudentName] = useState("");
+  const [password, setPassword] = useState("");
+  const [photo, setPhoto] = useState("");
   const [studentClass, setStudentClass] = useState("");
   const [studentCourse, setStudentCourse] = useState("");
   const [fatherName, setFatherName] = useState("");
@@ -21,18 +24,42 @@ const StudentForm = () => {
   const [studentSubjects, setstudentSubjects] = useState([]);
   const [monthlyFee, setMonthlyFee] = useState("");
   const [bloodGroup, setBloodGroup] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("General");
   const [classList, setClassList] = useState([]);
   const [subjectList, setSubjectList] = useState([]);
   const [courseList, setCourseList] = useState([]);
-  const [batch, setBatch] = useState("");
+  const [batch, setBatch] = useState("Batch A");
   const [isChecked, setChecked] = useState(false);
   const [admissionAmount, setAdmissionAmount] = useState(0);
+  const [loading, setLoading] = useState(false);
+
   const handleCheckboxChange = () => {
     setChecked(!isChecked);
     if (!isChecked) {
       setAdmissionAmount("");
     }
+  };
+
+  const uploadFiles = async (e) => {
+    const { files } = e.target;
+    setLoading(true);
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "solardealership");
+    data.append("cloud_name", "dkm3nxmk5");
+    await fetch("https://api.cloudinary.com/v1_1/dkm3nxmk5/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (files[0].type === "image/jpeg" || files[0].type === "image/png")
+          setPhoto(data.url);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setLoading(false);
   };
 
   const getSubjectList = async () => {
@@ -105,7 +132,7 @@ const StudentForm = () => {
     // setLoading(true)
     const d = new Date();
     // Handle form submission here (e.g., send the data to the server)
-
+    console.log(password);
     try {
       const res = await fetch(`https://orijeen-main.vercel.app/student/`, {
         method: "POST",
@@ -118,6 +145,8 @@ const StudentForm = () => {
           studentName: studentName,
           studentClass: studentClass,
           studentBatch: batch,
+          studentPassword: password,
+          studentPhoto: photo,
           studentCourse: studentCourse,
           studentSubjects: studentSubjects,
           studentPhone: studentPhone,
@@ -133,6 +162,7 @@ const StudentForm = () => {
         }),
       });
       // let resJson = await res.json();
+
       if (res.status === 200) {
         console.log("fine");
 
@@ -173,6 +203,12 @@ const StudentForm = () => {
 
   return (
     <>
+      {loading ? (
+        <div className="loader" style={{ color: "black" }}>
+          Please Wait Your File is Uploading......
+          <CircularProgress />
+        </div>
+      ) : null}
       <ToastContainer />
       <div className="add-form">
         <form onSubmit={handleSubmit}>
@@ -188,6 +224,18 @@ const StudentForm = () => {
                 className="student__field"
                 value={studentEnrollment}
                 onChange={(e) => setStudentEnrollment(e.target.value)}
+                required
+              />
+            </div>
+
+            <div style={{ marginLeft: 40 }}>
+              <label style={{ marginRight: 10, marginTop: 10 }}>password</label>
+              <br />
+              <input
+                type="text"
+                className="student__field"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
@@ -322,6 +370,7 @@ const StudentForm = () => {
               </select>
             </div>
           </div>
+
           <div className="form-part" id="rightForm">
             <div className="Guardian">
               <label style={{ marginRight: 10, marginTop: 10 }}>
@@ -333,6 +382,20 @@ const StudentForm = () => {
                 className="student__field"
                 value={studentPhone}
                 onChange={(e) => setStudentPhone(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="Guardian">
+              <label style={{ marginRight: 10, marginTop: 10 }}>
+                Photo of student
+              </label>
+              <br />
+              <input
+                type="file"
+                className="student__field"
+                accept="image/*"
+                onChange={uploadFiles}
                 required
               />
             </div>

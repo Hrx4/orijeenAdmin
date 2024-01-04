@@ -1,13 +1,17 @@
 import { Box, Modal } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import React from "react";
 import "./Admin.css";
 import { useState } from "react";
 import Navbar from "./Navbar";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // import SuperAdmin from "./SuperAdmin";
 // import Navbar from '../Navbar/Navbar'
 
 const Admin = () => {
+  const navigate = useNavigate()
   const style = {
     position: "absolute",
     top: "50%",
@@ -32,16 +36,65 @@ const Admin = () => {
   const [password, setPassword] = useState("");
   const [path, setPath] = useState("");
   const handleOpen = () => {
-    setPath("/superadmin")
+    setPath("/superadmin/")
     setOpen(true)
   };
   const handleStudentOpen = () =>{
     setOpen(true);
-    setPath("/student");
+    setPath("/student/details/");
   }
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // setLoading(true)
+    // const d = new Date();
+    // Handle form submission here (e.g., send the data to the server)
+
+    try {
+      const res = await fetch(`https://orijeen-main.vercel.app${path}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userName: username,
+          password: password
+          
+        }),
+      });
+      let resJson = await res.json();
+      console.log(resJson.data);
+      if (res.status === 200) {
+        console.log("fine");
+
+        toast.success(resJson.message, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+if(path==='/student/details/') {
+  localStorage.setItem("student", JSON.stringify(resJson.data));
+  navigate('/student')}
+else
+       navigate(path)
+      } else {
+        toast.error(resJson.message, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        console.log("Some error occured");
+      }
+    } catch (err) {
+      toast.error("All field fill required", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      console.log(err);
+    }
+
+    // setLoading(false)
+  };
 
   return (
     <>
+    <ToastContainer/>
       <Navbar />
       <div
         style={{
@@ -135,25 +188,7 @@ const Admin = () => {
             placeholder="Password"
             style={{ height: 30 }}
           />
-          {username === "username" && password === "password" ? (
-            <Link
-              to={path}
-              style={{
-                backgroundColor: "blue",
-                height: 30,
-                width: 70,
-                color: "white",
-                border: "none",
-                borderRadius: 3,
-                textDecoration: "none",
-                textAlign: "center",
-                fontStyle: "normal",
-                fontWeight: "bold",
-              }}
-            >
-              Login
-            </Link>
-          ) : (
+          
             <button
               style={{
                 backgroundColor: "blue",
@@ -165,10 +200,10 @@ const Admin = () => {
                 fontStyle: "normal",
                 fontWeight: "bold",
               }}
+              onClick={handleSubmit}
             >
               Login
             </button>
-          )}
         </Box>
       </Modal>
     </>
