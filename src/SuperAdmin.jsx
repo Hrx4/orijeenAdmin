@@ -14,15 +14,27 @@ import StudentForm from "./StudentForm";
 import StudentPayment from "./StudentPayment";
 import AddBatch from "./AddBatch";
 import AllStudentForm from "./AllStudentForm";
+import NoteForm from "./components/studentComponents/NoteForm";
+import NoteTable from "./components/studentComponents/NoteTable";
+import AddTeacher from "./components/studentComponents/AddTeacher";
+import AllTeacher from "./components/studentComponents/AllTeacher";
+import TeacherPayment from "./components/studentComponents/TeacherPayment";
+import AddExpenses from "./components/studentComponents/AddExpenses";
+import AllExpenses from "./components/studentComponents/AllExpenses";
 
 // import SnavBar from './SnavBar';
 
 const SuperAdmin = () => {
   const ref = useRef(null);
+  const [noteList, setNoteList] = useState([])
   const [contactList, setContactList] = useState([]);
   const [applyList, setApplyList] = useState([]);
   const [noteView, setNoteView] = useState("Dashboard");
   const [slideOpen, setSlideOpen] = useState(false);
+  const [teacherPart, setTeacherPart] = useState([ { id: 1, name: '▶ Teacher', isOpen: false, subItems: ['Add Teacher', 'All Teacher'] } ])
+  const [noteItem, setNoteItem] = useState([ { id: 1, name: '▶ Note', isOpen: false, subItems: ['Add Note', 'All Note'] } ])
+  const [extraExpenses, setExtraExpenses] = useState([ { id: 1, name: '▶ Extra Expenses', isOpen: false, subItems: ['Add Expenses', 'All Expenses'] } ])
+
   const [classManagement, setClassManagement] = useState([
     {
       id: 1,
@@ -50,6 +62,27 @@ const SuperAdmin = () => {
   };
   const toggleStudentManagement = (itemId) => {
     setStudentItem((prevItems) =>
+      prevItems.map((item) =>
+        item.id === itemId ? { ...item, isOpen: !item.isOpen } : item
+      )
+    );
+  };
+  const toggleNoteMenu = (itemId) => {
+    setNoteItem((prevItems) =>
+      prevItems.map((item) =>
+        item.id === itemId ? { ...item, isOpen: !item.isOpen } : item
+      )
+    );
+  };
+  const toggleExtraExpenses = (itemId) => {
+    setExtraExpenses((prevItems) =>
+      prevItems.map((item) =>
+        item.id === itemId ? { ...item, isOpen: !item.isOpen } : item
+      )
+    );
+  };
+  const toggleTeacherMenu = (itemId) => {
+    setTeacherPart((prevItems) =>
       prevItems.map((item) =>
         item.id === itemId ? { ...item, isOpen: !item.isOpen } : item
       )
@@ -179,6 +212,28 @@ const SuperAdmin = () => {
   const handleBatchForm = () => {
     setNoteView("batchForm");
   };
+  const handleNoteForm = () => {
+    setNoteView("addNoteForm");
+  };
+  const handleNoteTable = () => {
+    setNoteView("allNoteTable");
+  };
+  const handleAddTeacherDetails = () => {
+    setNoteView("addTeacher");
+  };
+  const handleAllTeacherDetails = () => {
+    setNoteView("allTeacher");
+  };
+  const handleTeachertPaymentForm = () =>{
+    setNoteView("teacherPaymentForm");
+  };
+  const handleAddExtraExpenses = () => {
+    setNoteView("addExtraExpenses");
+  };
+  const handleAllExtraExpenses = () => {
+    setNoteView("allExtraExpenses");
+  };
+
 
   useEffect(() => {
     handleDashboard();
@@ -219,6 +274,28 @@ const SuperAdmin = () => {
           >
             ▶ Dashboard
           </div>
+          <div style={{paddingTop: 20, cursor: "pointer", paddingBottom:0}} className='note__btn'>
+        <ul style={{listStyleType: 'none'}}>
+          {noteItem.map((noteItems) => (
+            <li key={noteItems.id}>
+              <span
+                onClick={() => toggleNoteMenu(noteItems.id)}
+                style={{cursor: 'pointer', fontSize:17, textAlign:'left' }} className='note__btn'
+              >
+                {noteItems.name}
+              </span>
+              {noteItems.isOpen && (
+                <ul style={{padding:10}}>
+                   
+                  <li onClick={handleNoteForm}>Add Note</li>
+                  <li style={{marginTop:10}} onClick={handleNoteTable}>All Note</li>
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+     
+    </div>
           <div
             onClick={handleContactTable}
             style={{ padding: 20, cursor: "pointer", paddingLeft: 30 }}
@@ -333,6 +410,58 @@ const SuperAdmin = () => {
           >
             ▶ Student Payment
           </div>
+          
+          <div style={{paddingTop: 20, cursor: "pointer", paddingBottom:0}} className='note__btn'>
+        <ul style={{listStyleType: 'none'}}>
+          {teacherPart.map((teacherParts) => (
+            <li key={teacherParts.id}>
+              <span
+                onClick={() => toggleTeacherMenu(teacherParts.id)}
+                style={{cursor: 'pointer', fontSize:17, textAlign:'left' }} className='note__btn'
+              >
+                {teacherParts.name}
+              </span>
+              {teacherParts.isOpen && (
+                <ul style={{padding:10}}>
+                   
+                  <li onClick={handleAddTeacherDetails}>Add Teacher</li>
+                  <li style={{marginTop:10}} onClick={handleAllTeacherDetails}>All Teacher</li>
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+     
+    </div>
+    <div
+            onClick={handleTeachertPaymentForm}
+            style={{ padding: 20, cursor: "pointer", paddingLeft: 30 }}
+            className="note__btn"
+          >
+            ▶ Teacher Payment
+          </div>
+          <div style={{paddingTop: 20, cursor: "pointer", paddingBottom:0}} className='note__btn'>
+        <ul style={{listStyleType: 'none'}}>
+          {extraExpenses.map((extraExpense) => (
+            <li key={extraExpense.id}>
+              <span
+                onClick={() => toggleExtraExpenses(extraExpense.id)}
+                style={{cursor: 'pointer', fontSize:17, textAlign:'left' }} className='note__btn'
+              >
+                {extraExpense.name}
+              </span>
+              {extraExpense.isOpen && (
+                <ul style={{padding:10}}>
+                   
+                  <li onClick={handleAddExtraExpenses}>Add Expenses</li>
+                  <li style={{marginTop:10}} onClick={handleAllExtraExpenses}>All Expenses</li>
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+     
+    </div>
         </div>
         {noteView === "Dashboard" ? <Dashboard income={income} /> : null}
         {noteView === "contacttable" ? (
@@ -345,12 +474,20 @@ const SuperAdmin = () => {
           <ApplyTable applyList={applyList} setApplyList={setApplyList} />
         ) : null}
         {noteView === "classForm" ? <AddClass /> : null}
+        {noteView === "addNoteForm" ? <NoteForm /> : null}
+        {noteView === "allNoteTable" ? <NoteTable noteList={noteList} setNoteList={setNoteList} /> : null}
         {noteView === "subjectForm" ? <AddSubject /> : null}
         {noteView === "courseForm" ? <AddCourses /> : null}
         {noteView === "batchForm" ? <AddBatch /> : null}
         {noteView === "addStudentForm" ? <StudentForm /> : null}
         {noteView === "allStudentForm" ? <AllStudentForm /> : null}
         {noteView === "studentPaymentForm" ? <StudentPayment /> : null}
+        {noteView === "addTeacher" ? <AddTeacher /> : null}
+        {noteView === "allTeacher" ? <AllTeacher /> : null}
+        {noteView === "teacherPaymentForm" ? <TeacherPayment/> : null}
+        {noteView === "addExtraExpenses" ? <AddExpenses /> : null}
+        {noteView === "allExtraExpenses" ? <AllExpenses /> : null}
+        
       </div>
     </>
   );

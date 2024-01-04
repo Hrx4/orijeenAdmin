@@ -190,6 +190,107 @@ const Dashboard = ({ income }) => {
           </div>
         </div>
       </div>
+      <div
+        className="dInnerContainer"
+        style={{
+          display: "flex",
+          marginTop: "20px",
+          width: "100%",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <div className="dBox">
+          <div className="inner-box">
+            <div
+              className="half yellow-bg"
+              style={{ backgroundColor: "#00c0ef " }}
+            >
+              <FaAddressBook size={50} />
+            </div>
+            <div
+              className="Dhalf dText"
+              style={{
+                color: "black",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              MONTHLY EXPENSE
+            </div>
+          </div>
+        </div>
+        <div className="dBox">
+          <div className="inner-box">
+            <div
+              className="half yellow-bg"
+              style={{ backgroundColor: "#dd4b39" }}
+            >
+              <FaCreativeCommonsBy size={50} />
+            </div>
+            <div className="Dhalf dText" style={{ color: "black" }}>
+              TOTAL EXPENSE
+            </div>
+          </div>
+        </div>
+        <div className="dBox">
+          <div className="inner-box">
+            <div
+              className="half yellow-bg"
+              style={{ backgroundColor: "#00a65a" }}
+            >
+              <FaCommentDollar size={50} />
+            </div>
+            <div
+              className="Dhalf dText"
+              style={{
+                color: "black",
+                cursor: "pointer",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              MONTHLY PROFIT & LOSS
+              
+            </div>
+          </div>
+        </div>
+        </div>
+        <div
+        className="dInnerContainer"
+        style={{
+          display: "flex",
+          marginTop: "20px",
+          marginLeft:"73px",
+          width: "100%",
+          justifyContent: "flex-start",
+        }}
+      >
+        <div className="dBox">
+          <div className="inner-box">
+            <div
+              className="half yellow-bg"
+              style={{ backgroundColor: "#dd4b39" }}
+            >
+              <FaCreativeCommonsNc size={50} />
+            </div>
+            <div
+              className="Dhalf dText"
+              style={{
+                color: "black",
+                cursor: "pointer",
+                flexDirection: "column",
+              }}
+              
+            >
+               TOTAL PROFIT & LOSS
+              
+            </div>
+          </div>
+        </div>
+             
+      </div>
+        
+
 
       {subDash === "MonthlyIncome" ? (
         <SubDashBoard headingDash="Monthly Income" apiRoute="monthlyincome" />
