@@ -260,9 +260,8 @@ const Dashboard = ({ income }) => {
         style={{
           display: "flex",
           marginTop: "20px",
-          marginLeft:"73px",
           width: "100%",
-          justifyContent: "flex-start",
+          justifyContent: "space-evenly",
         }}
       >
         <div className="dBox">
@@ -287,6 +286,7 @@ const Dashboard = ({ income }) => {
             </div>
           </div>
         </div>
+        
              
       </div>
         

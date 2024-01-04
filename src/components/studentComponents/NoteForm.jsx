@@ -1,5 +1,6 @@
 import React,{useState, useEffect} from "react";
 import './Form.css';
+import { CircularProgress } from "@mui/material";
 
 const NoteForm = () =>{
     const [title, setTitle] = useState('');
@@ -11,6 +12,9 @@ const NoteForm = () =>{
   const [courseValue, setCourseValue] = useState('');
   const [batch, setBatch] = useState('Batch 1');
   const [pdf, setPdf] = useState('');
+  const [loading, setLoading] = useState(false);
+  
+
   useEffect(() => {
     const fetchClassValue = async () => {
       try {
@@ -66,13 +70,74 @@ const NoteForm = () =>{
     fetchCourseValue();
   }, []);
 
+  const uploadFiles = async (e) => {
+    const { files } = e.target;
+    setLoading(true);
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "solardealership");
+    data.append("cloud_name", "dkm3nxmk5");
+    await fetch("https://api.cloudinary.com/v1_1/dkm3nxmk5/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (files[0].type === "application/pdf") setPdf(data.url);
+       
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setLoading(false);
+  };
 
-
-  const handleSubmit =async (e) => {
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  }
+    // setLoading(true)
+
+    try {
+      const res = await fetch(`https://orijeen-main.vercel.app/note/`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          noteTitle: title,
+          noteSubject: subjectValue,
+          noteClass: classValue,
+          noteBatch: batch,
+          notePdf: pdf,
+          noteCourse: courseValue,
+        }),
+      });
+      // let resJson = await res.json();
+      if (res.status === 200) {
+        console.log("fine");
+        setTitle("");
+        setPdf("");
+        alert("form submitted")
+      } else {
+        alert('all field required')
+        console.log("Some error occured");
+      }
+    } catch (err) {
+      alert('all field required')
+      console.log(err);
+    }
+
+    // setLoading(false)
+  };
     return(
         <>
+        {loading ? (
+        <div className="loader" style={{ color: "black" }}>
+          Please Wait Your File is Uploading......
+          <CircularProgress />
+        </div>
+      ) : null}
            <div className="form-container" style={{marginTop:60 , marginBottom:50}}>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -116,7 +181,7 @@ const NoteForm = () =>{
 
         <div className="form-group">
           <label>Upload File:</label>
-          <input type="file" accept=".pdf"   />
+          <input type="file" accept=".pdf"  onChange={uploadFiles} />
         </div>
 
         <div className="form-group">
