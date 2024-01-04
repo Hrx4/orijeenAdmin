@@ -40,7 +40,6 @@ const StudentProfile = () => {
               height: 140,
               width: 120,
               backgroundColor: "red",
-
             }}
           >
             <img
@@ -303,4 +302,6 @@ const StudentProfile = () => {
   );
 };
 
+
 export default StudentProfile;
+\

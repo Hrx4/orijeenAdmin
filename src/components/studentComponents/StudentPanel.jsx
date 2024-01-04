@@ -41,7 +41,7 @@ const StudentPanel = () => {
                 <Button variant="outlined" color="primary">Sign Out</Button>
             </div>
             </div>
-            <div className="mainContainer" style={{ padding: 20, width: "70%", height: "85%", textAlign: "center" }}>
+            <div className="mainContainer" style={{ padding: 20, width: "100%", height: "85%", textAlign: "center" }}>
 
 
 
@@ -142,7 +142,7 @@ const StudentPanel = () => {
                                     flexDirection: "column",
                                 }}
                             >
-                                <Link className='rtLink' to="/routine" style={{ fontSize: "25px", fontWeight: "bold",textDecoration:"none",paddingTop:"50px", paddingLeft:"50px"  }}>Routine</Link>
+                                <Link className='nLink' to="/notification" style={{ fontSize: "25px", fontWeight: "bold",textDecoration:"none",paddingTop:"50px", paddingLeft:"50px"  }}>Notification</Link>
 
 
                             </div>
@@ -163,37 +163,7 @@ const StudentPanel = () => {
                                     flexDirection: "column",
                                 }}
                             >
-                                <Link className='nLink' to="/notification" style={{ fontSize: "25px", fontWeight: "bold",textDecoration:"none",paddingTop:"50px", paddingLeft:"50px"  }}>Notification</Link>
-
-
-                            </div>
-                        </div>
-                        <div className="dBox">
-
-                            <div
-                                className="Dhalf dText"
-                                style={{
-                                    color: "black",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                }}
-                            >
-                                <Link className='qLink' to="/queryform" style={{ fontSize: "25px", fontWeight: "bold",textDecoration:"none",paddingTop:"30px", paddingLeft:"50px"  }}>Query Form</Link>
-
-
-                            </div>
-                        </div>
-                        <div className="dBox">
-
-                            <div
-                                className="Dhalf dText"
-                                style={{
-                                    color: "black",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                }}
-                            >
-                                <Link className='sLink' to="/support" style={{ fontSize: "25px", fontWeight: "bold",textDecoration:"none",paddingTop:"50px", paddingLeft:"50px"  }}>Support</Link>
+                               <Link className='qLink' to="/queryform" style={{ fontSize: "25px", fontWeight: "bold",textDecoration:"none",paddingTop:"30px", paddingLeft:"50px"  }}>Query Form</Link>
 
 
                             </div>
