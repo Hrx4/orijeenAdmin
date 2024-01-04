@@ -12,6 +12,7 @@ import Routine from "./components/studentComponents/Routine";
 import Notification from "./components/studentComponents/Notification";
 import QueryForm from "./components/studentComponents/QueryForm";
 import Support from "./components/studentComponents/Support";
+import Course1 from "./components/studentComponents/Course1";
 function App() {
 
   return (
@@ -29,7 +30,8 @@ function App() {
         <Route  path="/support" element={<Support />} />
         <Route path="/student" element={<StudentPanel/>}/>        
         <Route path="/" element={<Admin/>} />
-        <Route path="/superadmin" element={<SuperAdmin/>}/>       
+        <Route path="/superadmin" element={<SuperAdmin/>}/>  
+        <Route path="/course1" element={<Course1/>}/>
       </Routes>
     </div>
   );

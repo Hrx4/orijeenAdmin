@@ -236,38 +236,29 @@ const StudentForm = () => {
               </Box>
             </div>
 
-            <div style={{ marginLeft: 40 }}>
-              <label style={{ marginRight: 10, marginTop: 10 }}>
-                Course Name
-              </label>
-              <br />
-
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl
-                  style={{ width: "60%", backgroundColor: "white" }}
-                  className="student__field"
+            <div
+              style={{
+                marginLeft: 40,
+                marginTop: 20,
+                marginBottom: 10,
+                fontWeight: "bold",
+              }}
+            >
+              Courses <br />
+              {courseList?.map((item, index) => (
+                <label
+                  className="checkbox"
+                  style={{ marginRight: 10, fontWeight: "lighter" }}
                 >
-                  <InputLabel style={{ color: "black" }}>
-                    Select Your Course
-                  </InputLabel>
-                  <Select
-                    // value={courseForPay}
-                    label=""
-                    // onChange={(e) => setCourseForPay(e.target.value)}
-                    style={{ color: "black" }}
-                    value={studentCourse}
-                    onChange={(e) => {
-                      setStudentCourse(e.target.value);
-                    }}
-                  >
-                    {courseList?.map((item, index) => (
-                      <MenuItem value={item.courseName}>
-                        {item.courseName}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Box>
+                  <input
+                    type="checkbox"
+                    name="subject"
+                    value={item.courseName}
+                    onClick={(e) => handleCheck(e)}
+                  />{" "}
+                  {item.courseName}
+                </label>
+              ))}
             </div>
 
             <div
@@ -306,6 +297,11 @@ const StudentForm = () => {
                 value={fatherName}
                 onChange={(e) => setFatherName(e.target.value)}
               />
+              <div style={{marginTop:15}}>
+          <label>Image:</label>
+          <br/>
+          <input className="student__field" type="file" accept="image/*" />
+        </div>
             </div>
             <div style={{ marginLeft: 40 }}>
               <label

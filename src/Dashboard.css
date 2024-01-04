@@ -54,6 +54,7 @@ padding-left: 15px;
   .dInnerContainer{
       display: flex;
       flex-direction: column;
+      margin-left: 0px !important;
   }
  
 
