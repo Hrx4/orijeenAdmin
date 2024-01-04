@@ -1,40 +1,90 @@
-import React,{useState} from "react";
-import { Box, CircularProgress, Modal } from '@mui/material';
+import React,{useEffect, useState} from "react";
+import {  Button } from '@mui/material';
 import './Form.css';
 import './Table.css';
 
 const NoteTable = (props) =>{
-    const [title, setTitle] = useState('');
-    const [subject, setSubject] = useState('');
-    const [classValue, setClassValue] = useState('');
-    const [batch, setBatch] = useState('');
-    const [image, setImage] = useState('');
-    const [pdf, setPdf] = useState('');
-    const [course, setCourse] = useState('');
-    const [modal, setModal] = useState(false);
-    const [updateId, setUpdateId] = useState("");
-    const [loading, setLoading] = useState(false)
+    // const [title, setTitle] = useState('');
+    // const [subject, setSubject] = useState('');
+    // const [classValue, setClassValue] = useState('');
+    // const [batch, setBatch] = useState('');
+    // const [image, setImage] = useState('');
+    // const [pdf, setPdf] = useState('');
+    // const [course, setCourse] = useState('');
+    // const [modal, setModal] = useState(false);
+    // const [updateId, setUpdateId] = useState("");
+    // const [loading, setLoading] = useState(false)
 
-    const handleCustomerClose = () => setModal(false);
-
-    const CustomerModalOpen = (id , noteTitle , noteSubject , noteClass , noteBatch , noteImage , notePdf, noteCourse) => {
-        const key = id
-        setUpdateId(key);
-        setTitle(noteTitle)
-        setSubject(noteSubject)
-        setClassValue(noteClass)
-        setBatch(noteBatch)
-        setImage(noteImage)
-        setPdf(notePdf)
-        setCourse(noteCourse)
-        
-        setModal(true)
+    const [noteData, setNoteData] = useState([])
+    const handleContactTable = async () => {
+       
+        try {
+          const response = await fetch(`https://orijeen-main.vercel.app/note/`, {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          });
     
+          const resJson = await response.json();
+    
+          if (response.status === 200) {
+            setNoteData(resJson);
+            
+          } else {
+            console.log("Some error occured");
+          }
+        } catch (err) {
+          console.log(err);
+        }
       };
 
-      const updateList = async (e) => {
-        e.preventDefault();
+      const handleDelete = async(id) =>{
+
+        try {
+          const response = await fetch(`https://orijeen-main.vercel.app/note/${id}/`, {
+            method: "DELETE",
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+          });
+    
+          await response.json();
+          
+    
+          // props.setApplyList( [...props.applyList.filter(item => item._id !== id)]);
+          window.location.reload(true);
+        } catch (err) {
+          console.log(err);
+        }
       }
+
+      useEffect(() => {
+        handleContactTable()
+      }, [])
+
+    // const handleCustomerClose = () => setModal(false);
+
+    // const CustomerModalOpen = (id , noteTitle , noteSubject , noteClass , noteBatch , noteImage , notePdf, noteCourse) => {
+    //     const key = id
+    //     setUpdateId(key);
+    //     setTitle(noteTitle)
+    //     setSubject(noteSubject)
+    //     setClassValue(noteClass)
+    //     setBatch(noteBatch)
+    //     setImage(noteImage)
+    //     setPdf(notePdf)
+    //     setCourse(noteCourse)
+        
+    //     setModal(true)
+    
+    //   };
+
+      // const updateList = async (e) => {
+      //   e.preventDefault();
+      // }
     return(
         <>
              <div className='table-scroll' style={{width:"100%", overflowX:"scroll",overflowY:"scroll", padding:10,height:"100vh"}}>
@@ -46,51 +96,49 @@ const NoteTable = (props) =>{
         <th style={{border:"1px solid black", padding:5}}>Subject</th>
         <th style={{border:"1px solid black", padding:5}}>Class</th>
         <th style={{border:"1px solid black", padding:5}}>Batch</th>
-        <th style={{border:"1px solid black", padding:5}}>Image</th>
         <th style={{border:"1px solid black", padding:5}}>Pdf</th>
         <th style={{border:"1px solid black", padding:5}}>Course</th>
         <th style={{border:"1px solid black", padding:5}}>Buttons</th>
       </tr>
       }
-      {/* {props.noteList.map(
+       {noteData?.map(
         (item) => (
 
           <tr style={{border:"1px solid black", padding:5}} key={item._id} onClick={()=>{console.log(item._id)}}>
               <td style={{border:"1px solid black" , padding:5}}>
-              {item.noteTitle}
+              {item?.noteTitle}
               </td>
               <td style={{border:"1px solid black" , padding:5}}>
-              {item.noteSubject}
+              {item?.noteSubject}
               </td>
               <td style={{border:"1px solid black" , padding:5}}>
-              {item.noteClass}
+              {item?.noteClass}
               </td>
               <td style={{border:"1px solid black" , padding:5}}>
-              {item.noteBatch}
+              {item?.noteBatch}
               </td>
               <td style={{border:"1px solid black" , padding:5}}>
-              {item.noteImage}
+              {item?.notePdf}
               </td>
               <td style={{border:"1px solid black" , padding:5}}>
-              {item.notePdf}
+              {item?.noteCourse}
               </td>
               <td style={{border:"1px solid black" , padding:5}}>
-              {item.noteCourse}
-              </td>
-              <td style={{border:"1px solid black" , padding:5}}>
-                <Button style={{marginBottom:5}} variant='contained' color='error' size='small' >
+                <Button onClick={()=>handleDelete(item._id)} style={{marginBottom:5}} variant='contained' color='error' size='small' >
                   Delete
                 </Button>
-                <Button variant='contained' color='success' size='small' onClick={()=>CustomerModalOpen(
-                     item._id,item.noteTitle , item.noteSubject , item.noteClass , item.noteBatch , item.noteImage , item.notePdf, item.noteCourse
-                )} >
+                <Button variant='contained' color='success' size='small' 
+                // onClick={()=>CustomerModalOpen(
+                //      item._id,item.noteTitle , item.noteSubject , item.noteClass , item.noteBatch , item.noteImage , item.notePdf, item.noteCourse
+                // )} 
+                >
                   Update
                 </Button>
               </td>
       
             </tr>
         )
-      )}  */}
+      )} 
       </tbody>
     </table>
         </div>
@@ -100,7 +148,7 @@ const NoteTable = (props) =>{
 
 
 
-        <Modal
+        {/* <Modal
         open={modal}
         onClose={handleCustomerClose}
         aria-labelledby="modal-modal-title"
@@ -180,7 +228,7 @@ const NoteTable = (props) =>{
             </div>
 
           </Box>
-        </Modal>
+        </Modal> */}
 
         </>
     )

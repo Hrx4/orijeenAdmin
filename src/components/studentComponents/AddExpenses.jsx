@@ -7,6 +7,30 @@ const AddExpenses = () => {
     const [amount, setAmount] = useState("");
     const [date, setDate] = useState(); 
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        try {
+            const response = await fetch(`https://orijeen-main.vercel.app/expense/`, {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                expenseTitle : expenseTitle , expenseDescription:description , expenseAmount:amount , expenseDate : date
+
+              })
+            });
+      
+            const resJson = await response.json();
+      alert("expense added")
+            console.log(resJson);
+          } catch (err) {
+            console.log(err);
+          }
+    }
+
     return (
         <>
             <div className="form-container" style={{ marginTop: 60, marginBottom: 50 }}>
@@ -22,13 +46,13 @@ const AddExpenses = () => {
                     </div>
                     <div className="form-group">
                         <label>Amount:</label>
-                        <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)} />
+                        <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} />
                     </div>
                     <div className="form-group">
                         <label>Date:</label>{" "}
                         <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
                     </div>
-                    <Button variant="contained">Submit</Button>
+                    <Button onClick={handleSubmit} variant="contained">Submit</Button>
                 </form>
             </div>
         </>

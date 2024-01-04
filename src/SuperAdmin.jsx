@@ -248,6 +248,7 @@ const SuperAdmin = () => {
           display: "flex",
           backgroundColor: "white",
           color: "black",
+          height:"100vh",
         }}
       >
         <button
@@ -463,6 +464,8 @@ const SuperAdmin = () => {
      
     </div>
         </div>
+        <div style={{height:"98%" , width:"100%" , display:"flex" , marginBottom:20,         overflowY:"scroll"
+}}>
         {noteView === "Dashboard" ? <Dashboard income={income} /> : null}
         {noteView === "contacttable" ? (
           <ContactTable
@@ -487,6 +490,7 @@ const SuperAdmin = () => {
         {noteView === "teacherPaymentForm" ? <TeacherPayment/> : null}
         {noteView === "addExtraExpenses" ? <AddExpenses /> : null}
         {noteView === "allExtraExpenses" ? <AllExpenses /> : null}
+        </div>
         
       </div>
     </>
