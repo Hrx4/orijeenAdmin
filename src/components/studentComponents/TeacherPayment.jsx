@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
+// import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Box from "@mui/material/Box";
@@ -9,7 +9,7 @@ import TeacherPayDetails from "./TeacherPayDetails";
 const TeacherPayment = () =>{
     const [teacher, setTeacher] = useState();
   const [teacherPayDetails, setTeacherPayDetails] = useState();
-  const [studentPayList, setStudentPayList] = useState([]);
+  // const [studentPayList, setStudentPayList] = useState([]);
 
   const handlePayDetails = async (e) => {
     e.preventDefault();
