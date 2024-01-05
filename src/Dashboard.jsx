@@ -6,8 +6,9 @@ import { FaCreativeCommonsNc } from "react-icons//fa6";
 import { FaCommentDollar } from "react-icons//fa6";
 import SubDashBoard from "./SubDashboard";
 
-const Dashboard = ({ income }) => {
+const Dashboard = ({ income, expenseDetails }) => {
   const [subDash, setSubDash] = useState("noteform");
+  // const [expenseDetails, setExpenseDetails] = useState([])
 
   const handleMonthlyIncome = () => {
     setSubDash("MonthlyIncome");
@@ -24,6 +25,30 @@ const Dashboard = ({ income }) => {
   const handleTotalDue = () => {
     setSubDash("TotalDue");
   };
+
+  //   const handleAllStudentTable = async (e) => {
+  //     e.preventDefault();
+  //     try {
+  //       const res = await fetch(`https://orijeen-main.vercel.app/expense/details/`, {
+  //         method: "GET",
+  //         headers: {
+  //           Accept: "application/json",
+  //           "Content-Type": "application/json",
+  //         },
+  //       });
+  //       let resJson = await res.json();
+  //       if (res.status === 200) {
+  //         console.log("fine");
+  //         setExpenseDetails(resJson)
+  //       }
+  //     } catch (err) {
+
+  //       console.log(err);
+  //     }
+  //   };
+  //   useEffect(() => {
+  //  handleAllStudentTable()
+  //   }, [])
 
   return (
     <div
@@ -71,8 +96,16 @@ const Dashboard = ({ income }) => {
             >
               <FaCreativeCommonsBy size={50} />
             </div>
-            <div className="Dhalf dText" style={{ color: "black" }}>
+            <div
+              className="Dhalf dText"
+              style={{
+                color: "black",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
               TOTAL TEACHER
+              <div>{expenseDetails?.totalTeacher}</div>
             </div>
           </div>
         </div>
@@ -216,6 +249,7 @@ const Dashboard = ({ income }) => {
               }}
             >
               MONTHLY EXPENSE
+              <div>{expenseDetails?.monthlyExpense}</div>
             </div>
           </div>
         </div>
@@ -227,8 +261,16 @@ const Dashboard = ({ income }) => {
             >
               <FaCreativeCommonsBy size={50} />
             </div>
-            <div className="Dhalf dText" style={{ color: "black" }}>
+            <div
+              className="Dhalf dText"
+              style={{
+                color: "black",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
               TOTAL EXPENSE
+              <div>{expenseDetails?.totalExpense}</div>
             </div>
           </div>
         </div>
@@ -250,12 +292,20 @@ const Dashboard = ({ income }) => {
               }}
             >
               MONTHLY PROFIT & LOSS
-              
+              {income.monthlyIncome - expenseDetails.monthlyExpense > 0 ? (
+                <div style={{ color: "green", fontWeight: "bold" }}>
+                  {income.monthlyIncome - expenseDetails.monthlyExpense}
+                </div>
+              ) : (
+                <div style={{ color: "red", fontWeight: "bold" }}>
+                  {income.monthlyIncome - expenseDetails.monthlyExpense}
+                </div>
+              )}
             </div>
           </div>
         </div>
-        </div>
-        <div
+      </div>
+      <div
         className="dInnerContainer"
         style={{
           display: "flex",
@@ -278,19 +328,23 @@ const Dashboard = ({ income }) => {
                 color: "black",
                 cursor: "pointer",
                 flexDirection: "column",
+                display: "flex",
               }}
-              
             >
-               TOTAL PROFIT & LOSS
-              
+              TOTAL PROFIT & LOSS
+              {income.totalIncome - expenseDetails.totalExpense > 0 ? (
+                <div style={{ color: "green", fontWeight: "bold" }}>
+                  {income.totalIncome - expenseDetails.totalExpense}
+                </div>
+              ) : (
+                <div style={{ color: "red", fontWeight: "bold" }}>
+                  {income.totalIncome - expenseDetails.totalExpense}
+                </div>
+              )}
             </div>
           </div>
         </div>
-        
-             
       </div>
-        
-
 
       {subDash === "MonthlyIncome" ? (
         <SubDashBoard headingDash="Monthly Income" apiRoute="monthlyincome" />

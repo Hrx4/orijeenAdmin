@@ -80,33 +80,33 @@ const AddTeacher = () => {
     e.preventDefault();
 
     try {
-        const response = await fetch(`https://orijeen-main.vercel.app/teacher/`, {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            teacherName : name , 
-            teacherAge : age, 
-            teacherGender : gender, 
-            teacherEducation: education , 
-            teacherAddress : address , 
-            teacherSalary: salary, 
-            teacherDoj : doj ,
-            teacherSubject : subjectValue, 
-            teacherClass : classValue, 
-            teacherCourse : courseValue
-          })
-        });
-  
-        const resJson = await response.json();
-  alert("Teacher added")
-        console.log(resJson);
-      } catch (err) {
-        console.log(err);
-      }
-}
+      const response = await fetch(`https://orijeen-main.vercel.app/teacher/`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          teacherName: name,
+          teacherAge: age,
+          teacherGender: gender,
+          teacherEducation: education,
+          teacherAddress: address,
+          teacherSalary: salary,
+          teacherDoj: doj,
+          teacherSubject: subjectValue,
+          teacherClass: classValue,
+          teacherCourse: courseValue,
+        }),
+      });
+
+      const resJson = await response.json();
+      alert("Teacher added");
+      console.log(resJson);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
       <div
