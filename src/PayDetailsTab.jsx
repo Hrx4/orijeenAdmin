@@ -133,6 +133,7 @@ const PayDetailsTab = ({ studentPayList, setStudentPayList }) => {
                   onClick={() => {
                     handleAllStudentTable(item.studentEnrollment);
                   }}
+                  style={{marginTop:10}}
                 >
                   View Payments
                 </button>
