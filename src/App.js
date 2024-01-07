@@ -31,7 +31,7 @@ function App() {
         <Route path="/student" element={<StudentPanel/>}/>        
         <Route path="/" element={<Admin/>} />
         <Route path="/superadmin" element={<SuperAdmin/>}/>  
-        <Route path="/course1" element={<Course1/>}/>
+        <Route path="/course1/:noteCourse" element={<Course1/>}/>
       </Routes>
     </div>
   );
