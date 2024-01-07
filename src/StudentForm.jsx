@@ -15,7 +15,7 @@ const StudentForm = () => {
   const [password, setPassword] = useState("");
   const [photo, setPhoto] = useState("");
   const [studentClass, setStudentClass] = useState("");
-  const [studentCourse, setStudentCourse] = useState("");
+  const [studentCourse, setStudentCourse] = useState([]);
   const [fatherName, setFatherName] = useState("");
   const [studentPhone, setStudentPhone] = useState("");
   const [studentAddress, setStudentAddress] = useState("");
@@ -127,6 +127,13 @@ const StudentForm = () => {
         ]);
   };
 
+  const handleCheck1 = (e) => {
+    e.target.checked
+      ? setStudentCourse([...studentCourse, e.target.value])
+      : setStudentCourse([
+          ...studentCourse.filter((item) => item !== e.target.value),
+        ]);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     // setLoading(true)
@@ -302,7 +309,7 @@ const StudentForm = () => {
                     type="checkbox"
                     name="subject"
                     value={item.courseName}
-                    onClick={(e) => handleCheck(e)}
+                    onClick={(e) => handleCheck1(e)}
                   />{" "}
                   {item.courseName}
                 </label>
