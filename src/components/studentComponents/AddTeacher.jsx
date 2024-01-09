@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 
 const AddTeacher = () => {
   const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
   const [age, setAge] = useState();
   const [gender, setGender] = useState();
   const [education, setEducation] = useState();
@@ -91,6 +94,8 @@ const AddTeacher = () => {
           teacherAge: age,
           teacherGender: gender,
           teacherEducation: education,
+          teacherEmail : email,
+          teacherPassword : password,
           teacherAddress: address,
           teacherSalary: salary,
           teacherDoj: doj,
@@ -127,6 +132,21 @@ const AddTeacher = () => {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label>Email:</label>
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div> <div className="form-group">
+            <label>Password:</label>
+            <input
+              type="text"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div className="form-group">
