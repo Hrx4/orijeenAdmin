@@ -1,0 +1,45 @@
+.spForm{
+    /* max-width: 600px; */
+    width: 40%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.h2 {
+    text-align: center;
+    color: #333;
+}
+.spLabel {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+.spInput {
+    width: 70%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+@media (max-width: 750px) {
+    .anocontact{
+        font-size: x-small !important;
+        /* font-size-adjust: none !important; */
+        font-size-adjust: 0.3;
+        font-weight: 50;
+       width: 60% !important;
+       height: 40%;
+       position: absolute;
+       top: 140% !important;
+       left:10%
+    }
+    .anocall{
+       padding-left: 55px;
+    }
+    .sdtable{
+        width: 80% !important;
+    }
+}
