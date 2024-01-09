@@ -21,12 +21,15 @@ import AllTeacher from "./components/studentComponents/AllTeacher";
 import TeacherPayment from "./components/studentComponents/TeacherPayment";
 import AddExpenses from "./components/studentComponents/AddExpenses";
 import AllExpenses from "./components/studentComponents/AllExpenses";
+import AddNotification from "./AddNotification";
+import AllNotification from "./AllNotification";
 
 // import SnavBar from './SnavBar';
 
 const SuperAdmin = () => {
   const ref = useRef(null);
   const [noteList, setNoteList] = useState([]);
+  const [notificationList, setNotificationList] = useState([]);
   const [contactList, setContactList] = useState([]);
   const [applyList, setApplyList] = useState([]);
   const [noteView, setNoteView] = useState("Dashboard");
@@ -45,6 +48,14 @@ const SuperAdmin = () => {
       name: "▶ Note",
       isOpen: false,
       subItems: ["Add Note", "All Note"],
+    },
+  ]);
+  const [notificationItem, setNotificationItem] = useState([
+    {
+      id: 1,
+      name: "▶ Notification",
+      isOpen: false,
+      subItems: ["Add Notification", "All Notification"],
     },
   ]);
   const [extraExpenses, setExtraExpenses] = useState([
@@ -91,6 +102,13 @@ const SuperAdmin = () => {
   };
   const toggleNoteMenu = (itemId) => {
     setNoteItem((prevItems) =>
+      prevItems.map((item) =>
+        item.id === itemId ? { ...item, isOpen: !item.isOpen } : item
+      )
+    );
+  };
+  const toggleNotificationMenu = (itemId) => {
+    setNotificationItem((prevItems) =>
       prevItems.map((item) =>
         item.id === itemId ? { ...item, isOpen: !item.isOpen } : item
       )
@@ -259,6 +277,12 @@ const SuperAdmin = () => {
   const handleNoteTable = () => {
     setNoteView("allNoteTable");
   };
+  const handleNotificationForm = () => {
+    setNoteView("addNotificationForm");
+  };
+  const handleNotificationTable = () => {
+    setNoteView("allNotificationTable");
+  };
   const handleAddTeacherDetails = () => {
     setNoteView("addTeacher");
   };
@@ -345,6 +369,38 @@ const SuperAdmin = () => {
               ))}
             </ul>
           </div>
+
+          <div
+            style={{ paddingTop: 20, cursor: "pointer", paddingBottom: 0 }}
+            className="note__btn"
+          >
+            <ul style={{ listStyleType: "none" }}>
+              {notificationItem.map((notificationItems) => (
+                <li key={notificationItems.id}>
+                  <span
+                    onClick={() => toggleNotificationMenu(notificationItems.id)}
+                    style={{
+                      cursor: "pointer",
+                      fontSize: 17,
+                      textAlign: "left",
+                    }}
+                    className="note__btn"
+                  >
+                    {notificationItems.name}
+                  </span>
+                  {notificationItems.isOpen && (
+                    <ul style={{ padding: 10 }}>
+                      <li onClick={handleNotificationForm}>Add Notification</li>
+                      <li style={{ marginTop: 10 }} onClick={handleNotificationTable}>
+                        All Notification
+                      </li>
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+
           <div
             onClick={handleContactTable}
             style={{ padding: 20, cursor: "pointer", paddingLeft: 30 }}
@@ -559,6 +615,10 @@ const SuperAdmin = () => {
           {noteView === "addNoteForm" ? <NoteForm /> : null}
           {noteView === "allNoteTable" ? (
             <NoteTable noteList={noteList} setNoteList={setNoteList} />
+          ) : null}
+          {noteView === "addNotificationForm" ? <AddNotification /> : null}
+          {noteView === "allNotificationTable" ? (
+            <AllNotification notificationList={notificationList} setNotificationList={setNotificationList} />
           ) : null}
           {noteView === "subjectForm" ? <AddSubject /> : null}
           {noteView === "courseForm" ? <AddCourses /> : null}
