@@ -43,6 +43,10 @@ const Admin = () => {
     setOpen(true);
     setPath("/student/details/");
   }
+  const handleTeacherOpen = () =>{
+    setOpen(true);
+    setPath("/teacher");
+  }
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -74,6 +78,7 @@ const Admin = () => {
 if(path==='/student/details/') {
   localStorage.setItem("student", JSON.stringify(resJson.data));
   navigate('/student')}
+
 else
        navigate(path)
       } else {
@@ -156,7 +161,7 @@ else
               justifyContent: "center",
               alignItems: "center",
             }}
-            onClick={handleOpen}
+            onClick={handleTeacherOpen}
           >
             Teacher
           </div>

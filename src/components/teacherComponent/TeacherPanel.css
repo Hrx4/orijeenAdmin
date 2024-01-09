@@ -1,0 +1,96 @@
+@media (max-width: 750px) {
+    .contact {
+        font-size: x-small !important;
+        /* font-size-adjust: none !important; */
+        font-size-adjust: 0.3;
+        font-weight: 50;
+       width: 60% !important;
+       height: 40%;
+       position: absolute;
+       top: 245% !important;
+       left:25%
+    }
+    .call {
+        line-height: 0%;
+        font-weight: bold !important;
+    }
+    .soon {
+        line-height: 0%;
+        font-weight: bold !important;
+    }
+    .ph{
+        font-size: 20px !important;
+        font-weight: bold !important;
+    }
+    .dHeading{
+        margin-top: 40px;
+    }
+    .dBox{
+       width: 300px !important;
+       height: 150px !important;
+       font-size: small !important;
+       display: flex;
+       flex-direction: column;
+    }
+    .dContainer{
+        display: block;
+        /* overflow-y: scroll; */
+        /* display: flex; */
+    }
+    .dText{
+        font-size: medium;
+    }
+    .dInnerContainer{
+        display: flex;
+        flex-direction: column !important;
+    }
+    .mainContainer{
+        position: absolute;
+        top: 15%;
+    }
+    .mlink{
+        padding-top: 20px !important;
+  padding-left: 65px !important;
+    }
+    .clink{
+        padding-left: 60px !important;
+    }
+   
+    
+}
+
+.dBox {
+    width: 300px;
+    height: 150px;
+    /* border: 1px solid #000; */
+    margin-bottom: 40px;
+    margin-right: 35px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border: none;
+    align-content: center;
+  }
+  
+  
+  
+  .half {
+    /* flex: 1; */
+    height: 100%;
+    width: 30%;
+  }
+  .Dhalf{
+      height: 100%;
+      width: 70%;
+  }
+  
+  
+  
+  .dText {
+    display: flex;
+    align-items: left;
+    justify-content: flex-start;
+    background-color: white;
+  padding-left: 15px;
+  }
+  .clink{
+    padding-left: 50px !important;
+  }

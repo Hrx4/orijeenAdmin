@@ -13,6 +13,14 @@ import Notification from "./components/studentComponents/Notification";
 import QueryForm from "./components/studentComponents/QueryForm";
 import Support from "./components/studentComponents/Support";
 import Course1 from "./components/studentComponents/Course1";
+import TeacherPanel from "./components/teacherComponent/TeacherPanel";
+import TeacherProfile from "./components/teacherComponent/TeacherProfile";
+import TeacherUpdate from "./components/teacherComponent/TeacherUpdate";
+import TeacherAddNote from "./components/teacherComponent/TeacherAddNote";
+import TeacherAllNote from "./components/teacherComponent/TeacherAllNote";
+import TeacherPayment from "./components/teacherComponent/TaecherPayment";
+import TeacherNotification from "./components/teacherComponent/TeacherNotification";
+import TeacherQueryForm from "./components/teacherComponent/TeacherQueryForm";
 function App() {
 
   return (
@@ -31,6 +39,14 @@ function App() {
         <Route path="/student" element={<StudentPanel/>}/>        
         <Route path="/" element={<Admin/>} />
         <Route path="/superadmin" element={<SuperAdmin/>}/>  
+        <Route path="/teacher" element={<TeacherPanel/>}/>
+        <Route  path="/teacherprofile" element={<TeacherProfile />} />
+        <Route  path="/teachermobileupdate" element={<TeacherUpdate />} />
+        <Route  path="/teacheraddnote" element={<TeacherAddNote />} />
+        <Route  path="/teacherallnote" element={<TeacherAllNote />} />
+        <Route  path="/teacherpayment" element={<TeacherPayment />} />
+        <Route  path="/teachernotification" element={<TeacherNotification />} />
+        <Route  path="/teacherqueryform" element={<TeacherQueryForm/>} />
         <Route path="/course1" element={<Course1/>}/>
       </Routes>
     </div>
