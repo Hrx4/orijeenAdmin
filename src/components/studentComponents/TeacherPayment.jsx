@@ -6,6 +6,7 @@ import Select from "@mui/material/Select";
 import Box from "@mui/material/Box";
 import TeacherPayDetails from "./TeacherPayDetails";
 // import TeacherPayHistory from "./TeacherPayHistory";
+import backend from "../../backend";
 
 const TeacherPayment = () => {
   const [teacher, setTeacher] = useState();
@@ -16,7 +17,7 @@ const TeacherPayment = () => {
   const [teacherData, setTeacherData] = useState([]);
   const handleContactTable = async () => {
     try {
-      const response = await fetch(`https://orijeen-main.vercel.app/teacher/`, {
+      const response = await fetch(`${backend}/teacher/`, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -39,16 +40,13 @@ const TeacherPayment = () => {
   const handleTeacherPayment = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        `https://orijeen-main.vercel.app/teacher/payment/${routeKey}/`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${backend}/teacher/payment/${routeKey}/`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
 
       const resJson = await response.json();
 
@@ -66,7 +64,7 @@ const TeacherPayment = () => {
   // const handleDelete = async (id) => {
   //   try {
   //     const response = await fetch(
-  //       `https://orijeen-main.vercel.app/teacher/${id}/`,
+  //       `${backend}/teacher/${id}/`,
   //       {
   //         method: "DELETE",
   //         headers: {

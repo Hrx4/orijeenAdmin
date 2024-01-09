@@ -7,6 +7,8 @@ import Box from "@mui/material/Box";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import backend from "../../backend";
+import backend from './backend'
+
 
 const SubDashBoard = (props) => {
   const [classs, setClasss] = useState("");
@@ -20,7 +22,7 @@ const SubDashBoard = (props) => {
 
   const getSubjectList = async () => {
     try {
-      const response = await fetch(`https://orijeen-main.vercel.app/subject/`, {
+      const response = await fetch(`${backend}/subject/`, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -39,7 +41,7 @@ const SubDashBoard = (props) => {
 
   const getCourseList = async () => {
     try {
-      const response = await fetch(`https://orijeen-main.vercel.app/course/`, {
+      const response = await fetch(`${backend}/course/`, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -58,7 +60,7 @@ const SubDashBoard = (props) => {
 
   const getClassList = async () => {
     try {
-      const response = await fetch(`https://orijeen-main.vercel.app/class/`, {
+      const response = await fetch(`${backend}/class/`, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -78,22 +80,19 @@ const SubDashBoard = (props) => {
   const handleAllStudentTable = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(
-        `https://orijeen-main.vercel.app/student/${props.apiRoute}`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            studentClass: classs,
-            studentCourse: course,
-            studentSubject: subject,
-            studentEnrollment: enrollment,
-          }),
-        }
-      );
+      const res = await fetch(`${backend}/student/${props.apiRoute}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          studentClass: classs,
+          studentCourse: course,
+          studentSubject: subject,
+          studentEnrollment: enrollment,
+        }),
+      });
       let resJson = await res.json();
       if (res.status === 200) {
         console.log("fine");

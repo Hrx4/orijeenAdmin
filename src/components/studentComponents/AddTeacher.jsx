@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import backend from "../../backend"; 
 
 const AddTeacher = () => {
   const [name, setName] = useState();
@@ -21,7 +22,7 @@ const AddTeacher = () => {
   useEffect(() => {
     const fetchClassValue = async () => {
       try {
-        const response = await fetch("https://orijeen-main.vercel.app/class/", {
+        const response = await fetch(`${backend}/class/`, {
           method: "GET",
           headers: {
             Accept: "application/json",
@@ -38,16 +39,13 @@ const AddTeacher = () => {
     fetchClassValue();
     const fetchSubjectValue = async () => {
       try {
-        const response = await fetch(
-          "https://orijeen-main.vercel.app/subject/",
-          {
-            method: "GET",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await fetch(`${backend}/subject/`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
         const result = await response.json();
         setSubjectData(result);
       } catch (error) {
@@ -59,16 +57,13 @@ const AddTeacher = () => {
 
     const fetchCourseValue = async () => {
       try {
-        const response = await fetch(
-          "https://orijeen-main.vercel.app/course/",
-          {
-            method: "GET",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await fetch(`${backend}/course/`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
         const result = await response.json();
         setCourseData(result);
       } catch (error) {
@@ -83,7 +78,7 @@ const AddTeacher = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`https://orijeen-main.vercel.app/teacher/`, {
+      const response = await fetch(`${backend}/teacher/`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -94,8 +89,8 @@ const AddTeacher = () => {
           teacherAge: age,
           teacherGender: gender,
           teacherEducation: education,
-          teacherEmail : email,
-          teacherPassword : password,
+          teacherEmail: email,
+          teacherPassword: password,
           teacherAddress: address,
           teacherSalary: salary,
           teacherDoj: doj,
@@ -141,7 +136,8 @@ const AddTeacher = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-          </div> <div className="form-group">
+          </div>{" "}
+          <div className="form-group">
             <label>Password:</label>
             <input
               type="text"
@@ -214,7 +210,6 @@ const AddTeacher = () => {
               ))}
             </select>
           </div>
-
           <div className="form-group">
             <label style={{ marginRight: 10 }}>Class:</label>
             <select
@@ -232,7 +227,6 @@ const AddTeacher = () => {
               ))}
             </select>
           </div>
-
           <div className="form-group">
             <label style={{ marginRight: 10 }}>Course:</label>
             <select
@@ -250,7 +244,6 @@ const AddTeacher = () => {
               ))}
             </select>
           </div>
-
           <button type="submit">Submit</button>
         </form>
       </div>

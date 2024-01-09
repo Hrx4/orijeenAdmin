@@ -89,14 +89,15 @@ const updateTeacher = asyncHandler(async(req , res) => {
 
 
 const updatePayment = asyncHandler(async (req, res) => {
-    const student = await teacherPaymentModels.find({ paymentId: req.params.id });
+    const teacher = await teacherPaymentModels.find({ paymentId: req.params.id });
     const { paymentMonth, paymentYear } = req.body;
+    console.log(teacher);
     const {
         paymentMoney ,
         totalExpense ,
         lastExpenseMonth ,
         paymentDetails
-    } = student[0];
+    } = teacher[0];
     
   
     var totalFee = paymentMoney;

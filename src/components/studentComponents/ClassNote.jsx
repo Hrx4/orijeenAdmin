@@ -3,35 +3,33 @@ import { AppBar, Toolbar, IconButton, Typography, Button } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 import "./Classnote.css";
+import backend from "../../backend";
 
 const ClassNote = () => {
   const [course, setCourse] = useState([]);
 
-
   const navigate = useNavigate();
 
   const handleNote = async (route) => {
-    const x = JSON.parse(localStorage.getItem("student"))
+    const x = JSON.parse(localStorage.getItem("student"));
     try {
-      const response = await fetch(`https://orijeen-main.vercel.app/note/student/`, {
+      const response = await fetch(`${backend}/note/student/`, {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            noteCourse: route,
-            noteClass : x.studentClass,
-            noteBatch : x.studentBatch
-
-        })
+          noteCourse: route,
+          noteClass: x.studentClass,
+          noteBatch: x.studentBatch,
+        }),
       });
 
       const resJson = await response.json();
-      navigate(`/course1/${route}` , {state : {noteList : resJson}})
-            if (response.status === 200) {
+      navigate(`/course1/${route}`, { state: { noteList: resJson } });
+      if (response.status === 200) {
         console.log(resJson);
-        
       } else {
         console.log("Some error occured");
       }
@@ -43,7 +41,6 @@ const ClassNote = () => {
   useEffect(() => {
     setCourse(JSON.parse(localStorage.getItem("student")).studentCourse);
   }, []);
-
 
   return (
     <>
@@ -106,7 +103,7 @@ const ClassNote = () => {
             style={{ display: "flex", margin: "20px", flexDirection: "row" }}
           >
             {course?.map((item, index) => (
-              <div key={index} className="dBox" style={{cursor:"pointer"}}>
+              <div key={index} className="dBox" style={{ cursor: "pointer" }}>
                 <div
                   className="Dhalf dText"
                   style={{
@@ -117,7 +114,6 @@ const ClassNote = () => {
                 >
                   <div
                     className="crLink"
-                    
                     style={{
                       fontSize: "25px",
                       fontWeight: "bold",
@@ -125,7 +121,9 @@ const ClassNote = () => {
                       paddingTop: "50px",
                       paddingLeft: "85px",
                     }}
-                    onClick={()=>{handleNote(item)}}
+                    onClick={() => {
+                      handleNote(item);
+                    }}
                   >
                     {item}
                   </div>

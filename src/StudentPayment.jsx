@@ -8,6 +8,7 @@ import "./StudentPayment.css";
 import PayDetailsTab from "./PayDetailsTab";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import backend from './backend'
 
 const StudentPayment = () => {
   const [course, setCourse] = useState();
@@ -18,19 +19,16 @@ const StudentPayment = () => {
     e.preventDefault();
     setPayDetails("addPayDetails");
     try {
-      const res = await fetch(
-        `https://orijeen-main.vercel.app/student/getstudent`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            studentCourse: course,
-          }),
-        }
-      );
+      const res = await fetch(`${backend}/student/getstudent`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          studentCourse: course,
+        }),
+      });
       let resJson = await res.json();
       if (res.status === 200) {
         console.log("fine");
@@ -49,7 +47,7 @@ const StudentPayment = () => {
 
   const getCourseList = async () => {
     try {
-      const response = await fetch(`https://orijeen-main.vercel.app/course/`, {
+      const response = await fetch(`${backend}/course/`, {
         method: "GET",
         headers: {
           Accept: "application/json",

@@ -4,6 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import backend from "../../backend";
 import PaymentModal from "./PaymentModal";
+import backend from './backend'
+
 
 const PayDetailsTab = ({ studentPayList, setStudentPayList }) => {
   const [payHistory, setPayHistory] = useState();
@@ -17,19 +19,16 @@ const PayDetailsTab = ({ studentPayList, setStudentPayList }) => {
   const handleAllStudentTable = async (studentEnrollment) => {
     // e.preventDefault();
     try {
-      const res = await fetch(
-        `https://orijeen-main.vercel.app/student/getpayment`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            paymentId: studentEnrollment,
-          }),
-        }
-      );
+      const res = await fetch(`${backend}/student/getpayment`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          paymentId: studentEnrollment,
+        }),
+      });
       let resJson = await res.json();
       if (res.status === 200) {
         console.log("fine");
@@ -49,19 +48,16 @@ const PayDetailsTab = ({ studentPayList, setStudentPayList }) => {
   const handleAllStudentTable1 = async (studentEnrollment) => {
     // e.preventDefault();
     try {
-      const res = await fetch(
-        `https://orijeen-main.vercel.app/student/getpayment`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            paymentId: studentEnrollment,
-          }),
-        }
-      );
+      const res = await fetch(`${backend}/student/getpayment`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          paymentId: studentEnrollment,
+        }),
+      });
       let resJson = await res.json();
       if (res.status === 200) {
         console.log("fine");
@@ -133,7 +129,7 @@ const PayDetailsTab = ({ studentPayList, setStudentPayList }) => {
                   onClick={() => {
                     handleAllStudentTable(item.studentEnrollment);
                   }}
-                  style={{marginTop:10}}
+                  style={{ marginTop: 10 }}
                 >
                   View Payments
                 </button>
