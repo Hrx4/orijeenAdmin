@@ -47,7 +47,7 @@ function App() {
         <Route  path="/teacherpayment" element={<TeacherPayment />} />
         <Route  path="/teachernotification" element={<TeacherNotification />} />
         <Route  path="/teacherqueryform" element={<TeacherQueryForm/>} />
-        <Route path="/course1" element={<Course1/>}/>
+        <Route path="/course1/:noteCourse" element={<Course1/>}/>
       </Routes>
     </div>
   );
