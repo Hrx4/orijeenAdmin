@@ -23,6 +23,7 @@ import AddExpenses from "./components/studentComponents/AddExpenses";
 import AllExpenses from "./components/studentComponents/AllExpenses";
 import AddNotification from "./AddNotification";
 import AllNotification from "./AllNotification";
+import backend from './backend'
 
 // import SnavBar from './SnavBar';
 
@@ -136,7 +137,7 @@ const SuperAdmin = () => {
     setNoteView("contacttable");
 
     try {
-      const response = await fetch(`https://orijeen-main.vercel.app/contact/`, {
+      const response = await fetch(`${backend}/contact/`, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -165,7 +166,7 @@ const SuperAdmin = () => {
     setNoteView("applytable");
 
     try {
-      const response = await fetch(`https://orijeen-main.vercel.app/apply/`, {
+      const response = await fetch(`${backend}/apply/`, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -194,16 +195,13 @@ const SuperAdmin = () => {
     setSlideOpen(false);
 
     try {
-      const response = await fetch(
-        `https://orijeen-main.vercel.app/student/getpayment/`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${backend}/student/getpayment/`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
 
       const resJson = await response.json();
 
@@ -219,16 +217,13 @@ const SuperAdmin = () => {
       console.log(err);
     }
     try {
-      const res = await fetch(
-        `https://orijeen-main.vercel.app/expense/details/`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const res = await fetch(`${backend}/expense/details/`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
       let resJson = await res.json();
       if (res.status === 200) {
         console.log("fine");
@@ -391,7 +386,10 @@ const SuperAdmin = () => {
                   {notificationItems.isOpen && (
                     <ul style={{ padding: 10 }}>
                       <li onClick={handleNotificationForm}>Add Notification</li>
-                      <li style={{ marginTop: 10 }} onClick={handleNotificationTable}>
+                      <li
+                        style={{ marginTop: 10 }}
+                        onClick={handleNotificationTable}
+                      >
                         All Notification
                       </li>
                     </ul>
@@ -618,7 +616,10 @@ const SuperAdmin = () => {
           ) : null}
           {noteView === "addNotificationForm" ? <AddNotification /> : null}
           {noteView === "allNotificationTable" ? (
-            <AllNotification notificationList={notificationList} setNotificationList={setNotificationList} />
+            <AllNotification
+              notificationList={notificationList}
+              setNotificationList={setNotificationList}
+            />
           ) : null}
           {noteView === "subjectForm" ? <AddSubject /> : null}
           {noteView === "courseForm" ? <AddCourses /> : null}

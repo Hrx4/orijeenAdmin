@@ -1,24 +1,23 @@
-import React,{useState, useEffect} from "react";
-import './Form.css';
+import React, { useState, useEffect } from "react";
+import "./Form.css";
 import { CircularProgress } from "@mui/material";
-
-const NoteForm = () =>{
-    const [title, setTitle] = useState('');
-  const [classData , setClassData] = useState([]);
-  const [classValue, setClassValue] = useState('');
-  const [subjectData , setSubjectData] = useState([]);
-  const [subjectValue, setSubjectValue] = useState('');
-  const [courseData , setCourseData] = useState([]);
-  const [courseValue, setCourseValue] = useState('');
-  const [batch, setBatch] = useState('Batch 1');
-  const [pdf, setPdf] = useState('');
+import backend from "../../backend"
+const NoteForm = () => {
+  const [title, setTitle] = useState("");
+  const [classData, setClassData] = useState([]);
+  const [classValue, setClassValue] = useState("");
+  const [subjectData, setSubjectData] = useState([]);
+  const [subjectValue, setSubjectValue] = useState("");
+  const [courseData, setCourseData] = useState([]);
+  const [courseValue, setCourseValue] = useState("");
+  const [batch, setBatch] = useState("Batch 1");
+  const [pdf, setPdf] = useState("");
   const [loading, setLoading] = useState(false);
-  
 
   useEffect(() => {
     const fetchClassValue = async () => {
       try {
-        const response = await fetch('https://orijeen-main.vercel.app/class/', {
+        const response = await fetch(`${backend}/class/`, {
           method: "GET",
           headers: {
             Accept: "application/json",
@@ -28,14 +27,14 @@ const NoteForm = () =>{
         const result = await response.json();
         setClassData(result);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchClassValue();
     const fetchSubjectValue = async () => {
       try {
-        const response = await fetch('https://orijeen-main.vercel.app/subject/', {
+        const response = await fetch(`${backend}/subject/`, {
           method: "GET",
           headers: {
             Accept: "application/json",
@@ -45,7 +44,7 @@ const NoteForm = () =>{
         const result = await response.json();
         setSubjectData(result);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -53,7 +52,7 @@ const NoteForm = () =>{
 
     const fetchCourseValue = async () => {
       try {
-        const response = await fetch('https://orijeen-main.vercel.app/course/', {
+        const response = await fetch(`${backend}/course/`, {
           method: "GET",
           headers: {
             Accept: "application/json",
@@ -63,7 +62,7 @@ const NoteForm = () =>{
         const result = await response.json();
         setCourseData(result);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -84,7 +83,6 @@ const NoteForm = () =>{
       .then((res) => res.json())
       .then((data) => {
         if (files[0].type === "application/pdf") setPdf(data.url);
-       
       })
       .catch((err) => {
         console.log(err);
@@ -98,7 +96,7 @@ const NoteForm = () =>{
     // setLoading(true)
 
     try {
-      const res = await fetch(`https://orijeen-main.vercel.app/note/`, {
+      const res = await fetch(`${backend}/note/`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -118,89 +116,117 @@ const NoteForm = () =>{
         console.log("fine");
         setTitle("");
         setPdf("");
-        alert("form submitted")
+        alert("form submitted");
       } else {
-        alert('all field required')
+        alert("all field required");
         console.log("Some error occured");
       }
     } catch (err) {
-      alert('all field required')
+      alert("all field required");
       console.log(err);
     }
 
     // setLoading(false)
   };
-    return(
-        <>
-        {loading ? (
+  return (
+    <>
+      {loading ? (
         <div className="loader" style={{ color: "black" }}>
           Please Wait Your File is Uploading......
           <CircularProgress />
         </div>
       ) : null}
-           <div className="form-container" style={{marginTop:60 , marginBottom:50}}>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Note Title:</label>
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-        </div>
+      <div
+        className="form-container"
+        style={{ marginTop: 60, marginBottom: 50 }}
+      >
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Note Title:</label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
 
-        <div className="form-group">
-          <label style={{marginRight:10}}>Subject:</label>
-          <select type="text" value={subjectValue} onChange={(e) => setSubjectValue(e.target.value)} >
-          <option value="" selected disabled>Select Your Subject</option>
-             {subjectData?.map((item) => (
-          <option key={item?.id} value={item?.value}>
-            {item?.subjectName}
-          </option>
-             ))}
-          </select>
-        </div>
+          <div className="form-group">
+            <label style={{ marginRight: 10 }}>Subject:</label>
+            <select
+              type="text"
+              value={subjectValue}
+              onChange={(e) => setSubjectValue(e.target.value)}
+            >
+              <option value="" selected disabled>
+                Select Your Subject
+              </option>
+              {subjectData?.map((item) => (
+                <option key={item?.id} value={item?.value}>
+                  {item?.subjectName}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        <div className="form-group">
-          <label style={{marginRight:10}}>Class:</label>
-          <select  type="text" value={classValue} onChange={(e) => setClassValue(e.target.value)}>
-            <option value="" selected disabled>Select Your Class</option>
-             {classData?.map((item) => (
-          <option key={item?.id} value={item?.value}>
-            {item?.className}
-          </option>
-        ))}
-          </select>
-        </div>
+          <div className="form-group">
+            <label style={{ marginRight: 10 }}>Class:</label>
+            <select
+              type="text"
+              value={classValue}
+              onChange={(e) => setClassValue(e.target.value)}
+            >
+              <option value="" selected disabled>
+                Select Your Class
+              </option>
+              {classData?.map((item) => (
+                <option key={item?.id} value={item?.value}>
+                  {item?.className}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        <div className="form-group">
-          <label style={{marginRight:10}}>Batch:</label>
-          <select type="text" value={batch} onChange={(e) => setBatch(e.target.value)}>
-            <option value="Batch 1">Batch 1</option>
-            <option value="Batch 2">Batch 2</option>
-            <option value="Batch 3">Batch 3</option>
+          <div className="form-group">
+            <label style={{ marginRight: 10 }}>Batch:</label>
+            <select
+              type="text"
+              value={batch}
+              onChange={(e) => setBatch(e.target.value)}
+            >
+              <option value="Batch 1">Batch 1</option>
+              <option value="Batch 2">Batch 2</option>
+              <option value="Batch 3">Batch 3</option>
+            </select>
+          </div>
 
-          </select>
-        </div>
+          <div className="form-group">
+            <label>Upload File:</label>
+            <input type="file" accept=".pdf" onChange={uploadFiles} />
+          </div>
 
-        <div className="form-group">
-          <label>Upload File:</label>
-          <input type="file" accept=".pdf"  onChange={uploadFiles} />
-        </div>
+          <div className="form-group">
+            <label style={{ marginRight: 10 }}>Course:</label>
+            <select
+              type="text"
+              value={courseValue}
+              onChange={(e) => setCourseValue(e.target.value)}
+            >
+              <option value="" selected disabled>
+                Select Your Course
+              </option>
+              {courseData?.map((item) => (
+                <option key={item?.id} value={item?.value}>
+                  {item?.courseName}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        <div className="form-group">
-          <label  style={{marginRight:10}}>Course:</label>
-          <select type="text" value={courseValue} onChange={(e) => setCourseValue(e.target.value)}>
-          <option value="" selected disabled>Select Your Course</option>
-             {courseData?.map((item) => (
-          <option key={item?.id} value={item?.value}>
-            {item?.courseName}
-          </option>
-        ))}
-          </select>
-        </div>
-
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-        </>
-    )
-}
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </>
+  );
+};
 
 export default NoteForm;

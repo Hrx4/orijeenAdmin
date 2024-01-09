@@ -5,6 +5,7 @@ import { FaCreativeCommonsBy } from "react-icons//fa6";
 import { FaCreativeCommonsNc } from "react-icons//fa6";
 import { FaCommentDollar } from "react-icons//fa6";
 import SubDashBoard from "./SubDashboard";
+// import backend from './backend'
 
 const Dashboard = ({ income, expenseDetails }) => {
   const [subDash, setSubDash] = useState("noteform");
@@ -29,7 +30,7 @@ const Dashboard = ({ income, expenseDetails }) => {
   //   const handleAllStudentTable = async (e) => {
   //     e.preventDefault();
   //     try {
-  //       const res = await fetch(`https://orijeen-main.vercel.app/expense/details/`, {
+  //       const res = await fetch(`${backend}/expense/details/`, {
   //         method: "GET",
   //         headers: {
   //           Accept: "application/json",

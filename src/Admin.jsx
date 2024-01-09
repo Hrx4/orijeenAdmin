@@ -6,12 +6,13 @@ import { useState } from "react";
 import Navbar from "./Navbar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import backend from "./backend";
 
 // import SuperAdmin from "./SuperAdmin";
 // import Navbar from '../Navbar/Navbar'
 
 const Admin = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const style = {
     position: "absolute",
     top: "50%",
@@ -30,24 +31,25 @@ const Admin = () => {
   };
 
   const [open, setOpen] = React.useState(false);
-  
+
   const handleClose = () => setOpen(false);
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [path, setPath] = useState("");
   const handleOpen = () => {
-    setPath("/superadmin/")
-    setOpen(true)
+    setPath("/superadmin/");
+    setOpen(true);
   };
-  const handleStudentOpen = () =>{
+  const handleStudentOpen = () => {
     setOpen(true);
     setPath("/student/details/");
-  }
-  const handleTeacherOpen = () =>{
+  };
+  const handleTeacherOpen = () => {
     setOpen(true);
-    setPath("/teacher");
-  }
-  
+    setPath("/teacher/all/details/");
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     // setLoading(true)
@@ -55,18 +57,33 @@ const Admin = () => {
     // Handle form submission here (e.g., send the data to the server)
 
     try {
-      const res = await fetch(`https://orijeen-main.vercel.app${path}`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userName: username,
-          password: password
-          
-        }),
-      });
+      let res = null;
+      if (path !== "/teacher/all/details/") {
+        res = await fetch(`${backend}${path}`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userName: username,
+            password: password,
+          }),
+        });
+      } else {
+        res = await fetch(`${backend}${path}`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        });
+      }
+
       let resJson = await res.json();
       console.log(resJson.data);
       if (res.status === 200) {
@@ -75,12 +92,15 @@ const Admin = () => {
         toast.success(resJson.message, {
           position: toast.POSITION.TOP_CENTER,
         });
-if(path==='/student/details/') {
-  localStorage.setItem("student", JSON.stringify(resJson.data));
-  navigate('/student')}
-
-else
-       navigate(path)
+        if (path === "/student/details/") {
+          localStorage.setItem("student", JSON.stringify(resJson.data));
+          navigate("/student");
+        } else if (path === "/teacher/all/details/") {
+          localStorage.setItem("teacher", JSON.stringify(resJson.data));
+          navigate("/teacher");
+        } else {
+          navigate(path);
+        }
       } else {
         toast.error(resJson.message, {
           position: toast.POSITION.TOP_CENTER,
@@ -99,7 +119,7 @@ else
 
   return (
     <>
-    <ToastContainer/>
+      <ToastContainer />
       <Navbar />
       <div
         style={{
@@ -155,7 +175,7 @@ else
             style={{
               height: 200,
               borderRadius: 10,
-                fontSize: 20,
+              fontSize: 20,
               fontWeight: "bold",
               display: "flex",
               justifyContent: "center",
@@ -175,15 +195,27 @@ else
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <input
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
-            id="username"
-            type="text"
-            placeholder="UserName"
-            style={{ height: 30 }}
-          />
+          {path !== "/teacher/all/details/" ? (
+            <input
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+              id="username"
+              type="text"
+              placeholder="UserName"
+              style={{ height: 30 }}
+            />
+          ) : (
+            <input
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              id="email"
+              type="text"
+              placeholder="Email"
+              style={{ height: 30 }}
+            />
+          )}
           <input
             onChange={(e) => {
               setPassword(e.target.value);
@@ -193,22 +225,22 @@ else
             placeholder="Password"
             style={{ height: 30 }}
           />
-          
-            <button
-              style={{
-                backgroundColor: "blue",
-                height: 40,
-                width: 70,
-                color: "white",
-                border: "none",
-                borderRadius: 3,
-                fontStyle: "normal",
-                fontWeight: "bold",
-              }}
-              onClick={handleSubmit}
-            >
-              Login
-            </button>
+
+          <button
+            style={{
+              backgroundColor: "blue",
+              height: 40,
+              width: 70,
+              color: "white",
+              border: "none",
+              borderRadius: 3,
+              fontStyle: "normal",
+              fontWeight: "bold",
+            }}
+            onClick={handleSubmit}
+          >
+            Login
+          </button>
         </Box>
       </Modal>
     </>

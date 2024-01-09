@@ -8,6 +8,7 @@ import "./StudentForm.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CircularProgress } from "@mui/material";
+import backend from './backend'
 
 const StudentForm = () => {
   const [studentEnrollment, setStudentEnrollment] = useState("");
@@ -64,7 +65,7 @@ const StudentForm = () => {
 
   const getSubjectList = async () => {
     try {
-      const response = await fetch(`https://orijeen-main.vercel.app/subject/`, {
+      const response = await fetch(`${backend}/subject/`, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -83,7 +84,7 @@ const StudentForm = () => {
 
   const getCourseList = async () => {
     try {
-      const response = await fetch(`https://orijeen-main.vercel.app/course/`, {
+      const response = await fetch(`${backend}/course/`, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -102,7 +103,7 @@ const StudentForm = () => {
 
   const getClassList = async () => {
     try {
-      const response = await fetch(`https://orijeen-main.vercel.app/class/`, {
+      const response = await fetch(`${backend}/class/`, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -141,7 +142,7 @@ const StudentForm = () => {
     // Handle form submission here (e.g., send the data to the server)
     console.log(password);
     try {
-      const res = await fetch(`https://orijeen-main.vercel.app/student/`, {
+      const res = await fetch(`${backend}/student/`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -352,11 +353,15 @@ const StudentForm = () => {
                 value={fatherName}
                 onChange={(e) => setFatherName(e.target.value)}
               />
-              <div style={{marginTop:15}}>
-          <label>Image:</label>
-          <br/>
-          <input className="student__field" type="file" accept="image/*" />
-        </div>
+              <div style={{ marginTop: 15 }}>
+                <label>Image:</label>
+                <br />
+                <input
+                  className="student__field"
+                  type="file"
+                  accept="image/*"
+                />
+              </div>
             </div>
             <div style={{ marginLeft: 40 }}>
               <label

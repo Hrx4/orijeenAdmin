@@ -1,13 +1,10 @@
-import { Button} from "@mui/material";
+import { Button } from "@mui/material";
 import React from "react";
 import "./Table.css";
 import "./Form.css";
+import backend from './backend'
 
 const ContactTable = (props) => {
-  
-
-  
-
   const handleDelete = async (id) => {
     const key = JSON.parse(id);
     console.log("====================================");
@@ -15,16 +12,13 @@ const ContactTable = (props) => {
     console.log("====================================");
 
     try {
-      const response = await fetch(
-        `https://orijeen-main.vercel.app/contact/${key}`,
-        {
-          method: "DELETE",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${backend}/contact/${key}`, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
 
       await response.json();
       console.log("====================================");
@@ -44,7 +38,7 @@ const ContactTable = (props) => {
   //   e.preventDefault();
   //   try {
   //     const response = await fetch(
-  //       `https://orijeen-main.vercel.app/contact/${updateId}`,
+  //       `${backend}/contact/${updateId}`,
   //       {
   //         method: "PUT",
   //         headers: {

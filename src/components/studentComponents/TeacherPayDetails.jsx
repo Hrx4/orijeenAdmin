@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import PaymentModal from "./PaymentModal";
 import TeacherPayHistory from "./TeacherPayHistory";
 // import PaymentModal from './'
+import backend from "../../backend";
 
 const TeacherPayDetails = ({ teacherPayList }) => {
   const [payHistory, setPayHistory] = useState();
@@ -20,7 +21,7 @@ const TeacherPayDetails = ({ teacherPayList }) => {
     // e.preventDefault();
     try {
       const res = await fetch(
-        `https://orijeen-main.vercel.app/teacher/payment/${studentEnrollment}/`,
+        `${backend}/teacher/payment/${studentEnrollment}/`,
         {
           method: "GET",
           headers: {
@@ -49,7 +50,7 @@ const TeacherPayDetails = ({ teacherPayList }) => {
     // e.preventDefault();
     try {
       const res = await fetch(
-        `https://orijeen-main.vercel.app/teacher/payment/${studentEnrollment}/`,
+        `${backend}/teacher/payment/${studentEnrollment}/`,
         {
           method: "GET",
           headers: {
@@ -129,7 +130,7 @@ const TeacherPayDetails = ({ teacherPayList }) => {
                   onClick={() => {
                     handleAllStudentTable(item.paymentId);
                   }}
-                  style={{marginTop:10}}
+                  style={{ marginTop: 10 }}
                 >
                   View Payments
                 </button>

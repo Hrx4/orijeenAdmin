@@ -1,6 +1,7 @@
 import { Box, Modal } from "@mui/material";
 import React, { useState } from "react";
 // import backend from "../../backend";
+import backend from './backend'
 
 const PaymentModal = ({
   modalOpen,
@@ -45,20 +46,17 @@ const PaymentModal = ({
   const updateList = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        `https://orijeen-main.vercel.app/student/payment/${paymentId}`,
-        {
-          method: "PUT",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            paymentMonth: studentSubjects,
-            paymentYear: lastPaidYear,
-          }),
-        }
-      );
+      const response = await fetch(`${backend}/student/payment/${paymentId}`, {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          paymentMonth: studentSubjects,
+          paymentYear: lastPaidYear,
+        }),
+      });
 
       const resJson = await response.json();
       console.log(resJson);

@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TeacherNav from "./TeacherNav";
 import './TeacherProfile.css';
 
 
 const TeacherProfile = () =>{
+  const [details, setDetails] = useState({});
+  useEffect(() => {
+    setDetails(JSON.parse(localStorage.getItem("teacher")));
+  }, []);
     return(
         <>
             <div>
@@ -84,7 +88,7 @@ const TeacherProfile = () =>{
                     fontWeight: "bold",
                   }}
                 >
-                  Enrollment No.
+                  Name
                 </td>
                 <td
                   style={{
@@ -93,6 +97,7 @@ const TeacherProfile = () =>{
                     width: "50%",
                   }}
                 >
+                {details.teacherName}
                 </td>
               </tr>
               <tr style={{ border: "2px solid black" }}>
@@ -103,10 +108,10 @@ const TeacherProfile = () =>{
                     fontWeight: "bold",
                   }}
                 >
-                  Name
+                  Email
                 </td>
                 <td style={{ border: "2px solid black", padding: 10 }}>
-                 
+                 {details.teacherEmail}
                 </td>
               </tr>
               <tr style={{ border: "2px solid black", padding: 5 }}>
@@ -117,10 +122,10 @@ const TeacherProfile = () =>{
                     fontWeight: "bold",
                   }}
                 >
-                  Class
+                  Password
                 </td>
                 <td style={{ border: "2px solid black", padding: 10 }}>
-                
+                {details.teacherPassword}
                 </td>
               </tr>
               <tr style={{ border: "2px solid black", padding: 5 }}>
