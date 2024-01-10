@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import TeacherNav from "./TeacherNav";
-import './TeacherProfile.css';
+import "./TeacherProfile.css";
 
-
-const TeacherProfile = () =>{
+const TeacherProfile = () => {
   const [details, setDetails] = useState({});
   useEffect(() => {
     setDetails(JSON.parse(localStorage.getItem("teacher")));
   }, []);
-    return(
-        <>
-            <div>
-                <TeacherNav/>
-                <div
+  return (
+    <>
+      <div>
+        <TeacherNav />
+        <div
           className="anocontact"
           style={{
             padding: 20,
@@ -30,11 +29,7 @@ const TeacherProfile = () =>{
               backgroundColor: "red",
             }}
           >
-            <img
-              src=""
-              style={{ height: "100%", width: "100%"}}
-              alt=""
-            />
+            <img src="" style={{ height: "100%", width: "100%" }} alt="" />
           </div>
           <div
             className="anocall"
@@ -64,7 +59,7 @@ const TeacherProfile = () =>{
               marginLeft: "10px",
             }}
           >
-             <tbody>
+            <tbody>
               <h2
                 style={{
                   padding: "10px",
@@ -97,7 +92,7 @@ const TeacherProfile = () =>{
                     width: "50%",
                   }}
                 >
-                {details.teacherName}
+                  {details.teacherName}
                 </td>
               </tr>
               <tr style={{ border: "2px solid black" }}>
@@ -111,7 +106,7 @@ const TeacherProfile = () =>{
                   Email
                 </td>
                 <td style={{ border: "2px solid black", padding: 10 }}>
-                 {details.teacherEmail}
+                  {details.teacherEmail}
                 </td>
               </tr>
               <tr style={{ border: "2px solid black", padding: 5 }}>
@@ -125,7 +120,7 @@ const TeacherProfile = () =>{
                   Password
                 </td>
                 <td style={{ border: "2px solid black", padding: 10 }}>
-                {details.teacherPassword}
+                  {details.teacherPassword}
                 </td>
               </tr>
               <tr style={{ border: "2px solid black", padding: 5 }}>
@@ -136,11 +131,9 @@ const TeacherProfile = () =>{
                     fontWeight: "bold",
                   }}
                 >
-                  Course Name
+                  Age
                 </td>
-                <td style={{ border: "2px solid black", padding: 10 }}>
-                  
-                </td>
+                <td style={{ border: "2px solid black", padding: 10 }}>{details.teacherAge}</td>
               </tr>
               <tr style={{ border: "2px solid black", padding: 5 }}>
                 <td
@@ -150,11 +143,9 @@ const TeacherProfile = () =>{
                     fontWeight: "bold",
                   }}
                 >
-                  Batch No.
+                 Gender
                 </td>
-                <td style={{ border: "2px solid black", padding: 10 }}>
-                  
-                </td>
+                <td style={{ border: "2px solid black", padding: 10 }}>{details.teacherGender}</td>
               </tr>
               <tr style={{ border: "2px solid black", padding: 5 }}>
                 <td
@@ -164,39 +155,9 @@ const TeacherProfile = () =>{
                     fontWeight: "bold",
                   }}
                 >
-                  Subjects Choose
+                  Education
                 </td>
-                <td style={{ border: "2px solid black", padding: 10 }}>
-             
-                </td>
-              </tr>
-              <tr style={{ border: "2px solid black", padding: 5 }}>
-                <td
-                  style={{
-                    border: "2px solid black",
-                    padding: 10,
-                    fontWeight: "bold",
-                  }}
-                >
-                  Father's Name
-                </td>
-                <td style={{ border: "2px solid black", padding: 10 }}>
-                 
-                </td>
-              </tr>
-              <tr style={{ border: "2px solid black", padding: 5 }}>
-                <td
-                  style={{
-                    border: "2px solid black",
-                    padding: 10,
-                    fontWeight: "bold",
-                  }}
-                >
-                  Phone No.
-                </td>
-                <td style={{ border: "2px solid black", padding: 10 }}>
-                  
-                </td>
+                <td style={{ border: "2px solid black", padding: 10 }}>{details.teacherEducation}</td>
               </tr>
               <tr style={{ border: "2px solid black", padding: 5 }}>
                 <td
@@ -208,85 +169,75 @@ const TeacherProfile = () =>{
                 >
                   Address
                 </td>
-                <td style={{ border: "2px solid black", padding: 10 }}>
+                <td style={{ border: "2px solid black", padding: 10 }}>{details.teacherAddress}</td>
+              </tr>
+              <tr style={{ border: "2px solid black", padding: 5 }}>
+                <td
+                  style={{
+                    border: "2px solid black",
+                    padding: 10,
+                    fontWeight: "bold",
+                  }}
+                >
+                  Salary
+                </td>
+                <td style={{ border: "2px solid black", padding: 10 }}>{details.teacherSalary}</td>
+              </tr>
+              <tr style={{ border: "2px solid black", padding: 5 }}>
+                <td
+                  style={{
+                    border: "2px solid black",
+                    padding: 10,
+                    fontWeight: "bold",
+                  }}
+                >
+                 Date of Job
+                </td>
+                <td style={{ border: "2px solid black", padding: 10 }}>{details.teacherDoj}</td>
+              </tr>
+              <tr style={{ border: "2px solid black", padding: 5 }}>
+                <td
+                  style={{
+                    border: "2px solid black",
+                    padding: 10,
+                    fontWeight: "bold",
+                  }}
+                >
+                  Subject
+                </td>
+                <td style={{ border: "2px solid black", padding: 10 }}>{details.teacherSubject}</td>
+              </tr>
+              <tr style={{ border: "2px solid black", padding: 5 }}>
+                <td
+                  style={{
+                    border: "2px solid black",
+                    padding: 10,
+                    fontWeight: "bold",
+                  }}
+                >
+                  Class
+                </td>
+                <td style={{ border: "2px solid black", padding: 10 }}>{details.teacherClass}</td>
+              </tr>
+              <tr style={{ border: "2px solid black", padding: 5 }}>
+                <td
+                  style={{
+                    border: "2px solid black",
+                    padding: 10,
+                    fontWeight: "bold",
+                  }}
+                >
+                  Course
+                </td>
+                <td style={{ border: "2px solid black", padding: 10 }}>{details.teacherCourse}</td>
+              </tr>
               
-                </td>
-              </tr>
-              <tr style={{ border: "2px solid black", padding: 5 }}>
-                <td
-                  style={{
-                    border: "2px solid black",
-                    padding: 10,
-                    fontWeight: "bold",
-                  }}
-                >
-                  Payment Type
-                </td>
-                <td style={{ border: "2px solid black", padding: 10 }}>
-                </td>
-              </tr>
-              <tr style={{ border: "2px solid black", padding: 5 }}>
-                <td
-                  style={{
-                    border: "2px solid black",
-                    padding: 10,
-                    fontWeight: "bold",
-                  }}
-                >
-                  Monthly Fee
-                </td>
-                <td style={{ border: "2px solid black", padding: 10 }}>
-                 
-                </td>
-              </tr>
-              <tr style={{ border: "2px solid black", padding: 5 }}>
-                <td
-                  style={{
-                    border: "2px solid black",
-                    padding: 10,
-                    fontWeight: "bold",
-                  }}
-                >
-                  Admission Fee
-                </td>
-                <td style={{ border: "2px solid black", padding: 10 }}>
-               
-                </td>
-              </tr>
-              <tr style={{ border: "2px solid black", padding: 5 }}>
-                <td
-                  style={{
-                    border: "2px solid black",
-                    padding: 10,
-                    fontWeight: "bold",
-                  }}
-                >
-                  Blood Group
-                </td>
-                <td style={{ border: "2px solid black", padding: 10 }}>
-                  
-                </td>
-              </tr>
-              <tr style={{ border: "2px solid black", padding: 5 }}>
-                <td
-                  style={{
-                    border: "2px solid black",
-                    padding: 10,
-                    fontWeight: "bold",
-                  }}
-                >
-                  Catagory
-                </td>
-                <td style={{ border: "2px solid black", padding: 10 }}>
-                  
-                </td>
-              </tr>
-              </tbody>
+            </tbody>
           </table>
-          </div>
-            </div>
-        </>
-    )
-}
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default TeacherProfile;
