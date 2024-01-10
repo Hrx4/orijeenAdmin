@@ -50,7 +50,7 @@ const AddNotification = () => {
         >
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label>Note Title:</label>
+              <label>Notification Title:</label>
               <input
                 type="text"
                 value={title}
@@ -59,7 +59,7 @@ const AddNotification = () => {
             </div>
 
             <div className="form-group">
-              <label>Note Details:</label>
+              <label>Notification Details:</label>
               <input
                 type="text"
                 value={details}
@@ -67,7 +67,7 @@ const AddNotification = () => {
               />
             </div>
             <div className="form-group">
-              <label>Note Link:</label>
+              <label>Notification Link:</label>
               <input
                 type="text"
                 value={link}
