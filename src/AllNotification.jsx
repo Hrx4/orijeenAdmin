@@ -1,9 +1,12 @@
-import { Button } from "@mui/material";
+import { Box, Button, Modal } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import backend from './backend'
 
 const AllNotification = () => {
   const [notificationData, setNotificationData] = useState([]);
+  const [table, setTable] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+
 
   const handleContactTable = async () => {
     try {
@@ -45,6 +48,36 @@ const AllNotification = () => {
       console.log(err);
     }
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`${backend}/notification/${table._id}`, {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          notificationTitle : table.notificationTitle,
+          notificationLink : table.notificationLink,
+          notificationDetails : table.notificationDetails
+        }),
+      });
+
+      const resJson = await response.json();
+      alert("Notification Updated");
+      console.log(resJson);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+const handleChange =(item)=>{
+  setModalOpen(true)
+  setTable(item)
+}
 
   useEffect(() => {
     handleContactTable();
@@ -109,9 +142,7 @@ const AllNotification = () => {
                     variant="contained"
                     color="success"
                     size="small"
-                    // onClick={()=>CustomerModalOpen(
-                    //      item._id,item.noteTitle , item.noteSubject , item.noteClass , item.noteBatch , item.noteImage , item.notePdf, item.noteCourse
-                    // )}
+                    onClick={()=>handleChange(item)}
                   >
                     Update
                   </Button>
@@ -121,6 +152,60 @@ const AllNotification = () => {
           </tbody>
         </table>
       </div>
+
+      <Modal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: { xs: "80%", md: 500 },
+            height: "70vh",
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4,
+            overflowY: "scroll",
+          }}
+        >
+          <form onSubmit={handleSubmit}>
+          <h1>Notification Details:</h1>
+          <div className="form-group">
+            <label>Notification Title:</label>
+            <input
+              type="text"
+              value={table.notificationTitle}
+              onChange={(e) => setTable({...table , notificationTitle : e.target.value})}
+            />
+          </div>
+          <div className="form-group">
+            <label>Notification Link:</label>
+            <input
+              type="text"
+              value={table.notificationLink}
+              onChange={(e) => setTable({...table , notificationLink : e.target.value})}
+            />
+          </div>{" "}
+          <div className="form-group">
+            <label>Notification Details:</label>
+            <input
+              type="text"
+              value={table.notificationDetails}
+              onChange={(e) => setTable({...table , notificationDetails : e.target.value})}
+            />
+          </div>        
+          
+          
+          <button type="submit">Submit</button>
+        </form>
+        </Box>
+      </Modal>
     </>
   );
 };

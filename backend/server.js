@@ -30,7 +30,6 @@ app.get('/', (req, res) => {
   res.send('Hello, World! This is my Express server!');
 });
 
-
 app.use('/contact' , require('./routes/contactRoutes'))
 app.use('/apply', require('./routes/applyRoutes'))
 app.use('/class', require('./routes/classRoute'))
