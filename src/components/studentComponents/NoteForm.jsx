@@ -68,7 +68,6 @@ const NoteForm = () => {
 
     fetchCourseValue();
   }, []);
-
   const uploadFiles = async (e) => {
     const { files } = e.target;
     setLoading(true);

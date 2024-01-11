@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "@mui/material";
+import { Box, Button, CircularProgress, Modal } from "@mui/material";
 import "./Form.css";
 import "./Table.css";
 import backend from "../../backend";
 
 const NoteTable = (props) => {
-  // const [title, setTitle] = useState('');
-  // const [subject, setSubject] = useState('');
-  // const [classValue, setClassValue] = useState('');
-  // const [batch, setBatch] = useState('');
-  // const [image, setImage] = useState('');
-  // const [pdf, setPdf] = useState('');
-  // const [course, setCourse] = useState('');
-  // const [modal, setModal] = useState(false);
-  // const [updateId, setUpdateId] = useState("");
-  // const [loading, setLoading] = useState(false)
+  const [classData, setClassData] = useState([]);
+  const [subjectData, setSubjectData] = useState([]);
+  const [courseData, setCourseData] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false)
+  const [table , setTable] = useState([])
+  const [pdf, setPdf] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [noteData, setNoteData] = useState([]);
   const handleContactTable = async () => {
@@ -58,30 +55,132 @@ const NoteTable = (props) => {
     }
   };
 
+  
+  const uploadFiles = async (e) => {
+    const { files } = e.target;
+    setLoading(true);
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "solardealership");
+    data.append("cloud_name", "dkm3nxmk5");
+    await fetch("https://api.cloudinary.com/v1_1/dkm3nxmk5/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (files[0].type === "application/pdf") setPdf(data.url);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setLoading(false);
+  };
+
+
   useEffect(() => {
+    const fetchClassValue = async () => {
+      try {
+        const response = await fetch(`${backend}/class/`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+        const result = await response.json();
+        setClassData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchClassValue();
+    const fetchSubjectValue = async () => {
+      try {
+        const response = await fetch(`${backend}/subject/`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+        const result = await response.json();
+        setSubjectData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchSubjectValue();
+
+    const fetchCourseValue = async () => {
+      try {
+        const response = await fetch(`${backend}/course/`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+        const result = await response.json();
+        setCourseData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchCourseValue();
     handleContactTable();
+
   }, []);
 
-  // const handleCustomerClose = () => setModal(false);
 
-  // const CustomerModalOpen = (id , noteTitle , noteSubject , noteClass , noteBatch , noteImage , notePdf, noteCourse) => {
-  //     const key = id
-  //     setUpdateId(key);
-  //     setTitle(noteTitle)
-  //     setSubject(noteSubject)
-  //     setClassValue(noteClass)
-  //     setBatch(noteBatch)
-  //     setImage(noteImage)
-  //     setPdf(notePdf)
-  //     setCourse(noteCourse)
+  const CustomerModalOpen = (item)=>{
+    setTable(item)
+    setModalOpen(true)
+  }
 
-  //     setModal(true)
+  const handleSubmit = async (e)=>{
+    e.preventDefault();
 
-  //   };
+    try {
+      const response = await fetch(`${backend}/note/${table._id}`, {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          teacherName: table.teacherName,
+          teacherAge:  table.teacherAge,
+          teacherGender:  table.teacherGender,
+          teacherEducation:  table.teacherEducation,
+          teacherEmail:  table.teacherEmail,
+          teacherPassword:  table.teacherPassword,
+          teacherAddress:  table.teacherAddress,
+          teacherSalary: table.teacherSalary ,
+          teacherDoj: table.teacherDoj ,
+          teacherSubject:  table.teacherSubject,
+          teacherClass: table.teacherClass ,
+          teacherCourse:  table.teacherCourse,
+          noteTitle : table.noteTitle,
+          noteSubject : table.noteSubject,
+          noteClass : table.noteClass,
+          noteCourse : table.noteCourse,
+          noteBatch : table.noteBatch,
+          notePdf : pdf
+        }),
+      });
 
-  // const updateList = async (e) => {
-  //   e.preventDefault();
-  // }
+      const resJson = await response.json();
+      alert("Teacher changed");
+      console.log(resJson);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <div
@@ -153,9 +252,9 @@ const NoteTable = (props) => {
                     variant="contained"
                     color="success"
                     size="small"
-                    // onClick={()=>CustomerModalOpen(
-                    //      item._id,item.noteTitle , item.noteSubject , item.noteClass , item.noteBatch , item.noteImage , item.notePdf, item.noteCourse
-                    // )}
+                    onClick={()=>CustomerModalOpen(
+                      item
+                    )}
                   >
                     Update
                   </Button>
@@ -166,9 +265,9 @@ const NoteTable = (props) => {
         </table>
       </div>
 
-      {/* <Modal
-        open={modal}
-        onClose={handleCustomerClose}
+      <Modal
+        open={modalOpen}
+        onClose={()=>setModalOpen(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         >
@@ -190,63 +289,94 @@ const NoteTable = (props) => {
             </div> : null}
 
             <div style={{width:"auto"}} className="form-container">
-              <form onSubmit={updateList} >
-                <div className="form-group">
-                  <label>Title:</label>
-                  <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-                </div>
+            <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Note Title:</label>
+            <input
+              type="text"
+              value={table.noteTitle}
+              onChange={(e) => setTable({...table , noteTitle : e.target.value})}
+            />
+          </div>
 
-                <div className="form-group">
-                  <label style={{marginRight:10}}>Subject:</label>
-                  <select type="text" value={subject} onChange={(e) => setSubject(e.target.value)} >
-                    <option value="Math">Math</option>
-                    <option value="Physics">Physics</option>
-                    <option value="Chemistry">Chemistry</option>
-                  </select>
-                </div>
+          <div className="form-group">
+            <label style={{ marginRight: 10 }}>Subject:</label>
+            <select
+              type="text"
+              value={table.noteSubject}
+              onChange={(e) => setTable({...table , noteSubject : e.target.value})}
+            >
+              <option value="" selected disabled>
+                Select Your Subject
+              </option>
+              {subjectData?.map((item) => (
+                <option key={item?.id} value={item?.value}>
+                  {item?.subjectName}
+                </option>
+              ))}
+            </select>
+          </div>
 
-                <div className="form-group">
-                  <label style={{marginRight:10}}>Class:</label>
-                  <select  type="text" value={classValue} onChange={(e) => setClassValue(e.target.value)}>
-                    <option value="Class XI">Class XI</option>
-                    <option value="Class XII">Class XII</option>
-                  </select>
-                </div>
+          <div className="form-group">
+            <label style={{ marginRight: 10 }}>Class:</label>
+            <select
+              type="text"
+              value={table.noteClass}
+              onChange={(e) => setTable({...table , noteClass : e.target.value})}
+            >
+              <option value="" selected disabled>
+                Select Your Class
+              </option>
+              {classData?.map((item) => (
+                <option key={item?.id} value={item?.value}>
+                  {item?.className}
+                </option>
+              ))}
+            </select>
+          </div>
 
-                <div className="form-group">
-                  <label style={{marginRight:10}}>Batch:</label>
-                  <select type="text" value={batch} onChange={(e) => setBatch(e.target.value)}>
-                    <option value="Batch 1">Batch 1</option>
-                    <option value="Batch 2">Batch 2</option>
-                    <option value="Batch 3">Batch 3</option>
+          <div className="form-group">
+            <label style={{ marginRight: 10 }}>Batch:</label>
+            <select
+              type="text"
+              value={table.noteBatch}
+              onChange={(e) => setTable({...table , noteBatch : e.target.value})}
+            >
+              <option value="Batch 1">Batch 1</option>
+              <option value="Batch 2">Batch 2</option>
+              <option value="Batch 3">Batch 3</option>
+            </select>
+          </div>
 
-                  </select>
-                </div>
+          <div className="form-group">
+            <label>Upload File:</label>
+            <input type="file" accept=".pdf" onChange={uploadFiles} />
+          </div>
 
-                <div className="form-group">
-                  <label>Image:</label>
-                  <input type="file" accept="image/*" />
-                </div>
+          <div className="form-group">
+            <label style={{ marginRight: 10 }}>Course:</label>
+            <select
+              type="text"
+              value={table.noteCourse}
+              onChange={(e) => setTable({...table , noteCourse : e.target.value})}
+            >
+              <option value="" selected disabled>
+                Select Your Course
+              </option>
+              {courseData?.map((item) => (
+                <option key={item?.id} value={item?.value}>
+                  {item?.courseName}
+                </option>
+              ))}
+            </select>
+          </div>
 
-                <div className="form-group">
-                  <label>PDF:</label>
-                  <input type="file" accept=".pdf" />
-                </div>
-
-                <div className="form-group">
-                  <label  style={{marginRight:10}}>Course:</label>
-                  <select type="text" value={course} onChange={(e) => setCourse(e.target.value)}>
-                    <option value="JEE Main">JEE Main</option>
-                    <option value="WBJEE">WBJEE</option>
-                  </select>
-                </div>
-
-                <button type="submit">Submit</button>
-              </form>
+          <button type="submit">Submit</button>
+        </form>
             </div>
 
           </Box>
-        </Modal> */}
+        </Modal>
     </>
   );
 };

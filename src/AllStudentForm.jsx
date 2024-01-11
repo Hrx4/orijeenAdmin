@@ -16,6 +16,9 @@ const AllStudentForm = () => {
   const [studentTab, setStudentTab] = useState();
   const [studentList, setStudentList] = useState([]);
   const [courseList, setCourseList] = useState([]);
+  const [classList, setClassList] = useState([]);
+  const [subjectList, setSubjectList] = useState([]);
+
 
   const getCourseList = async () => {
     try {
@@ -66,6 +69,40 @@ const AllStudentForm = () => {
   };
 
   useEffect(() => {
+    const fetchClassValue = async () => {
+      try {
+        const response = await fetch(`${backend}/class/`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+        const result = await response.json();
+        setClassList(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchClassValue();
+    const fetchSubjectValue = async () => {
+      try {
+        const response = await fetch(`${backend}/subject/`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+        const result = await response.json();
+        setSubjectList(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchSubjectValue();
     getCourseList();
   }, []);
   return (
@@ -112,6 +149,9 @@ const AllStudentForm = () => {
           <StudentInfo
             studentList={studentList}
             setStudentList={setStudentList}
+            courseList ={courseList}
+            subjectList={subjectList}
+            classList={classList}
           />
         ) : null}
       </div>

@@ -221,7 +221,7 @@ const Admin = () => {
               setPassword(e.target.value);
             }}
             id="password"
-            type="text"
+            type="password"
             placeholder="Password"
             style={{ height: 30 }}
           />
