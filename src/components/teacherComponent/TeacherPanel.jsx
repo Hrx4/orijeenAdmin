@@ -403,6 +403,33 @@ const TeacherPanel = () => {
                 </div>
               </div>
             </div>
+            <div className="dInnerContainer" style={{ display: "flex", margin: "20px", flexDirection: "row" }}>
+                <div className="dBox">
+                <div
+                  className="Dhalf dText"
+                  style={{
+                    color: "black",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <Link
+                    className="sLink"
+                    to="/askquestions"
+                    style={{
+                      fontSize: "25px",
+                      fontWeight: "bold",
+                      textDecoration: "none",
+                      paddingTop: "40px",
+                      paddingLeft: "65px",
+                    }}
+                  >
+                    Ask Questions
+                  </Link>
+                </div>
+                </div>
+            </div>
+            
           </div>
         </div>
       </div>
