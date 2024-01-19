@@ -16,7 +16,7 @@ const Forum = () => {
     return (
         <>
             <div className="navbar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', backgroundColor: '#0ff', color: 'white' }}>
-                <div className="logo"><img src="https://orijeen.in/img/logoOrijeen.png" style={{ width: "80px", margin: '-20px' }} /></div>
+                <div className="logo"><img src="https://orijeen.in/img/logoOrijeen.png" alt='image' style={{ width: "80px", margin: '-20px' }} /></div>
                 <div className="nav-links" style={{ display: 'flex', marginRight: "20px" }}>
                     <a href="https://orijeen.in/" style={{ color: 'white', textDecoration: 'none', marginLeft: '15px', fontWeight: "bold", fontSize: "20px" }}>Home</a>
                     <a href="https://orijeen.in/about.html" style={{ color: 'white', textDecoration: 'none', marginLeft: '15px', fontWeight: "bold", fontSize: "20px" }}>About</a>
