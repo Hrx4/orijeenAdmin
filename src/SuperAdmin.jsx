@@ -593,7 +593,7 @@ const SuperAdmin = () => {
             style={{ padding: 20, cursor: "pointer", paddingLeft: 30 }}
             className="note__btn"
           >
-           <Link to="/askquestions" style={{textDecoration: "none", color:"black"}}> ▶ Ask Questions</Link>
+           <Link to="/queryforum" style={{textDecoration: "none", color:"black"}}> ▶ Query Forum</Link>
           </div>
         </div>
         <div

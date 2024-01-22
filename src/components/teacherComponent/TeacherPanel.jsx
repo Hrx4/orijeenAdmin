@@ -190,7 +190,7 @@ const TeacherPanel = () => {
           style={{
             padding: 20,
             position: "absolute",
-            top: "45%",
+            top: "55%",
             right: "8%",
             transform: "translateY(-50%)",
             width: "20%",
@@ -415,7 +415,7 @@ const TeacherPanel = () => {
                 >
                   <Link
                     className="sLink"
-                    to="/askquestions"
+                    to="/queryforum"
                     style={{
                       fontSize: "25px",
                       fontWeight: "bold",
@@ -424,7 +424,7 @@ const TeacherPanel = () => {
                       paddingLeft: "65px",
                     }}
                   >
-                    Ask Questions
+                    Query Forum
                   </Link>
                 </div>
                 </div>

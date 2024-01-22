@@ -293,7 +293,7 @@ const StudentPanel = () => {
                 >
                   <Link
                     className="sLink"
-                    to="/askquestions"
+                    to="/queryforum"
                     style={{
                       fontSize: "25px",
                       fontWeight: "bold",
@@ -302,7 +302,7 @@ const StudentPanel = () => {
                       paddingLeft: "65px",
                     }}
                   >
-                    Ask Questions
+                    Query Forum
                   </Link>
                 </div>
                 </div>

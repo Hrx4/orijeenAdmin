@@ -49,7 +49,7 @@ function App() {
         <Route  path="/teachernotification" element={<TeacherNotification />} />
         <Route  path="/teacherqueryform" element={<TeacherQueryForm/>} />
         <Route path="/course1/:noteCourse" element={<Course1/>}/>
-        <Route path="/askquestions" element={<Forum/>}/>
+        <Route path="/queryforum" element={<Forum/>}/>
       </Routes>
     </div>
   );
