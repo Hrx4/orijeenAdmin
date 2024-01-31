@@ -95,7 +95,7 @@ const Forum = () => {
                         <li style={{ color: "hsl(210,77%,46%)", listStyle: "none", margin: "5px" }} >
                             How to send MIME(Multipart Media Encapsulation) content type message using erlang http method</li>
                         <li style={{ listStyle: "none", margin: "5px", fontSize: "small" }}>So, no idea what's happened here. Am on 17.8.5, multiple windows forms projects in C# (targeting 4.8.1) are throwing this error: Error CS8630 Invalid 'nullable' value: 'Enable' for C# 7.1.</li>
-                        <li style={{ listStyle: "none", fontSize: "12px", display: "flex", flexDirection: "row" }}><img src="https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg?w=740" style={{ width: "40px" }}></img>
+                        <li style={{ listStyle: "none", fontSize: "12px", display: "flex", flexDirection: "row" }}><img alt="check" src="https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg?w=740" style={{ width: "40px" }}></img>
                             <li style={{ marginTop: "10px", marginLeft: "5px", marginRight: "5px" }}>Pamela Roy choudhury</li>
                             <li style={{ marginTop: "10px", marginLeft: "5px", marginRight: "5px", fontWeight: "bold" }}>50 asked</li>
                         </li>
@@ -103,7 +103,7 @@ const Forum = () => {
                     <ul className="qlist">
                         <li style={{ color: "hsl(210,77%,46%)", listStyle: "none", borderTop: "1px solid #808080", margin: "5px" }}>All VS projects now throwing Error CS8630 Invalid 'nullable' value: 'Enable' for C# 7.1. Please use language version '8.0'</li>
                         <li style={{ listStyle: "none", margin: "5px", fontSize: "small" }}>We have a website and a marketing automation platform with a tracking domain something like: https://mywebsite.com https://go.mywebsite.com Cross domain tracking is set up in GA4.</li>
-                        <li style={{ listStyle: "none", fontSize: "12px", display: "flex", flexDirection: "row" }}><img src="https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg?w=740" style={{ width: "40px" }}></img>
+                        <li style={{ listStyle: "none", fontSize: "12px", display: "flex", flexDirection: "row" }}><img alt="check" src="https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg?w=740" style={{ width: "40px" }}></img>
                             <li style={{ marginTop: "10px", marginLeft: "5px", marginRight: "5px" }}>Pamela Roy choudhury</li>
                             <li style={{ marginTop: "10px", marginLeft: "5px", marginRight: "5px", fontWeight: "bold" }}>90 asked</li>
                         </li>
@@ -111,7 +111,7 @@ const Forum = () => {
                     <ul className="qlist">
                         <li style={{ color: "hsl(210,77%,46%)", listStyle: "none", borderTop: "1px solid #808080", margin: "5px" }}>Why am I seeing weird strings of letters & numbers in URLs when using cross-domain tracking in GA4?</li>
                         <li style={{ listStyle: "none", margin: "5px", fontSize: "small" }}>Cross domain tracking is set up in GA4. The same Google Tag is manually installed on the landing pages in the marketing automation platform as well as on our website.</li>
-                        <li style={{ listStyle: "none", fontSize: "12px", display: "flex", flexDirection: "row" }}><img src="https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg?w=740" style={{ width: "40px" }}></img>
+                        <li style={{ listStyle: "none", fontSize: "12px", display: "flex", flexDirection: "row" }}><img alt="check" src="https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg?w=740" style={{ width: "40px" }}></img>
                             <li style={{ marginTop: "10px", marginLeft: "5px", marginRight: "5px" }}>Pamela Roy choudhury</li>
                             <li style={{ marginTop: "10px", marginLeft: "5px", marginRight: "5px", fontWeight: "bold" }}>98 asked</li>
                         </li>
