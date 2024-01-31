@@ -24,6 +24,7 @@ import AllExpenses from "./components/studentComponents/AllExpenses";
 import AddNotification from "./AddNotification";
 import AllNotification from "./AllNotification";
 import backend from './backend'
+import { Link } from "react-router-dom";
 
 // import SnavBar from './SnavBar';
 
@@ -586,6 +587,13 @@ const SuperAdmin = () => {
                 </li>
               ))}
             </ul>
+          </div>
+          <div
+            onClick={handleStudentPaymentForm}
+            style={{ padding: 20, cursor: "pointer", paddingLeft: 30 }}
+            className="note__btn"
+          >
+           <Link to="/queryforum" style={{textDecoration: "none", color:"black"}}> ▶ Query Forum</Link>
           </div>
         </div>
         <div

@@ -50,3 +50,22 @@
     flex-direction: column;
     font-weight: bold;
   }
+  @media (max-width: 768px) {
+    .forumNav{
+      position: absolute !important;
+      left:35% !important;
+    }
+    .qno{
+      margin-left: 10% !important;
+    }
+    .qdiv{
+      margin-left:  10% !important;
+      margin-right: 10% !important;
+    }
+    .qlist{
+      font-size: large !important;
+    }
+  } 
+  .qlist{
+    font-size: 25px;
+  }

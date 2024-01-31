@@ -94,5 +94,48 @@
   .clink{
     padding-left: 50px !important;
   }
+  @media (max-width:1300px) and  (max-height:1080px){
+    .contact {
+        padding: 20 !important;
+            position: absolute !important;
+            top: 110% !important;
+            left: 3% !important;
+            transform: translateY(-50%);
+            width: 20%;
+            /* margin-top: 40px !important; */
+            
+    }
+    .call {
+        position: absolute !important;
+            /* top: 120% !important; */
+            left: 3% !important;
+
+        line-height: 0%;
+        font-weight: bold !important;
+    }
+    .soon {
+        position: relative !important;
+        left: 250px !important;
+        line-height: 0%;
+        font-weight: bold !important;
+    }
+    /* .ph{
+        font-size: 20px !important;
+        font-weight: bold !important;
+    } */
+  }
+  @media (max-width:1460px) and (max-height:1080px) {
+    .contact{
+    font-size: small !important;
+        margin-top: 20px !important;
+        /* font-size-adjust: none !important; */
+        font-size-adjust: 0.3;
+        font-weight: 50;
+        position: absolute !important;
+        /* top: 45% !important; */
+        right: 0px !important;
+        margin-left: 30px !important;
+    }
+  }
   
   

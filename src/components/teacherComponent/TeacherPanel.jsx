@@ -190,7 +190,7 @@ const TeacherPanel = () => {
           style={{
             padding: 20,
             position: "absolute",
-            top: "45%",
+            top: "55%",
             right: "8%",
             transform: "translateY(-50%)",
             width: "20%",
@@ -403,6 +403,33 @@ const TeacherPanel = () => {
                 </div>
               </div>
             </div>
+            <div className="dInnerContainer" style={{ display: "flex", margin: "20px", flexDirection: "row" }}>
+                <div className="dBox">
+                <div
+                  className="Dhalf dText"
+                  style={{
+                    color: "black",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <Link
+                    className="sLink"
+                    to="/queryforum"
+                    style={{
+                      fontSize: "25px",
+                      fontWeight: "bold",
+                      textDecoration: "none",
+                      paddingTop: "40px",
+                      paddingLeft: "65px",
+                    }}
+                  >
+                    Query Forum
+                  </Link>
+                </div>
+                </div>
+            </div>
+            
           </div>
         </div>
       </div>

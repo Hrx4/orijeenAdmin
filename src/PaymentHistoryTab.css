@@ -24,4 +24,15 @@
         overflow-x:scroll;
         font-size: xx-small;
     }
+   
 }
+@media print {
+    /* Set the page size to A4 */
+    @page {
+      size: A4;
+      margin: 0; /* Remove default margins */
+    }
+  
+    /* Set the content size to fit within the page */
+   
+  }
