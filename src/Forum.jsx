@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Modal } from "@mui/material";
 import { Box } from "@mui/material";
 import backend from "./backend";
+import { Link } from "react-router-dom";
 
 
 
@@ -92,8 +93,8 @@ const Forum = () => {
                 <hr />
                 <div style={{ marginTop: "30px", marginLeft: "26%", marginRight: "26%" }} className="qdiv">
                     <ul className="qlist">
-                        <li style={{ color: "hsl(210,77%,46%)", listStyle: "none", margin: "5px" }} >
-                            How to send MIME(Multipart Media Encapsulation) content type message using erlang http method</li>
+                        <li style={{ color: "hsl(210,77%,46%)", listStyle: "none", margin: "5px",cursor:"pointer" }}>
+                           <Link to="/answer" style={{textDecoration:"none"}}> How to send MIME(Multipart Media Encapsulation) content type message using erlang http method </Link></li>
                         <li style={{ listStyle: "none", margin: "5px", fontSize: "small" }}>So, no idea what's happened here. Am on 17.8.5, multiple windows forms projects in C# (targeting 4.8.1) are throwing this error: Error CS8630 Invalid 'nullable' value: 'Enable' for C# 7.1.</li>
                         <li style={{ listStyle: "none", fontSize: "12px", display: "flex", flexDirection: "row" }}><img src="https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg?w=740" style={{ width: "40px" }}></img>
                             <li style={{ marginTop: "10px", marginLeft: "5px", marginRight: "5px" }}>Pamela Roy choudhury</li>
@@ -124,20 +125,22 @@ const Forum = () => {
                             top: '50%',
                             left: '50%',
                             transform: 'translate(-50%, -50%)',
-                            width: 400,
+                            width: 500,
                             height: 600,
                             bgcolor: 'background.paper',
                             boxShadow: 24,
                             p: 4,
+                            overflowY:"scroll"
                         }}
+                        className="forum-modal"
                     >
                         <form >
                             <label for="profilePicture">Upload a profile picture:</label>
-                            <input type="file" id="profilePicture" name="profilePicture" accept="image/*" />
-                            <label for="name">Name: *</label>
-                            <input type="text" id="name" name="name" placeholder="Enter your name" required />
+                            <input type="file" id="profilePicture" name="profilePicture" accept="image/*"style={{marginBottom:10}} />
+                            <label for="name" >Name: *</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your name" required style={{marginBottom:10}}/>
                             <label for="positionDropdown" style={{ margin: "10px", marginLeft: "0px" }}>Position: *</label>
-                            <select id="positionDropdown" required>
+                            <select id="positionDropdown" required style={{marginBottom:10}}>
                                 <option value="" selected disabled>
                                     Select Your Position
                                 </option>
@@ -150,6 +153,7 @@ const Forum = () => {
                                 type="text"
                                 value={subjectValue}
                                 onChange={(e) => setSubjectValue(e.target.value)}
+                                style={{marginBottom:10}}
                             >
                                 <option value="" selected disabled>
                                     Select Your Subject
@@ -165,6 +169,7 @@ const Forum = () => {
                                 type="text"
                                 value={classValue}
                                 onChange={(e) => setClassValue(e.target.value)}
+                                style={{marginBottom:10}}
                             >
                                 <option value="" selected disabled>
                                     Select Your Class
@@ -180,6 +185,7 @@ const Forum = () => {
                                 type="text"
                                 value={courseValue}
                                 onChange={(e) => setCourseValue(e.target.value)}
+                                style={{marginBottom:10}}
                             >
                                 <option value="" selected disabled>
                                     Select Your Course
@@ -192,9 +198,9 @@ const Forum = () => {
                             </select>
                             <input type="text" id="name" name="name" placeholder="Enter your Question Title *" required style={{marginTop: 10}}/>
                             <textarea id="questionDescription" name="questionDescription" rows="4" cols="37" placeholder="Your Question Description *" style={{marginTop: 10}} required></textarea><br/>
-                            <label for="profilePicture">Upload Your Question picture:</label>
+                            <label for="profilePicture" style={{marginTop:10}}>Upload Your Question picture:</label>
                             <input type="file" id="questionPicture" name="questionPicture" accept="image/*" />
-                            <Button variant="contained" style={{margin:"15px", position:"absolute", right:"15px", bottom:"10px", textTransform:"capitalize"}}>Submit</Button>
+                            <Button variant="contained" style={{marginTop:"15px", textTransform:"capitalize"}}>Submit</Button>
                         </form>
                     </Box>
                 </Modal>
