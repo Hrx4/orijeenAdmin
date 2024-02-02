@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import TeacherNav from "./TeacherNav";
-import { Button } from "@mui/material";
 import backend from "../../backend";
 
 const TeacherNotification = () => {
