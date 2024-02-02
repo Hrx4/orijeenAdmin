@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AppBar, Toolbar, IconButton, Typography, Button, Modal, Box } from "@mui/material";
+import { AppBar, Toolbar, IconButton, Typography, Modal, Box } from "@mui/material";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import "./StudentPanel.css";
