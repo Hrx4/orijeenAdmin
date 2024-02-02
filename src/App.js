@@ -22,6 +22,7 @@ import TeacherPayment from "./components/teacherComponent/TaecherPayment";
 import TeacherNotification from "./components/teacherComponent/TeacherNotification";
 import TeacherQueryForm from "./components/teacherComponent/TeacherQueryForm";
 import Forum from "./Forum";
+import AnsPage from "./AnsPage";
 function App() {
 
   return (
@@ -50,6 +51,7 @@ function App() {
         <Route  path="/teacherqueryform" element={<TeacherQueryForm/>} />
         <Route path="/course1/:noteCourse" element={<Course1/>}/>
         <Route path="/queryforum" element={<Forum/>}/>
+        <Route path="/answer" element={<AnsPage/>}/>
       </Routes>
     </div>
   );

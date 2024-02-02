@@ -35,7 +35,7 @@ const StudentProfile = () => {
             width: "20%",
           }}
         >
-          <div
+          {/* <div
             style={{
               height: 140,
               width: 120,
@@ -47,7 +47,7 @@ const StudentProfile = () => {
               style={{ height: "100%", width: "100%"}}
               alt=""
             />
-          </div>
+          </div> */}
           <div
             className="anocall"
             style={{

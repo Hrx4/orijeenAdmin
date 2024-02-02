@@ -22,7 +22,7 @@ const TeacherProfile = () => {
             width: "20%",
           }}
         >
-          <div
+          {/* <div
             style={{
               height: 140,
               width: 120,
@@ -30,7 +30,7 @@ const TeacherProfile = () => {
             }}
           >
             <img src="" style={{ height: "100%", width: "100%" }} alt="" />
-          </div>
+          </div> */}
           <div
             className="anocall"
             style={{
@@ -44,6 +44,7 @@ const TeacherProfile = () => {
           >
             For Any Technical Issue Call{" "}
             <span className="ph">+919382637127</span>
+
           </div>
         </div>
         <div>
@@ -120,7 +121,7 @@ const TeacherProfile = () => {
                   Password
                 </td>
                 <td style={{ border: "2px solid black", padding: 10 }}>
-                  {details.teacherPassword}
+                  {/* {details.teacherPassword} */}
                 </td>
               </tr>
               <tr style={{ border: "2px solid black", padding: 5 }}>
@@ -133,7 +134,9 @@ const TeacherProfile = () => {
                 >
                   Age
                 </td>
-                <td style={{ border: "2px solid black", padding: 10 }}>{details.teacherAge}</td>
+                <td style={{ border: "2px solid black", padding: 10 }}>
+                  {details.teacherAge}
+                  </td>
               </tr>
               <tr style={{ border: "2px solid black", padding: 5 }}>
                 <td
@@ -145,7 +148,9 @@ const TeacherProfile = () => {
                 >
                  Gender
                 </td>
-                <td style={{ border: "2px solid black", padding: 10 }}>{details.teacherGender}</td>
+                <td style={{ border: "2px solid black", padding: 10 }}>
+                  {details.teacherGender}
+                  </td>
               </tr>
               <tr style={{ border: "2px solid black", padding: 5 }}>
                 <td
@@ -157,7 +162,9 @@ const TeacherProfile = () => {
                 >
                   Education
                 </td>
-                <td style={{ border: "2px solid black", padding: 10 }}>{details.teacherEducation}</td>
+                <td style={{ border: "2px solid black", padding: 10 }}>
+                  {details.teacherEducation}
+                  </td>
               </tr>
               <tr style={{ border: "2px solid black", padding: 5 }}>
                 <td
@@ -169,7 +176,9 @@ const TeacherProfile = () => {
                 >
                   Address
                 </td>
-                <td style={{ border: "2px solid black", padding: 10 }}>{details.teacherAddress}</td>
+                <td style={{ border: "2px solid black", padding: 10 }}>
+                  {details.teacherAddress}
+                  </td>
               </tr>
               <tr style={{ border: "2px solid black", padding: 5 }}>
                 <td
@@ -181,7 +190,9 @@ const TeacherProfile = () => {
                 >
                   Salary
                 </td>
-                <td style={{ border: "2px solid black", padding: 10 }}>{details.teacherSalary}</td>
+                <td style={{ border: "2px solid black", padding: 10 }}>
+                  {details.teacherSalary}
+                  </td>
               </tr>
               <tr style={{ border: "2px solid black", padding: 5 }}>
                 <td
@@ -193,7 +204,9 @@ const TeacherProfile = () => {
                 >
                  Date of Job
                 </td>
-                <td style={{ border: "2px solid black", padding: 10 }}>{details.teacherDoj}</td>
+                <td style={{ border: "2px solid black", padding: 10 }}>
+                  {details.teacherDoj}
+                  </td>
               </tr>
               <tr style={{ border: "2px solid black", padding: 5 }}>
                 <td
@@ -205,7 +218,9 @@ const TeacherProfile = () => {
                 >
                   Subject
                 </td>
-                <td style={{ border: "2px solid black", padding: 10 }}>{details.teacherSubject}</td>
+                <td style={{ border: "2px solid black", padding: 10 }}>
+                  {details.teacherSubject}
+                  </td>
               </tr>
               <tr style={{ border: "2px solid black", padding: 5 }}>
                 <td
@@ -217,7 +232,9 @@ const TeacherProfile = () => {
                 >
                   Class
                 </td>
-                <td style={{ border: "2px solid black", padding: 10 }}>{details.teacherClass}</td>
+                <td style={{ border: "2px solid black", padding: 10 }}>
+                  {details.teacherClass}
+                  </td>
               </tr>
               <tr style={{ border: "2px solid black", padding: 5 }}>
                 <td
@@ -229,7 +246,9 @@ const TeacherProfile = () => {
                 >
                   Course
                 </td>
-                <td style={{ border: "2px solid black", padding: 10 }}>{details.teacherCourse}</td>
+                <td style={{ border: "2px solid black", padding: 10 }}>
+                  {details.teacherCourse}
+                  </td>
               </tr>
               
             </tbody>

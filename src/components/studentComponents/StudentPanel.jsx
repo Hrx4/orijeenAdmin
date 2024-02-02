@@ -109,7 +109,7 @@ const StudentPanel = () => {
               marginLeft: "-25px",
             }}
           >
-            <Button variant="outlined" color="primary">
+            <Button variant="outlined" color="primary" className="panelButton">
               Sign Out
             </Button>
           </div>
