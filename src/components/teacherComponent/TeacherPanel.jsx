@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import TeacherNav from "./TeacherNav";
-import { Button,Box, Modal, CircularProgress } from "@mui/material";
+import {Box, Modal, CircularProgress } from "@mui/material";
 import backend from "../../backend";
 import { Link } from "react-router-dom";
 import "./TeacherPanel.css";
@@ -185,55 +185,6 @@ const TeacherPanel = () => {
       ) : null}
       <div>
         <TeacherNav />
-        <div
-          className="contact"
-          style={{
-            padding: 20,
-            position: "absolute",
-            top: "55%",
-            right: "8%",
-            transform: "translateY(-50%)",
-            width: "20%",
-          }}
-        >
-          <div
-            className="call"
-            style={{
-              fontSize: "35px",
-              fontWeight: "bold",
-              color: "#Be2561",
-              marginBottom: "20%",
-              lineHeight: "normal",
-            }}
-          >
-            For Any Technical Issue Call{" "}
-            <span className="ph">+919382637127</span>
-          </div>
-          <div
-            className="soon"
-            style={{
-              fontSize: "35px",
-              fontWeight: "bold",
-              color: "#808000",
-              marginBottom: "20%",
-              lineHeight: "normal",
-            }}
-          >
-            We are building online exam system soon
-          </div>
-          <div
-            style={{
-              textAlign: "center",
-              padding: 20,
-              marginTop: -20,
-              marginLeft: "-25px",
-            }}
-          >
-            <Button variant="outlined" color="primary" className="panelButton">
-              Sign Out
-            </Button>
-          </div>
-        </div>
         <div
           className="mainContainer"
           style={{
