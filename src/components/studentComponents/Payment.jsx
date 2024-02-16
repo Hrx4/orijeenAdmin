@@ -15,7 +15,7 @@ const Payment = () => {
     "July",
     "Augast",
     "September",
-    "Ovtober",
+    "October",
     "November",
     "December",
   ];

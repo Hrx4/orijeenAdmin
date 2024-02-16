@@ -13,6 +13,7 @@ import backend from './backend'
 const StudentForm = () => {
   const [studentEnrollment, setStudentEnrollment] = useState("");
   const [studentName, setStudentName] = useState("");
+  const [studentDoj, setStudentDoj] = useState("");
   const [password, setPassword] = useState("");
   const [photo, setPhoto] = useState("");
   const [studentClass, setStudentClass] = useState("");
@@ -151,6 +152,7 @@ const StudentForm = () => {
         body: JSON.stringify({
           studentEnrollment: studentEnrollment,
           studentName: studentName,
+          studentDoj: studentDoj,
           studentClass: studentClass,
           studentBatch: batch,
           studentPassword: password,
@@ -260,6 +262,19 @@ const StudentForm = () => {
                 required
               />
             </div>
+            <div style={{ marginLeft: 40 }}>
+              <label style={{ marginRight: 10, marginTop: 10 }}>
+Admission Date              </label>
+              <br />
+              <input
+                type="date"
+                className="student__field"
+                value={studentDoj}
+                onChange={(e) => setStudentDoj(e.target.value)}
+                required
+              />
+            </div>
+
             <div style={{ marginLeft: 40 }}>
               <label style={{ marginRight: 10, marginTop: 10 }}>Class</label>
               <br />

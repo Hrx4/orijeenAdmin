@@ -95,6 +95,8 @@ const StudentInfo = ({ studentList, setStudentList , courseList , subjectList , 
         body: JSON.stringify({
           studentEnrollment: table.studentEnrollment,
     studentName: table.studentName,
+    studentDoj: table.studentDoj,
+
     studentClass: table.studentClass,
     studentBatch: table.studentBatch,
     studentCourse: table.studentCourse,
@@ -231,6 +233,18 @@ const StudentInfo = ({ studentList, setStudentList , courseList , subjectList , 
                 type="text"
                 value={table.studentName}
               onChange={(e) => setTable({...table , studentName : e.target.value})}
+                
+              />
+            </div>
+            <div >
+              <label style={{ marginRight: 10, marginTop: 10 }}>
+                Admission Date
+              </label>
+              <br />
+              <input
+                type="date"
+                value={table.studentDoj}
+              onChange={(e) => setTable({...table , studentDoj : e.target.value})}
                 
               />
             </div>

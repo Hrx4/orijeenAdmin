@@ -26,7 +26,7 @@ const PaymentModal = ({
     "July",
     "Augast",
     "September",
-    "Ovtober",
+    "October",
     "November",
     "December",
   ];

@@ -14,7 +14,7 @@ const TeacherPayment = () => {
     "July",
     "Augast",
     "September",
-    "Ovtober",
+    "October",
     "November",
     "December",
   ];

@@ -45,6 +45,9 @@ const studentSchema = mongoose.Schema({
         type: String,
         required: [true, "Please add the Address"],
     },
+    studentDoj: {
+        type: String,
+    },
     studentPaymentType: {
         type: String,
         required: [true, "Please add the Payment type"],

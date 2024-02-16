@@ -36,3 +36,9 @@
     /* Set the content size to fit within the page */
    
   }
+  @media print {
+    #button {
+        display: none;
+    }
+    
+}
