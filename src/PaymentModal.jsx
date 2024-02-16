@@ -75,7 +75,7 @@ const PaymentModal = ({
     } catch (err) {
       console.log(err);
     }
-    // window.location.reload()
+    window.location.reload()
   };
 
   return (
