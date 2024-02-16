@@ -65,6 +65,12 @@
     .qlist{
       font-size: large !important;
     }
+    .ansDescrip{
+      font-size: small !important;
+    }
+    .forum-modal{
+      width: 400px !important;
+    }
   } 
   .qlist{
     font-size: 25px;
