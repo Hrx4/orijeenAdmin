@@ -28,6 +28,7 @@ const paymentSchema = mongoose.Schema({
     lastIncomeMonth: {type:Number},
     lastIncomeMoney: {type:Number},
     lastIncomeDate: {type:String},
+    studentDoj: {type:String},
 
 
     paymentDetails: {

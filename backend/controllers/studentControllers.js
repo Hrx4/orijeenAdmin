@@ -7,6 +7,7 @@ const createStudent = asyncHandler(async (req, res) => {
   const {
     studentEnrollment,
     studentName,
+    studentDoj,
     studentClass,
     studentBatch,
     studentCourse,
@@ -29,6 +30,7 @@ const createStudent = asyncHandler(async (req, res) => {
   const student = await studentModels.create({
     studentEnrollment: studentEnrollment,
     studentName: studentName,
+    studentDoj: studentDoj,
     studentClass: studentClass,
     studentBatch: studentBatch,
     studentCourse: studentCourse,
@@ -48,7 +50,7 @@ const createStudent = asyncHandler(async (req, res) => {
   });
 
 
-  const d = new Date();
+  const d = new Date(studentDoj);
   const payment = 
   await paymentModels.create({
     paymentId: studentEnrollment,
@@ -58,16 +60,17 @@ const createStudent = asyncHandler(async (req, res) => {
     paymentMoney: studentFee,
     paymentType: studentPaymentType,
     studentName: studentName,
+    studentDoj: studentDoj,
     totalIncome: Number(studentFee) + Number(admissionAmount),
     lastIncomeMonth: d.getMonth(),
     lastIncomeMoney: studentFee,
-    lastIncomeDate: d.toISOString().split("T")[0],
+    lastIncomeDate: d,
     paymentDetails: [
       {
         paymentMonth: d.getMonth(),
         paymentMoney: studentFee,
         paymentType: studentPaymentType,
-        paymentDate: d.toISOString().split("T")[0],
+        paymentDate: d,
         paidMonth: d.getMonth(),
         paidYear: d.getFullYear(),
         paymentYear: d.getFullYear(),
@@ -109,6 +112,7 @@ const updateStudent = asyncHandler(async (req, res) => {
   const {
     studentEnrollment,
     studentName,
+    studentDoj,
     studentClass,
     studentBatch,
     studentCourse,
@@ -133,6 +137,8 @@ const updateStudent = asyncHandler(async (req, res) => {
   const updatedStudent = await studentModels.findByIdAndUpdate(req.params.id, {
     studentEnrollment: studentEnrollment,
     studentName: studentName,
+    studentDoj: studentDoj,
+
     studentClass: studentClass,
     studentBatch: studentBatch,
     studentCourse: studentCourse,
