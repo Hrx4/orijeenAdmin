@@ -9,8 +9,6 @@ const StudentInfo = ({ studentList, setStudentList , courseList , subjectList , 
   const [table , setTable] = useState([])
   const [photo, setPhoto] = useState("");
   const [loading, setLoading] = useState(false);
-  const [studentSubjects, setstudentSubjects] = useState([]);
-  const [studentCourse, setStudentCourse] = useState([]);
 
   const uploadFiles = async (e) => {
     const { files } = e.target;
@@ -59,22 +57,6 @@ const StudentInfo = ({ studentList, setStudentList , courseList , subjectList , 
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const handleCheck = (e) => {
-    e.target.checked
-      ? setstudentSubjects([...studentSubjects, e.target.value])
-      : setstudentSubjects([
-          ...studentSubjects.filter((item) => item !== e.target.value),
-        ]);
-  };
-
-  const handleCheck1 = (e) => {
-    e.target.checked
-      ? setStudentCourse([...studentCourse, e.target.value])
-      : setStudentCourse([
-          ...studentCourse.filter((item) => item !== e.target.value),
-        ]);
   };
   
 
@@ -287,20 +269,31 @@ const StudentInfo = ({ studentList, setStudentList , courseList , subjectList , 
               }}
             >
               Courses <br />
-              {courseList?.map((item, index) => (
-                <label
-                  className="checkbox"
-                  style={{ marginRight: 10, fontWeight: "lighter" }}
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl
+                  style={{ width: "60%", backgroundColor: "white" }}
+
                 >
-                  <input
-                    type="checkbox"
-                    name="subject"
-                    value={item.courseName}
-                    onClick={(e) => handleCheck1(e)}
-                  />{" "}
-                  {item.courseName}
-                </label>
-              ))}
+                  <InputLabel style={{ color: "black" }}>
+                    Select Your Course
+                  </InputLabel>
+                  <Select
+                    // value={courseForPay}
+                    label=""
+                    // onChange={(e) => setCourseForPay(e.target.value)}
+                    style={{ color: "black" }}
+                    value={table.studentCourse}
+              onChange={(e) => setTable({...table , studentCourse : e.target.value})}
+              multiple
+                  >
+                    {courseList?.map((item, index) => (
+                      <MenuItem value={item.courseName}>
+                        {item.courseName}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
             </div>
 
             <div
@@ -311,20 +304,31 @@ const StudentInfo = ({ studentList, setStudentList , courseList , subjectList , 
               }}
             >
               Subject <br />
-              {subjectList?.map((item, index) => (
-                <label
-                  className="checkbox"
-                  style={{ marginRight: 10, fontWeight: "lighter" }}
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl
+                  style={{ width: "60%", backgroundColor: "white" }}
+
                 >
-                  <input
-                    type="checkbox"
-                    name="subject"
-                    value={item.subjectName}
-                    onClick={(e) => handleCheck(e)}
-                  />{" "}
-                  {item.subjectName}
-                </label>
-              ))}
+                  <InputLabel style={{ color: "black" }}>
+                    Select Your Subject
+                  </InputLabel>
+                  <Select
+                    // value={courseForPay}
+                    label=""
+                    // onChange={(e) => setCourseForPay(e.target.value)}
+                    style={{ color: "black" }}
+                    value={table.studentSubjects}
+              onChange={(e) => setTable({...table , studentSubjects : e.target.value})}
+              multiple
+                  >
+                    {subjectList?.map((item, index) => (
+                      <MenuItem value={item.subjectName}>
+                        {item.subjectName}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
             </div>
 
             <div >
