@@ -28,9 +28,11 @@ const StudentForm = () => {
   const [bloodGroup, setBloodGroup] = useState("");
   const [category, setCategory] = useState("General");
   const [classList, setClassList] = useState([]);
+  const [batchList, setBatchList] = useState([]);
+
   const [subjectList, setSubjectList] = useState([]);
   const [courseList, setCourseList] = useState([]);
-  const [batch, setBatch] = useState("Batch A");
+  const [studentBatch, setStudentBatch] = useState("");
   const [isChecked, setChecked] = useState(false);
   const [admissionAmount, setAdmissionAmount] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -120,6 +122,24 @@ const StudentForm = () => {
       console.log(err);
     }
   };
+  const getBatchList = async () => {
+    try {
+      const response = await fetch(`${backend}/batch/`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+
+      const resJson = await response.json();
+
+      console.log(resJson);
+      setBatchList(resJson);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleCheck = (e) => {
     e.target.checked
@@ -154,7 +174,7 @@ const StudentForm = () => {
           studentName: studentName,
           studentDoj: studentDoj,
           studentClass: studentClass,
-          studentBatch: batch,
+          studentBatch: studentBatch,
           studentPassword: password,
           studentPhoto: photo,
           studentCourse: studentCourse,
@@ -182,7 +202,7 @@ const StudentForm = () => {
         setStudentEnrollment("");
         setStudentName("");
         setStudentClass("");
-        setBatch("");
+        setStudentBatch("");
         setStudentCourse("");
         setSubjectList([]);
         setStudentPhone("");
@@ -207,6 +227,7 @@ const StudentForm = () => {
 
   useEffect(() => {
     getClassList();
+    getBatchList();
     getSubjectList();
     getCourseList();
   }, []);
@@ -379,22 +400,35 @@ Admission Date              </label>
               </div>
             </div>
             <div style={{ marginLeft: 40 }}>
-              <label
-                style={{ marginRight: 10, marginTop: 10, marginBottom: 5 }}
-              >
-                Batch No.
-              </label>
+              <label style={{ marginRight: 10, marginTop: 10 }}>Batch</label>
               <br />
-              <select
-                className="student__field"
-                value={batch}
-                onChange={(e) => setBatch(e.target.value)}
-                required
-              >
-                <option>Batch A</option>
-                <option>Batch B</option>
-                <option>Batch C</option>
-              </select>
+
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl
+                  style={{ width: "60%", backgroundColor: "white" }}
+                  className="student__field"
+                >
+                  <InputLabel style={{ color: "black" }}>
+                    Select Your Class
+                  </InputLabel>
+                  <Select
+                    // value={courseForPay}
+                    label=""
+                    // onChange={(e) => setCourseForPay(e.target.value)}
+                    style={{ color: "black" }}
+                    value={studentBatch}
+                    onChange={(e) => {
+                      setStudentBatch(e.target.value);
+                    }}
+                  >
+                    {batchList?.map((item, index) => (
+                      <MenuItem value={item.batchName}>
+                        {item.batchName}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
             </div>
           </div>
 

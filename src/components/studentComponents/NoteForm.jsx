@@ -7,10 +7,11 @@ const NoteForm = () => {
   const [classData, setClassData] = useState([]);
   const [classValue, setClassValue] = useState("");
   const [subjectData, setSubjectData] = useState([]);
+  const [batchData, setBatchData] = useState([]);
   const [subjectValue, setSubjectValue] = useState("");
   const [courseData, setCourseData] = useState([]);
   const [courseValue, setCourseValue] = useState("");
-  const [batch, setBatch] = useState("Batch 1");
+  const [batch, setBatch] = useState("");
   const [pdf, setPdf] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -32,6 +33,24 @@ const NoteForm = () => {
     };
 
     fetchClassValue();
+
+    const fetchBatchValue = async () => {
+      try {
+        const response = await fetch(`${backend}/batch/`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+        const result = await response.json();
+        setBatchData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchBatchValue();
     const fetchSubjectValue = async () => {
       try {
         const response = await fetch(`${backend}/subject/`, {
@@ -191,9 +210,14 @@ const NoteForm = () => {
               value={batch}
               onChange={(e) => setBatch(e.target.value)}
             >
-              <option value="Batch 1">Batch 1</option>
-              <option value="Batch 2">Batch 2</option>
-              <option value="Batch 3">Batch 3</option>
+              <option value="" selected disabled>
+                Select Your batch
+              </option>
+              {batchData?.map((item) => (
+                <option key={item?.id} value={item?.value}>
+                  {item?.batchName}
+                </option>
+              ))}
             </select>
           </div>
 

@@ -13,12 +13,14 @@ const TeacherPanel = () => {
 
     const [title, setTitle] = useState("");
     const [classData, setClassData] = useState([]);
+    const [batchData, setBatchData] = useState([]);
+
     const [classValue, setClassValue] = useState("");
     const [subjectData, setSubjectData] = useState([]);
     const [subjectValue, setSubjectValue] = useState("");
     const [courseData, setCourseData] = useState([]);
     const [courseValue, setCourseValue] = useState("");
-    const [batch, setBatch] = useState("Batch 1");
+    const [batch, setBatch] = useState("");
     const [pdf, setPdf] = useState("");
     const [name, setName] = useState('');
     const [email, setEmail] = useState("");
@@ -44,6 +46,25 @@ const TeacherPanel = () => {
       };
   
       fetchClassValue();
+
+      const fetchBatchValue = async () => {
+        try {
+          const response = await fetch(`${backend}/batch/`, {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          });
+          const result = await response.json();
+          setBatchData(result);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+  
+      fetchBatchValue();
+
       const fetchSubjectValue = async () => {
         try {
           const response = await fetch(`${backend}/subject/`, {
@@ -459,9 +480,14 @@ const TeacherPanel = () => {
               value={batch}
               onChange={(e) => setBatch(e.target.value)}
             >
-              <option value="Batch 1">Batch 1</option>
-              <option value="Batch 2">Batch 2</option>
-              <option value="Batch 3">Batch 3</option>
+<option value="" selected disabled>
+                Select Your Batch
+              </option>
+              {batchData?.map((item) => (
+                <option key={item?.id} value={item?.value}>
+                  {item?.batchName}
+                </option>
+              ))}
             </select>
           </div>
 
