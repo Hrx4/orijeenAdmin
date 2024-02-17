@@ -15,6 +15,7 @@ const AllStudentForm = () => {
   const [course, setCourse] = useState();
   const [studentTab, setStudentTab] = useState();
   const [studentList, setStudentList] = useState([]);
+  const [batchList, setBatchList] = useState([]);
   const [courseList, setCourseList] = useState([]);
   const [classList, setClassList] = useState([]);
   const [subjectList, setSubjectList] = useState([]);
@@ -86,6 +87,24 @@ const AllStudentForm = () => {
     };
 
     fetchClassValue();
+
+    const fetchBatchValue = async () => {
+      try {
+        const response = await fetch(`${backend}/batch/`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+        const result = await response.json();
+        setBatchList(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchBatchValue();
     const fetchSubjectValue = async () => {
       try {
         const response = await fetch(`${backend}/subject/`, {
@@ -152,6 +171,8 @@ const AllStudentForm = () => {
             courseList ={courseList}
             subjectList={subjectList}
             classList={classList}
+            batchList={batchList}
+
           />
         ) : null}
       </div>

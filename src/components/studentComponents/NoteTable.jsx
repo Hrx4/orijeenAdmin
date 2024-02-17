@@ -8,6 +8,7 @@ const NoteTable = (props) => {
   const [classData, setClassData] = useState([]);
   const [subjectData, setSubjectData] = useState([]);
   const [courseData, setCourseData] = useState([]);
+  const [batchData, setBatchData] = useState([]);
   const [modalOpen, setModalOpen] = useState(false)
   const [table , setTable] = useState([])
   const [pdf, setPdf] = useState("");
@@ -96,6 +97,25 @@ const NoteTable = (props) => {
     };
 
     fetchClassValue();
+
+    const fetchBatchValue = async () => {
+      try {
+        const response = await fetch(`${backend}/batch/`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+        const result = await response.json();
+        setBatchData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchBatchValue();
+
     const fetchSubjectValue = async () => {
       try {
         const response = await fetch(`${backend}/subject/`, {
@@ -139,6 +159,7 @@ const NoteTable = (props) => {
   const CustomerModalOpen = (item)=>{
     setTable(item)
     setModalOpen(true)
+    setPdf(item.notePdf)
   }
 
   const handleSubmit = async (e)=>{
@@ -174,7 +195,7 @@ const NoteTable = (props) => {
       });
 
       const resJson = await response.json();
-      alert("Teacher changed");
+      alert("Note Update");
       console.log(resJson);
     } catch (err) {
       console.log(err);
@@ -342,9 +363,14 @@ const NoteTable = (props) => {
               value={table.noteBatch}
               onChange={(e) => setTable({...table , noteBatch : e.target.value})}
             >
-              <option value="Batch 1">Batch 1</option>
-              <option value="Batch 2">Batch 2</option>
-              <option value="Batch 3">Batch 3</option>
+                            <option value="" selected disabled>
+                Select Your Batch
+              </option>
+              {batchData?.map((item) => (
+                <option key={item?.id} value={item?.value}>
+                  {item?.batchName}
+                </option>
+              ))}
             </select>
           </div>
 

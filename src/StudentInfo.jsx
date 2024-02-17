@@ -3,7 +3,7 @@ import backend from './backend'
 import { Box, CircularProgress, FormControl, InputLabel, MenuItem, Modal, Select } from "@mui/material";
 
 
-const StudentInfo = ({ studentList, setStudentList , courseList , subjectList , classList}) => {
+const StudentInfo = ({ studentList, setStudentList , courseList , subjectList , classList , batchList}) => {
 
   const [modalOpen, setModalOpen] = useState(false)
   const [table , setTable] = useState([])
@@ -76,6 +76,7 @@ const StudentInfo = ({ studentList, setStudentList , courseList , subjectList , 
           ...studentCourse.filter((item) => item !== e.target.value),
         ]);
   };
+  
 
   const handleChange =(item)=>{
     setModalOpen(true)
@@ -339,22 +340,35 @@ const StudentInfo = ({ studentList, setStudentList , courseList , subjectList , 
               
             </div>
             <div >
-              <label
-                style={{ marginRight: 10, marginTop: 10, marginBottom: 5 }}
-              >
-                Batch No.
-              </label>
+              <label style={{ marginRight: 10, marginTop: 10 }}>Batch</label>
               <br />
-              <select
-                value={table.studentBatch}
+
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl
+                  style={{ width: "60%", backgroundColor: "white" }}
+
+                >
+                  <InputLabel style={{ color: "black" }}>
+                    Select Your Batch
+                  </InputLabel>
+                  <Select
+                    // value={courseForPay}
+                    label=""
+                    // onChange={(e) => setCourseForPay(e.target.value)}
+                    style={{ color: "black" }}
+                    value={table.studentBatch}
               onChange={(e) => setTable({...table , studentBatch : e.target.value})}
-                
-              >
-                <option>Batch A</option>
-                <option>Batch B</option>
-                <option>Batch C</option>
-              </select>
+                  >
+                    {batchList?.map((item, index) => (
+                      <MenuItem value={item.batchName}>
+                        {item.batchName}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
             </div>
+            
 
             <div className="Guardian">
               <label style={{ marginRight: 10, marginTop: 10 }}>
