@@ -9,8 +9,8 @@ const AddTeacher = () => {
   const [gender, setGender] = useState();
   const [education, setEducation] = useState();
   const [address, setAddress] = useState();
-  const [salary, setSalary] = useState();
-  const [doj, setDoj] = useState();
+  const [salary, setSalary] = useState(0);
+  const [doj, setDoj] = useState("");
   const [classData, setClassData] = useState([]);
   const [classValue, setClassValue] = useState("");
   const [subjectData, setSubjectData] = useState([]);
@@ -101,8 +101,22 @@ const AddTeacher = () => {
 
       const resJson = await response.json();
       alert("Teacher added");
+      setName("")
+      setAge("")
+      setGender("")
+      setEducation("")
+      setEmail("")
+      setPassword("")
+      setAddress("")
+      setName("")
+      setSubjectValue("")
+      setClassValue("")
+      setCourseValue("")
+      setSalary(0)
+
       console.log(resJson);
     } catch (err) {
+      alert("Fill all the fields")
       console.log(err);
     }
   };
@@ -125,6 +139,7 @@ const AddTeacher = () => {
             <input
               type="text"
               value={name}
+              required
               onChange={(e) => setName(e.target.value)}
             />
           </div>
@@ -133,6 +148,7 @@ const AddTeacher = () => {
             <input
               type="text"
               value={email}
+              required
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>{" "}
@@ -141,6 +157,7 @@ const AddTeacher = () => {
             <input
               type="text"
               value={password}
+              required
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
@@ -149,6 +166,7 @@ const AddTeacher = () => {
             <input
               type="text"
               value={age}
+              required
               onChange={(e) => setAge(e.target.value)}
             />
           </div>
@@ -157,6 +175,7 @@ const AddTeacher = () => {
             <input
               type="text"
               value={gender}
+              required
               onChange={(e) => setGender(e.target.value)}
             />
           </div>
@@ -173,6 +192,7 @@ const AddTeacher = () => {
             <input
               type="text"
               value={address}
+              required
               onChange={(e) => setAddress(e.target.value)}
             />
           </div>
@@ -181,15 +201,18 @@ const AddTeacher = () => {
             <input
               type="number"
               value={salary}
+              required
               onChange={(e) => setSalary(e.target.value)}
             />
           </div>
           <div className="form-group">
             <label>Date Of Joining:</label>
             <input
-              type="text"
+              type="date"
               value={doj}
-              onChange={(e) => setDoj(e.target.value)}
+              required
+              onChange={(e) =>{ setDoj(e.target.value)
+               console.log(doj)}}
             />
           </div>
           <div className="form-group">
@@ -197,6 +220,7 @@ const AddTeacher = () => {
             <select
               type="text"
               value={subjectValue}
+              required
               onChange={(e) => setSubjectValue(e.target.value)}
             >
               <option value="" selected disabled>
@@ -214,6 +238,7 @@ const AddTeacher = () => {
             <select
               type="text"
               value={classValue}
+              required
               onChange={(e) => setClassValue(e.target.value)}
             >
               <option value="" selected disabled>
@@ -231,6 +256,7 @@ const AddTeacher = () => {
             <select
               type="text"
               value={courseValue}
+              required
               onChange={(e) => setCourseValue(e.target.value)}
             >
               <option value="" selected disabled>

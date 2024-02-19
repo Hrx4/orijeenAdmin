@@ -21,7 +21,7 @@ const StudentProfile = () => {
             <Typography variant="h6" style={{ flexGrow: 1 }}>
               Logo
             </Typography>
-            <Typography variant="subtitle1">Hi, Pritam</Typography>
+            <Typography variant="subtitle1">Hi, {details?.studentName}</Typography>
           </Toolbar>
         </AppBar>
         <div
@@ -35,33 +35,7 @@ const StudentProfile = () => {
             width: "20%",
           }}
         >
-          {/* <div
-            style={{
-              height: 140,
-              width: 120,
-              backgroundColor: "red",
-            }}
-          >
-            <img
-              src={details?.studentPhoto}
-              style={{ height: "100%", width: "100%"}}
-              alt=""
-            />
-          </div> */}
-          <div
-            className="anocall"
-            style={{
-              fontSize: "35px",
-              fontWeight: "bold",
-              color: "#Be2561",
-              marginBottom: "20%",
-              lineHeight: "normal",
-              textAlign: "center",
-            }}
-          >
-            For Any Technical Issue Call{" "}
-            <span className="ph">+919382637127</span>
-          </div>
+          
         </div>
         <div>
           <h1 style={{ margin: 10 }}>Dashboard {">"} Profile</h1>
@@ -74,6 +48,8 @@ const StudentProfile = () => {
               height: "100vh",
               border: "none",
               marginLeft: "10px",
+              marginBottom:20,
+
             }}
           >
             <tbody>
@@ -90,6 +66,40 @@ const StudentProfile = () => {
               >
                 Basic Details
               </h2>
+              <tr style={{ border: "2px solid black" }}>
+                <td
+                  style={{
+                    border: "2px solid black",
+                    padding: 10,
+                    width: "50%",
+                    margin: 0,
+                    fontWeight: "bold",
+                  }}
+                >
+                  Photo
+                </td>
+                <td
+                  style={{
+                    border: "2px solid black",
+                    padding: 10,
+                    width: "50%",
+                  }}
+                >
+                  <div
+            style={{
+              height: 140,
+              width: 120,
+              border: "1px solid red",
+            }}
+          >
+            <img
+              src={details?.studentPhoto}
+              style={{ height: "100%", width: "100%" }}
+              alt=""
+            />
+          </div>
+                </td>
+              </tr>
               <tr style={{ border: "2px solid black" }}>
                 <td
                   style={{
@@ -301,6 +311,5 @@ const StudentProfile = () => {
     </>
   );
 };
-
 
 export default StudentProfile;

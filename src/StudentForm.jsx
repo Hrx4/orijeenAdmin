@@ -29,7 +29,6 @@ const StudentForm = () => {
   const [category, setCategory] = useState("General");
   const [classList, setClassList] = useState([]);
   const [batchList, setBatchList] = useState([]);
-
   const [subjectList, setSubjectList] = useState([]);
   const [courseList, setCourseList] = useState([]);
   const [studentBatch, setStudentBatch] = useState("");
@@ -389,15 +388,7 @@ Admission Date              </label>
                 value={fatherName}
                 onChange={(e) => setFatherName(e.target.value)}
               />
-              <div style={{ marginTop: 15 }}>
-                <label>Image:</label>
-                <br />
-                <input
-                  className="student__field"
-                  type="file"
-                  accept="image/*"
-                />
-              </div>
+              
             </div>
             <div style={{ marginLeft: 40 }}>
               <label style={{ marginRight: 10, marginTop: 10 }}>Batch</label>

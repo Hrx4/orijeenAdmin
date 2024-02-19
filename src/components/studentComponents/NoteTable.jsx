@@ -195,7 +195,7 @@ const NoteTable = (props) => {
       });
 
       const resJson = await response.json();
-      alert("Note Update");
+      window.location.reload(true);
       console.log(resJson);
     } catch (err) {
       console.log(err);

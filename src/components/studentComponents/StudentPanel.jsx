@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { AppBar, Toolbar, IconButton, Typography, Modal, Box } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Modal,
+  Box,
+  Button,
+} from "@mui/material";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import "./StudentPanel.css";
@@ -9,13 +17,13 @@ import backend from "../../backend";
 
 const StudentPanel = () => {
   const navigate = useNavigate();
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
-  const [modalOpen1, setModalOpen1] = useState(false)
-
-
+  const [modalOpen1, setModalOpen1] = useState(false);
+  const x = JSON.parse(localStorage.getItem("student"));
+  const [display, setDisplay] = useState(false)
   const handleSubmit1 = async (e) => {
     e.preventDefault();
     // setLoading(true)
@@ -31,14 +39,17 @@ const StudentPanel = () => {
           contactName: name,
           contactEmail: email,
           contactPhone: phone,
-          contactMessage: message
+          contactMessage: message,
         }),
       });
       // let resJson = await res.json();
       if (res.status === 200) {
         console.log("fine");
-
         alert("form submitted");
+        setName("");
+        setEmail("");
+        setPhone("");
+        setMessage("");
       } else {
         alert("all field required");
         console.log("Some error occured");
@@ -62,10 +73,28 @@ const StudentPanel = () => {
             <Typography variant="h6" style={{ flexGrow: 1 }}>
               Logo
             </Typography>
-            <Typography variant="subtitle1">Hi, Pritam</Typography>
+            <div onClick={()=>setDisplay((display)=>!display)} style={{cursor:"pointer"}} >Hi, {x?.studentName}</div>
           </Toolbar>
         </AppBar>
-        
+        <div
+          style={{
+            height: 100,
+            width: "100%",
+            position: "absolute",
+            display : (display ? "block" : "none")
+          }}
+        >
+          <div
+            style={{
+              height: 100,
+              width: 100,
+              marginLeft: "auto",
+            }}
+          >
+            <Button style={{backgroundColor:"red" , color:"white"}}>Sign Out</Button>
+          </div>
+        </div>
+
         <div
           className="mainContainer"
           style={{
@@ -112,7 +141,7 @@ const StudentPanel = () => {
                     color: "black",
                     display: "flex",
                     flexDirection: "column",
-                    cursor: "pointer"
+                    cursor: "pointer",
                   }}
                   onClick={() => setModalOpen1(true)}
                 >
@@ -124,7 +153,7 @@ const StudentPanel = () => {
                       paddingTop: "40px",
                       paddingLeft: "50px",
                       textDecoration: "none",
-                      color: "blue"
+                      color: "blue",
                     }}
                   >
                     Query Form{" "}
@@ -233,8 +262,11 @@ const StudentPanel = () => {
                 </div>
               </div>
             </div>
-            <div className="dInnerContainer" style={{ display: "flex", margin: "20px", flexDirection: "row" }}>
-                <div className="dBox">
+            <div
+              className="dInnerContainer"
+              style={{ display: "flex", margin: "20px", flexDirection: "row" }}
+            >
+              <div className="dBox">
                 <div
                   className="Dhalf dText"
                   style={{
@@ -257,10 +289,9 @@ const StudentPanel = () => {
                     Query Forum
                   </Link>
                 </div>
-                </div>
+              </div>
             </div>
           </div>
-
         </div>
       </div>
 
@@ -301,14 +332,16 @@ const StudentPanel = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-            </div><div className="form-group">
+            </div>
+            <div className="form-group">
               <label>Phone no:</label>
               <input
                 type="number"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
               />
-            </div><div className="form-group">
+            </div>
+            <div className="form-group">
               <label>Message:</label>
               <input
                 type="text"
@@ -322,7 +355,6 @@ const StudentPanel = () => {
         </Box>
       </Modal>
     </>
-
   );
 };
 

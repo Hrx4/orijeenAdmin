@@ -28,7 +28,7 @@ const AddNotification = () => {
       if (res.status === 200) {
         console.log("fine");
         setTitle("");
-        setTitle("");
+        setDetails("");
         setLink("");
         alert("form submitted");
       } else {

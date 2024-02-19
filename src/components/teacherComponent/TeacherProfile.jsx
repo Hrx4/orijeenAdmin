@@ -31,21 +31,7 @@ const TeacherProfile = () => {
           >
             <img src="" style={{ height: "100%", width: "100%" }} alt="" />
           </div> */}
-          <div
-            className="anocall"
-            style={{
-              fontSize: "35px",
-              fontWeight: "bold",
-              color: "#Be2561",
-              marginBottom: "20%",
-              lineHeight: "normal",
-              textAlign: "center",
-            }}
-          >
-            For Any Technical Issue Call{" "}
-            <span className="ph">+919382637127</span>
-
-          </div>
+          
         </div>
         <div>
           <h1 style={{ margin: 10 }}>Dashboard {">"} Profile</h1>
@@ -121,7 +107,7 @@ const TeacherProfile = () => {
                   Password
                 </td>
                 <td style={{ border: "2px solid black", padding: 10 }}>
-                  {/* {details.teacherPassword} */}
+                  {details.teacherPassword}
                 </td>
               </tr>
               <tr style={{ border: "2px solid black", padding: 5 }}>

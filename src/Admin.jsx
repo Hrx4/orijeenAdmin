@@ -196,7 +196,8 @@ const Admin = () => {
       >
         <Box sx={style}>
           {path !== "/teacher/all/details/" ? (
-            <input
+            path === "/superadmin/" ?
+            (<input
               onChange={(e) => {
                 setUsername(e.target.value);
               }}
@@ -204,7 +205,17 @@ const Admin = () => {
               type="text"
               placeholder="UserName"
               style={{ height: 30 }}
-            />
+            />)
+            :
+            (<input
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+              id="username"
+              type="text"
+              placeholder="Enrollment No"
+              style={{ height: 30 }}
+            />)
           ) : (
             <input
               onChange={(e) => {
