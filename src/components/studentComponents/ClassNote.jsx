@@ -53,7 +53,17 @@ const ClassNote = () => {
               <ArrowBackIcon onClick={() => navigate(-1)} />
             </IconButton>
             <Typography variant="h6" style={{ flexGrow: 1 }}>
-              Logo
+            <img
+            src="https://orijeen.in/img/logoOrijeen.png"
+            alt="orijeen logo"
+            style={{
+              width: "150px",
+              height: "auto",
+              position: "absolute",
+              top: "-40px",
+              left: "50px",
+            }}
+          />
             </Typography>
             <div onClick={()=>setDisplay((display)=>!display)} style={{cursor:"pointer"}} >Hi, {x?.studentName}</div>
             

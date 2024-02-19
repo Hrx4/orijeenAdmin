@@ -4,11 +4,18 @@ import { Button } from "@mui/material";
 import { Modal } from "@mui/material";
 import { Box } from "@mui/material";
 
-const PaymentHistoryTab = ({ paymentList, setPaymentList }) => {
+const PaymentHistoryTab = ({
+  paymentList,
+  setPaymentList,
+  studentAddress,
+  studentEmail,
+  studentPhone,
+}) => {
   const [open, setOpen] = useState(false);
   const [invoiceNo, setInvoiceNo] = useState();
   const [invoiceDate, setInvoiceDate] = useState();
   const [sName, setSName] = useState();
+  const [modalInfo, setModalInfo] = useState({});
 
   const handlePrint = () => {
     window.print();
@@ -101,7 +108,8 @@ const PaymentHistoryTab = ({ paymentList, setPaymentList }) => {
                   setOpen(true);
                   setInvoiceNo(index + 1);
                   setInvoiceDate(item.paymentDate);
-                  setSName(paymentList[0].studentName);
+                  setSName(paymentList[0]?.studentName);
+                  setModalInfo(paymentList[0]?.paymentDetails[index]);
                 }}
               >
                 {" "}
@@ -200,9 +208,9 @@ const PaymentHistoryTab = ({ paymentList, setPaymentList }) => {
             <span style={{ fontWeight: "bold" }}>Bill to</span>
             <br />
             <span>{sName}</span>
-            <p style={{ marginBottom: "0rem" }}>student@gmail.com</p>
-            <p style={{ marginBottom: "0rem" }}>124567890</p>
-            <p style={{ marginBottom: "0rem" }}>Student Address</p>
+            <p style={{ marginBottom: "0rem" }}>{studentEmail}</p>
+            <p style={{ marginBottom: "0rem" }}>{studentPhone}</p>
+            <p style={{ marginBottom: "0rem" }}>{studentAddress}</p>
           </div>
           <div style={{ position: "absolute", top: "280px", right: "0px" }}>
             <table
@@ -277,70 +285,68 @@ const PaymentHistoryTab = ({ paymentList, setPaymentList }) => {
                 </tr>
               </thead>
               <tbody>
-                {paymentList[0].paymentDetails.map((item, index) => (
-                  <tr key={item._id}>
-                    <td
-                      style={{
-                        border: "1px solid #ddd",
-                        padding: "8px",
-                        textAlign: "left",
-                        backgroundColor: "#f2f2f2",
-                      }}
-                    >
-                      {paymentList[0].studentName}
-                    </td>
-                    <td
-                      style={{
-                        border: " 1px solid #ddd",
-                        padding: "8px",
-                        textAlign: "left",
-                        backgroundColor: "#f2f2f2",
-                      }}
-                    >
-                      {data[item.paymentMonth]}
-                    </td>
-                    <td
-                      style={{
-                        border: "1px solid #ddd",
-                        padding: "8px",
-                        textAlign: "left",
-                        backgroundColor: "#f2f2f2",
-                      }}
-                    >
-                      {item.paymentDate}
-                    </td>
-                    <td
-                      style={{
-                        border: "1px solid #ddd",
-                        padding: "8px",
-                        textAlign: "left",
-                        backgroundColor: "#f2f2f2",
-                      }}
-                    >
-                      {item.paymentType}
-                    </td>
-                    <td
-                      style={{
-                        border: "1px solid #ddd",
-                        padding: "8px",
-                        textAlign: "left",
-                        backgroundColor: "#f2f2f2",
-                      }}
-                    >
-                      {item.paymentMoney}
-                    </td>
-                    <td
-                      style={{
-                        border: "1px solid #ddd",
-                        padding: "8px",
-                        textAlign: "left",
-                        backgroundColor: "#f2f2f2",
-                      }}
-                    >
-                      {paymentList[0].lastIncomeMoney}
-                    </td>
-                  </tr>
-                ))}
+                <tr key={modalInfo._id}>
+                  <td
+                    style={{
+                      border: "1px solid #ddd",
+                      padding: "8px",
+                      textAlign: "left",
+                      backgroundColor: "#f2f2f2",
+                    }}
+                  >
+                    {paymentList[0].studentName}
+                  </td>
+                  <td
+                    style={{
+                      border: " 1px solid #ddd",
+                      padding: "8px",
+                      textAlign: "left",
+                      backgroundColor: "#f2f2f2",
+                    }}
+                  >
+                    {data[modalInfo.paymentMonth]}
+                  </td>
+                  <td
+                    style={{
+                      border: "1px solid #ddd",
+                      padding: "8px",
+                      textAlign: "left",
+                      backgroundColor: "#f2f2f2",
+                    }}
+                  >
+                    {modalInfo.paymentDate}
+                  </td>
+                  <td
+                    style={{
+                      border: "1px solid #ddd",
+                      padding: "8px",
+                      textAlign: "left",
+                      backgroundColor: "#f2f2f2",
+                    }}
+                  >
+                    {modalInfo.paymentType}
+                  </td>
+                  <td
+                    style={{
+                      border: "1px solid #ddd",
+                      padding: "8px",
+                      textAlign: "left",
+                      backgroundColor: "#f2f2f2",
+                    }}
+                  >
+                    {modalInfo.paymentMoney}
+                  </td>
+                  <td
+                    style={{
+                      border: "1px solid #ddd",
+                      padding: "8px",
+                      textAlign: "left",
+                      backgroundColor: "#f2f2f2",
+                    }}
+                  >
+                    {paymentList[0].lastIncomeMoney}
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>

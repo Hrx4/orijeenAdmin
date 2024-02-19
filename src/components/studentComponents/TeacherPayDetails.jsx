@@ -7,7 +7,9 @@ import TeacherPayHistory from "./TeacherPayHistory";
 // import PaymentModal from './'
 import backend from "../../backend";
 
-const TeacherPayDetails = ({ teacherPayList }) => {
+const TeacherPayDetails = ({ teacherPayList ,studentAddress,
+  studentEmail,
+  studentPhone  }) => {
   const [payHistory, setPayHistory] = useState();
   const [paymentList, setPaymentList] = useState([]);
   const [modalOpen, setModalOpen] = useState(true);
@@ -129,6 +131,8 @@ const TeacherPayDetails = ({ teacherPayList }) => {
                 <button
                   onClick={() => {
                     handleAllStudentTable(item.paymentId);
+                    console.log(item.teacherEmail)
+                    
                   }}
                   style={{ marginTop: 10 }}
                 >
@@ -143,6 +147,9 @@ const TeacherPayDetails = ({ teacherPayList }) => {
         <TeacherPayHistory
           paymentList={paymentList}
           setPaymentList={setPaymentList}
+          studentAddress = {studentAddress}
+                    studentEmail  = {studentEmail}
+                    studentPhone = {studentPhone}
         />
       ) : null}
       {payHistory === "PaymentModal" ? (
