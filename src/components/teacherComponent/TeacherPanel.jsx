@@ -148,6 +148,10 @@ const TeacherPanel = () => {
           console.log("fine");
           setTitle("");
           setPdf("");
+          setSubjectValue("")
+          setClassValue("")
+          setBatch("")
+          setCourseValue("")
           alert("form submitted");
         } else {
           alert("all field required");
@@ -182,7 +186,10 @@ const TeacherPanel = () => {
           // let resJson = await res.json();
           if (res.status === 200) {
             console.log("fine");
-            
+            setName("")
+            setEmail("")
+            setPhone("")
+            setMessage("")
             alert("form submitted");
           } else {
             alert("all field required");

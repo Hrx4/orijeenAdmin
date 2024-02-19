@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AppBar, Toolbar, IconButton, Typography, Button } from "@mui/material";
+import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 import backend from "../../backend";
@@ -19,14 +19,13 @@ const Payment = () => {
     "November",
     "December",
   ];
+  const x = JSON.parse(localStorage.getItem("student"));
+
   const navigate = useNavigate();
   const [paymentList, setPaymentList] = useState([]);
-  const [photo, setPhoto] = useState("");
 
   const handleContactTable = async () => {
-    const x = JSON.parse(localStorage.getItem("student"));
     console.log(x);
-    setPhoto(x.studentPhoto);
     try {
       const response = await fetch(`${backend}/student/getpayment/`, {
         method: "POST",
@@ -66,7 +65,7 @@ const Payment = () => {
             <Typography variant="h6" style={{ flexGrow: 1 }}>
               Logo
             </Typography>
-            <Typography variant="subtitle1">Hi, Pritam</Typography>
+            <Typography variant="subtitle1">Hi, {x?.studentName}</Typography>
           </Toolbar>
         </AppBar>
         <div
@@ -80,37 +79,8 @@ const Payment = () => {
             width: "20%",
           }}
         >
-          <div
-            style={{
-              height: 140,
-              width: 120,
-              backgroundColor: "red",
-            }}
-          >
-            <img src={photo} style={{ height: "100%", width: "100%" }} alt="" />
-          </div>
-          <div
-            className="anocall"
-            style={{
-              fontSize: "35px",
-              fontWeight: "bold",
-              color: "#Be2561",
-              marginBottom: "20%",
-              lineHeight: "normal",
-              textAlign: "center",
-            }}
-          >
-            For Any Technical Issue Call{" "}
-            <span className="ph">+919382637127</span>
-          </div>
-          <div
-            className="cButton"
-            style={{ textAlign: "center", padding: 20, marginTop: -20 }}
-          >
-            <Button variant="outlined" color="primary">
-              Sign Out
-            </Button>
-          </div>
+          
+
         </div>
         <h1 style={{ margin: 10 }}>Dashboard {">"} Payment</h1>
         <div

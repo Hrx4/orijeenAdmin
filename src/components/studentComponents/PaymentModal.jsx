@@ -16,10 +16,17 @@ const PaymentModal = ({
   // }, [])
   const [studentSubjects, setStudentSubjects] = useState([]);
 
+  const studentMonth = new Date(paymentList[0]?.teacherDoj).getMonth();
+
+  // useEffect(() => {
+  //   console.log(new Date(paymentList[0]?.studentDoj).getMonth());
+  //   console.log(lastPaidMonth);
+  // }, [paymentList, lastPaidMonth]);
+
   const data = [
-    "January",
-    "February",
-    "March",
+    "",
+    "",
+    "",
     "April",
     "May",
     "June",
@@ -30,6 +37,7 @@ const PaymentModal = ({
     "November",
     "December",
   ];
+  const data1 = ["January", "February", "March"];
 
   const handleCheck = (e) => {
     e.target.checked
@@ -67,7 +75,7 @@ const PaymentModal = ({
     } catch (err) {
       console.log(err);
     }
-    // window.location.reload()
+    window.location.reload()
   };
 
   return (
@@ -102,23 +110,63 @@ const PaymentModal = ({
                 <label>teacher payment Money : {item?.paymentMoney} </label>
               </div>
               <form onSubmit={(e) => updateList(e)}>
-                {data.map((item, index) =>
-                  index > lastPaidMonth ? (
-                    <div className="form-group">
-                      <label>{item}:</label>
-                      <input
-                        type="checkbox"
-                        value={index}
-                        onClick={(e) => handleCheck(e)}
-                      />
-                    </div>
-                  ) : (
-                    <div className="form-group">
-                      <label>{item}:</label>
-                      <input type="checkbox" checked={true} value={index} />
-                    </div>
-                  )
-                )}
+              {studentMonth >= 0 && studentMonth <= 2
+                  ? null
+                  : data.map((item, index) => {
+                      if (index > 2) {
+                        return index > lastPaidMonth && lastPaidMonth > 2 ? (
+                          <div className="form-group">
+                            <label>{item}:</label>
+                            <input
+                              type="checkbox"
+                              value={index}
+                              onClick={(e) => handleCheck(e)}
+                            />
+                          </div>
+                        ) : (
+                          <div className="form-group">
+                            <label>{item}:</label>
+                            <input
+                              type="checkbox"
+                              checked={true}
+                              value={index}
+                            />
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
+                {lastPaidMonth>=0 && lastPaidMonth<=2
+                  ? data1.map((item, index) =>
+                      index > lastPaidMonth ? (
+                        <div className="form-group">
+                          <label>{item}:</label>
+                          <input
+                            type="checkbox"
+                            value={index}
+                            onClick={(e) => handleCheck(e)}
+                          />
+                        </div>
+                      ) : (
+                        <div className="form-group">
+                          <label>{item}:</label>
+                          <input type="checkbox" checked={true} value={index} />
+                        </div>
+                      )
+                    )
+                  : data1.map((item, index) =>
+                       (
+                        <div className="form-group">
+                          <label>{item}:</label>
+                          <input
+                            type="checkbox"
+                            value={index}
+                            onClick={(e) => handleCheck(e)}
+                          />
+                        </div>
+                      ) 
+                      
+                    )}
 
                 <button type="submit">Submit</button>
               </form>

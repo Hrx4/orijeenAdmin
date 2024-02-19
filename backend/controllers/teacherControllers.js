@@ -8,7 +8,7 @@ const createTeacher = asyncHandler(async(req , res) => {
     const contact = await teacherModels.create({
         teacherName , teacherAge ,  teacherGender , teacherEducation , teacherAddress , teacherSalary , teacherDoj ,teacherSubject , teacherClass , teacherCourse ,teacherEmail , teacherPassword 
     })
-    const d = new Date();
+    const d = new Date(teacherDoj);
 
     const teacherPayment = await teacherPaymentModels.create({
         paymentId: contact._id,
@@ -21,12 +21,12 @@ const createTeacher = asyncHandler(async(req , res) => {
         paymentMoney : teacherSalary,
         totalExpense : teacherSalary,
         lastExpenseMonth : d.getMonth(),
-        lastExpenseDate : d.toISOString().split("T")[0],
+        lastExpenseDate : teacherDoj,
         paymentDetails:[
             {
                 paymentMonth: d.getMonth(),
         paymentMoney: teacherSalary,
-        paymentDate: d.toISOString().split("T")[0],
+        paymentDate: teacherDoj,
         paidMonth: d.getMonth(),
         paidYear: d.getFullYear(),
         paymentYear: d.getFullYear(),
@@ -52,6 +52,7 @@ const deleteTeacher = asyncHandler(async(req , res) => {
     }
 
     await teacherModels.deleteOne({_id:req.params.id})
+    await teacherPaymentModels.deleteOne({paymentId : req.params.id})
     res.status(200).json(contact);
 })
 

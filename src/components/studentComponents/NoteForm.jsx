@@ -133,6 +133,10 @@ const NoteForm = () => {
         console.log("fine");
         setTitle("");
         setPdf("");
+        setSubjectValue("");
+        setClassValue("");
+        setBatch("");
+        setCourseValue("");
         alert("form submitted");
       } else {
         alert("all field required");

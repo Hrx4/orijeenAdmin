@@ -1,5 +1,5 @@
 import { Box, Modal } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 // import backend from "../../backend";
 import backend from "./backend";
 
@@ -18,10 +18,10 @@ const PaymentModal = ({
   const [studentSubjects, setStudentSubjects] = useState([]);
   const studentMonth = new Date(paymentList[0]?.studentDoj).getMonth();
 
-  useEffect(() => {
-    console.log(new Date(paymentList[0]?.studentDoj).getMonth());
-    console.log(lastPaidMonth);
-  }, [paymentList, lastPaidMonth]);
+  // useEffect(() => {
+  //   console.log(new Date(paymentList[0]?.studentDoj).getMonth());
+  //   console.log(lastPaidMonth);
+  // }, [paymentList, lastPaidMonth]);
 
   const data = [
     "",
@@ -171,24 +171,7 @@ const PaymentModal = ({
                       ) 
                       
                     )}
-                {/* {
-                  data1.map((item , index)=>
-                    index > lastPaidMonth ? (
-                    <div className="form-group">
-                      <label>{item}:</label>
-                      <input
-                        type="checkbox"
-                        value={index}
-                        onClick={(e) => handleCheck(e)}
-                      />
-                    </div>
-                  ) : (
-                    <div className="form-group">
-                      <label>{item}:</label>
-                      <input type="checkbox" checked={true} value={index} />
-                    </div>
-                  ))
-                } */}
+                
 
                 <button type="submit">Submit</button>
               </form>
