@@ -13,6 +13,9 @@ const PayDetailsTab = ({ studentPayList, setStudentPayList }) => {
   const [modalOpen, setModalOpen] = useState(true);
   const [lastPaidMonth, setLastPaidMonth] = useState();
   const [lastPaidYear, setLastPaidYear] = useState();
+  const [studentEmail, setStudentEmail] = useState("")
+  const [studentPhone, setStudentPhone] = useState("")
+  const [studentAddress, setStudentAddress] = useState("")
 
   // const PayHistoryTab = (studentEnrollment) =>{
 
@@ -128,6 +131,10 @@ const PayDetailsTab = ({ studentPayList, setStudentPayList }) => {
                 <button
                   onClick={() => {
                     handleAllStudentTable(item.studentEnrollment);
+                    setStudentAddress(item.studentAddress)
+                    setStudentEmail(item.studentEmail)
+                    setStudentPhone(item.studentPhone)
+
                   }}
                   style={{ marginTop: 10 }}
                 >
@@ -142,6 +149,9 @@ const PayDetailsTab = ({ studentPayList, setStudentPayList }) => {
         <PaymentHistoryTab
           paymentList={paymentList}
           setPaymentList={setPaymentList}
+          studentAddress = {studentAddress}
+                    studentEmail  = {studentEmail}
+                    studentPhone = {studentPhone}
         />
       ) : null}
       {payHistory === "PaymentModal" ? (

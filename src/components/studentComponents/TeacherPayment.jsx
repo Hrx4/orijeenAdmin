@@ -13,6 +13,9 @@ const TeacherPayment = () => {
   const [teacherPayDetails, setTeacherPayDetails] = useState();
   const [teacherPayList, setteacherPayList] = useState([]);
   const [routeKey, setRouteKey] = useState("");
+  const [studentEmail, setStudentEmail] = useState("")
+  const [studentPhone, setStudentPhone] = useState("")
+  const [studentAddress, setStudentAddress] = useState("")
 
   const [teacherData, setTeacherData] = useState([]);
   const handleContactTable = async () => {
@@ -119,7 +122,10 @@ const TeacherPayment = () => {
                   {teacherData?.map((item, index) => (
                     <MenuItem
                       value={item.teacherName}
-                      onClick={() => setRouteKey(item._id)}
+                      onClick={() => {setRouteKey(item._id)
+                        setStudentAddress(item.teacherAddress)
+                    setStudentEmail(item.teacherEmail)
+                    setStudentPhone(item.teacherPhone)}}
                     >
                       {item.teacherName}
                     </MenuItem>
@@ -131,7 +137,10 @@ const TeacherPayment = () => {
           </form>
         </div>
         {teacherPayDetails === "addTeacherPayDetails" ? (
-          <TeacherPayDetails teacherPayList={teacherPayList} />
+          <TeacherPayDetails teacherPayList={teacherPayList}
+          studentAddress = {studentAddress}
+                    studentEmail  = {studentEmail}
+                    studentPhone = {studentPhone} />
         ) : null}
       </div>
     </>

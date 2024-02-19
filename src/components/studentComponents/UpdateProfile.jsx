@@ -15,7 +15,17 @@ const UpdateProfile = () =>{
                         <ArrowBackIcon onClick={() => navigate(-1)} />
                     </IconButton>
                         <Typography variant="h6" style={{ flexGrow: 1 }}>
-                            Logo
+                        <img
+            src="https://orijeen.in/img/logoOrijeen.png"
+            alt="orijeen logo"
+            style={{
+              width: "150px",
+              height: "auto",
+              position: "absolute",
+              top: "-40px",
+              left: "50px",
+            }}
+          />
                         </Typography>
                         <Typography variant="subtitle1">
                             Hi, Pritam

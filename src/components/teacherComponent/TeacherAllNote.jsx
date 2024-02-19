@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from "react";
 import TeacherNav from "./TeacherNav";
-import { Button } from "@mui/material";
+import { Box, Button, CircularProgress, Modal } from "@mui/material";
 import backend from "../../backend";
 
 const TeacherAllNote = () =>{
 
+  const [classData, setClassData] = useState([]);
+  const [subjectData, setSubjectData] = useState([]);
+  const [courseData, setCourseData] = useState([]);
+  const [batchData, setBatchData] = useState([]);
     const [noteData, setNoteData] = useState([]);
+    const [modalOpen, setModalOpen] = useState(false)
+    const [table , setTable] = useState([])
+    const [pdf, setPdf] = useState("");
+    const [loading, setLoading] = useState(false);
+
   const handleContactTable = async () => {
     try {
       const response = await fetch(`${backend}/note/`, {
@@ -40,15 +49,153 @@ const TeacherAllNote = () =>{
 
       await response.json();
 
-      // props.setApplyList( [...props.applyList.filter(item => item._id !== id)]);
       window.location.reload(true);
     } catch (err) {
       console.log(err);
     }
   };
+  const uploadFiles = async (e) => {
+    const { files } = e.target;
+    setLoading(true);
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "solardealership");
+    data.append("cloud_name", "dkm3nxmk5");
+    await fetch("https://api.cloudinary.com/v1_1/dkm3nxmk5/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (files[0].type === "application/pdf") setPdf(data.url);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setLoading(false);
+  };
+
+  const CustomerModalOpen = (item)=>{
+    setTable(item)
+    setModalOpen(true)
+    setPdf(item.notePdf)
+  }
+
+  const handleSubmit = async (e)=>{
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`${backend}/note/${table._id}`, {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          teacherName: table.teacherName,
+          teacherAge:  table.teacherAge,
+          teacherGender:  table.teacherGender,
+          teacherEducation:  table.teacherEducation,
+          teacherEmail:  table.teacherEmail,
+          teacherPassword:  table.teacherPassword,
+          teacherAddress:  table.teacherAddress,
+          teacherSalary: table.teacherSalary ,
+          teacherDoj: table.teacherDoj ,
+          teacherSubject:  table.teacherSubject,
+          teacherClass: table.teacherClass ,
+          teacherCourse:  table.teacherCourse,
+          noteTitle : table.noteTitle,
+          noteSubject : table.noteSubject,
+          noteClass : table.noteClass,
+          noteCourse : table.noteCourse,
+          noteBatch : table.noteBatch,
+          notePdf : pdf
+        }),
+      });
+
+      const resJson = await response.json();
+      window.location.reload(true);
+      console.log(resJson);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
 
   useEffect(() => {
+    const fetchClassValue = async () => {
+      try {
+        const response = await fetch(`${backend}/class/`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+        const result = await response.json();
+        setClassData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchClassValue();
+
+    const fetchBatchValue = async () => {
+      try {
+        const response = await fetch(`${backend}/batch/`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+        const result = await response.json();
+        setBatchData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchBatchValue();
+
+    const fetchSubjectValue = async () => {
+      try {
+        const response = await fetch(`${backend}/subject/`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+        const result = await response.json();
+        setSubjectData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchSubjectValue();
+
+    const fetchCourseValue = async () => {
+      try {
+        const response = await fetch(`${backend}/course/`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+        const result = await response.json();
+        setCourseData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchCourseValue();
     handleContactTable();
+
   }, []);
 
     return(
@@ -127,9 +274,9 @@ const TeacherAllNote = () =>{
                     variant="contained"
                     color="success"
                     size="small"
-                    // onClick={()=>CustomerModalOpen(
-                    //      item._id,item.noteTitle , item.noteSubject , item.noteClass , item.noteBatch , item.noteImage , item.notePdf, item.noteCourse
-                    // )}
+                    onClick={()=>CustomerModalOpen(
+                      item
+                    )}
                   >
                     Update
                   </Button>
@@ -140,6 +287,125 @@ const TeacherAllNote = () =>{
         </table>
         </div>
         </div>
+
+
+        <Modal
+        open={modalOpen}
+        onClose={()=>setModalOpen(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        >
+          <Box sx={{position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: {xs:"80%" ,md:500},
+            height:"70vh",
+            bgcolor: 'background.paper',
+            border: '2px solid #000',
+            boxShadow: 24,
+            p: 4,
+            overflowY:"scroll"
+          }}>
+            {loading ? <div className="loader"> 
+            Please Wait Your File is Uploading......
+            <CircularProgress/>
+            </div> : null}
+
+            <div style={{width:"auto"}} className="form-container">
+            <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Note Title:</label>
+            <input
+              type="text"
+              value={table.noteTitle}
+              onChange={(e) => setTable({...table , noteTitle : e.target.value})}
+            />
+          </div>
+
+          <div className="form-group">
+            <label style={{ marginRight: 10 }}>Subject:</label>
+            <select
+              type="text"
+              value={table.noteSubject}
+              onChange={(e) => setTable({...table , noteSubject : e.target.value})}
+            >
+              <option value="" selected disabled>
+                Select Your Subject
+              </option>
+              {subjectData?.map((item) => (
+                <option key={item?.id} value={item?.value}>
+                  {item?.subjectName}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label style={{ marginRight: 10 }}>Class:</label>
+            <select
+              type="text"
+              value={table.noteClass}
+              onChange={(e) => setTable({...table , noteClass : e.target.value})}
+            >
+              <option value="" selected disabled>
+                Select Your Class
+              </option>
+              {classData?.map((item) => (
+                <option key={item?.id} value={item?.value}>
+                  {item?.className}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label style={{ marginRight: 10 }}>Batch:</label>
+            <select
+              type="text"
+              value={table.noteBatch}
+              onChange={(e) => setTable({...table , noteBatch : e.target.value})}
+            >
+                            <option value="" selected disabled>
+                Select Your Batch
+              </option>
+              {batchData?.map((item) => (
+                <option key={item?.id} value={item?.value}>
+                  {item?.batchName}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label>Upload File:</label>
+            <input type="file" accept=".pdf" onChange={uploadFiles} />
+          </div>
+
+          <div className="form-group">
+            <label style={{ marginRight: 10 }}>Course:</label>
+            <select
+              type="text"
+              value={table.noteCourse}
+              onChange={(e) => setTable({...table , noteCourse : e.target.value})}
+            >
+              <option value="" selected disabled>
+                Select Your Course
+              </option>
+              {courseData?.map((item) => (
+                <option key={item?.id} value={item?.value}>
+                  {item?.courseName}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <button type="submit">Submit</button>
+        </form>
+            </div>
+
+          </Box>
+        </Modal>
         </>
     )
 }

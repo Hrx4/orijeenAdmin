@@ -64,13 +64,13 @@ const createStudent = asyncHandler(async (req, res) => {
     totalIncome: Number(studentFee) + Number(admissionAmount),
     lastIncomeMonth: d.getMonth(),
     lastIncomeMoney: studentFee,
-    lastIncomeDate: d,
+    lastIncomeDate: studentDoj,
     paymentDetails: [
       {
         paymentMonth: d.getMonth(),
         paymentMoney: studentFee,
         paymentType: studentPaymentType,
-        paymentDate: d,
+        paymentDate: studentDoj,
         paidMonth: d.getMonth(),
         paidYear: d.getFullYear(),
         paymentYear: d.getFullYear(),
