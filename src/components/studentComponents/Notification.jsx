@@ -4,7 +4,6 @@ import {
   Toolbar,
   IconButton,
   Typography,
-  Button,
   Modal,
   Box,
   Divider,
@@ -13,14 +12,18 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 import "./Notification.css";
 import backend from "../../backend";
+import gif from "./blink.gif";
 
 const Notification = () => {
   const navigate = useNavigate();
   const [notificationList, setNotificationList] = useState([]);
   const x = JSON.parse(localStorage.getItem("student"));
-  const [display, setDisplay] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [des, setDes] = useState();
+  const [open, setOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleBox = () => {
+    setIsOpen(!isOpen);
+  };
+    const [des, setDes] = useState();
   const handleNotificationTable = async () => {
     try {
       const response = await fetch(`${backend}/notification/`, {
@@ -85,33 +88,46 @@ const Notification = () => {
           />
             </Typography>
             <div
-              onClick={() => setDisplay((display) => !display)}
-              style={{ cursor: "pointer" }}
+onClick={toggleBox} 
+             style={{ cursor: "pointer" }}
             >
               Hi, {x?.studentName}
             </div>
           </Toolbar>
         </AppBar>
+        {isOpen && (
         <div
+          className="navBox"
           style={{
-            height: 100,
-            width: "100%",
+            maxHeight: 400,
+            width: 300,
             position: "absolute",
-            display: display ? "block" : "none",
+            right: "3%",
+            backgroundColor: "white",
+            borderRadius:10,
+            border:"1px solid blue",
+            overflowY: "scroll",
+            zIndex: 200,
           }}
         >
           <div
             style={{
-              height: 100,
               width: 100,
-              marginLeft: "auto",
+              height: 150,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            <Button style={{ backgroundColor: "red", color: "white" }}>
-              Sign Out
-            </Button>
+            <img
+              src="https://orijeen.in/img/logoOrijeen.png"
+              alt="Logo"
+              style={{ height: "100%", marginLeft: "190px" }}
+            />
           </div>
+          <button onClick={() => navigate("/")}>Sign Out</button>
         </div>
+      )}
         <h1 style={{ margin: 10 }}>Dashboard {">"} Notification</h1>
         <div
           className="Nbox"
@@ -133,9 +149,16 @@ const Notification = () => {
                     setOpen(true);
                     setDes(item);
                   }}
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: "pointer" , display:"flex" }}
                 >
                   {item.notificationTitle}
+                  <div style={{ height: 30, width: 30 }}>
+                        <img
+                          src={gif}
+                          alt=""
+                          style={{ height: "100%", width: "100%" }}
+                        />
+                      </div>
                 </li>
               ) : (
                 <a
@@ -144,7 +167,14 @@ const Notification = () => {
                   rel="noreferrer"
                   style={{ textDecoration: "none" }}
                 >
-                  <li key={item._id}>{item.notificationTitle}</li>
+                  <li key={item._id} style={{display:"flex"}}>{item.notificationTitle}
+                  <div style={{ height: 30, width: 30 }}>
+                        <img
+                          src={gif}
+                          alt=""
+                          style={{ height: "100%", width: "100%" }}
+                        />
+                      </div></li>
                 </a>
               )
             )}

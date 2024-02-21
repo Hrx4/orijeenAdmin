@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AppBar, Toolbar, IconButton, Typography, Button } from "@mui/material";
+import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 import "./Classnote.css";
@@ -7,8 +7,10 @@ import backend from "../../backend";
 
 const ClassNote = () => {
   const [course, setCourse] = useState([]);
-  const [display, setDisplay] = useState(false)
-
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleBox = () => {
+    setIsOpen(!isOpen);
+  };
   const navigate = useNavigate();
   const x = JSON.parse(localStorage.getItem("student"));
 
@@ -40,6 +42,7 @@ const ClassNote = () => {
     }
   };
 
+  
   useEffect(() => {
     setCourse(JSON.parse(localStorage.getItem("student")).studentCourse);
   }, []);
@@ -65,28 +68,43 @@ const ClassNote = () => {
             }}
           />
             </Typography>
-            <div onClick={()=>setDisplay((display)=>!display)} style={{cursor:"pointer"}} >Hi, {x?.studentName}</div>
+            <div onClick={toggleBox} style={{cursor:"pointer"}} >Hi, {x?.studentName}</div>
             
           </Toolbar>
         </AppBar>
+        {isOpen && (
         <div
+          className="navBox"
           style={{
-            height: 100,
-            width: "100%",
+            maxHeight: 400,
+            width: 300,
             position: "absolute",
-            display : (display ? "block" : "none")
+            right: "3%",
+            backgroundColor: "white",
+            borderRadius:10,
+            border:"1px solid blue",
+            overflowY: "scroll",
+            zIndex: 200,
           }}
         >
           <div
             style={{
-              height: 100,
               width: 100,
-              marginLeft: "auto",
+              height: 150,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            <Button style={{backgroundColor:"red" , color:"white"}}>Sign Out</Button>
+            <img
+              src="https://orijeen.in/img/logoOrijeen.png"
+              alt="Logo"
+              style={{ height: "100%", marginLeft: "190px" }}
+            />
           </div>
+          <button onClick={() => navigate("/")}>Sign Out</button>
         </div>
+      )}
        
         <h1 style={{ margin: 10 }}>Dashboard {">"} Class Note</h1>
         <div className="dContainer" style={{ marginTop: 40, margin: 20 }}>

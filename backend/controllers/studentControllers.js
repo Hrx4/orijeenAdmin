@@ -27,6 +27,11 @@ const createStudent = asyncHandler(async (req, res) => {
   } = req.body;
   console.log(studentPassword);
 
+  const studentCheck =await studentModels.find({studentEnrollment : studentEnrollment})
+  if (!studentCheck) {
+    return res.status(404).json({message : "log"});
+
+  }
   const student = await studentModels.create({
     studentEnrollment: studentEnrollment,
     studentName: studentName,

@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import TeacherNav from "./TeacherNav";
 import backend from "../../backend";
 import { Box, Divider, Modal } from "@mui/material";
+import gif from "./blink.gif";
 
 const TeacherNotification = () => {
   const [notificationList, setNotificationList] = useState([]);
   const [open, setOpen] = useState(false);
   const [des, setDes] = useState();
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -76,9 +78,16 @@ const TeacherNotification = () => {
                     setOpen(true);
                     setDes(item);
                   }}
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: "pointer", display:"flex" }}
                 >
                   {item.notificationTitle}
+                  <div style={{ height: 30, width: 30 }}>
+                        <img
+                          src={gif}
+                          alt=""
+                          style={{ height: "100%", width: "100%" }}
+                        />
+                      </div>
                 </li>
               ) : (
                 <a
@@ -87,7 +96,14 @@ const TeacherNotification = () => {
                   rel="noreferrer"
                   style={{ textDecoration: "none" }}
                 >
-                  <li key={item._id}>{item.notificationTitle}</li>
+                  <li key={item._id} style={{display:"flex"}}>{item.notificationTitle}
+                  <div style={{ height: 30, width: 30 }}>
+                        <img
+                          src={gif}
+                          alt=""
+                          style={{ height: "100%", width: "100%" }}
+                        />
+                      </div></li>
                 </a>
               )
             )}

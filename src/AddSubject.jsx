@@ -26,6 +26,8 @@ const AddSubject = () => {
 
       console.log(resJson);
       setCheck(!check);
+      alert("Subject Added")
+        setSubjectDetails("")
     } catch (err) {
       console.log(err);
     }

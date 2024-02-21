@@ -100,6 +100,7 @@ const AddTeacher = () => {
       });
 
       const resJson = await response.json();
+      if (response.status === 200) {
       alert("Teacher added");
       setName("")
       setAge("")
@@ -113,8 +114,12 @@ const AddTeacher = () => {
       setClassValue("")
       setCourseValue("")
       setSalary(0)
+      }
 
       console.log(resJson);
+       if(response.status===404) {
+        alert("Teacher already added")
+      }
     } catch (err) {
       alert("Fill all the fields")
       console.log(err);

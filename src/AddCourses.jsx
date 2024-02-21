@@ -26,6 +26,8 @@ const AddCourses = () => {
 
       console.log(resJson);
       setCheck(!check);
+      alert("Course Added")
+        setCourseDetails("")
     } catch (err) {
       console.log(err);
     }
@@ -66,7 +68,7 @@ const AddCourses = () => {
         <input
           style={{ height: 50 }}
           type="text"
-          placeholder="Enter Your Subject"
+          placeholder="Enter Your Course"
           value={courseDetails}
           onChange={(e) => setCourseDetails(e.target.value)}
         />
