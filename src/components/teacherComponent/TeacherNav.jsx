@@ -1,61 +1,82 @@
 import React, { useEffect, useState } from "react";
-import { AppBar, Toolbar, IconButton, Typography, Button } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useNavigate } from 'react-router-dom';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useNavigate } from "react-router-dom";
 
+const TeacherNav = () => {
+  const navigate = useNavigate();
+  const [details, setDetails] = useState({});
+  // const [display, setDisplay] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
-const TeacherNav = () =>{
-    const navigate = useNavigate();
-    const [details, setDetails] = useState({});
-    const [display, setDisplay] = useState(false)
-
+  const toggleBox = () => {
+    setIsOpen(!isOpen);
+  };
   useEffect(() => {
     setDetails(JSON.parse(localStorage.getItem("teacher")));
   }, []);
-    return(
-        <>
-            <AppBar position="static">
-                <Toolbar>
-                    <IconButton edge="start" color="inherit" aria-label="back" >
-                        <ArrowBackIcon onClick={() => navigate(-1)} />
-                    </IconButton>
-                    <Typography variant="h6" style={{ flexGrow: 1 }}>
-                    <img
-            src="https://orijeen.in/img/logoOrijeen.png"
-            alt="orijeen logo"
-            style={{
-              width: "150px",
-              height: "auto",
-              position: "absolute",
-              top: "-40px",
-              left: "50px",
-            }}
-          />
-                    </Typography>
-                    <div onClick={()=>setDisplay((display)=>!display)} style={{cursor:"pointer"}} >Hi, {details?.teacherName}</div>
-          </Toolbar>
-        </AppBar>
+  return (
+    <>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton edge="start" color="inherit" aria-label="back">
+            <ArrowBackIcon onClick={() => navigate(-1)} />
+          </IconButton>
+          <Typography variant="h6" style={{ flexGrow: 1 }}>
+            <img
+              src="https://orijeen.in/img/logoOrijeen.png"
+              alt="orijeen logo"
+              style={{
+                width: "150px",
+                height: "auto",
+                position: "absolute",
+                top: "-40px",
+                left: "50px",
+              }}
+            />
+          </Typography>
+          <div onClick={toggleBox} style={{ cursor: "pointer" }}>
+            Hi, {details?.teacherName}
+          </div>
+        </Toolbar>
+      </AppBar>
+     
+      {isOpen && (
         <div
+          className="navBox"
           style={{
-            height: 100,
-            width: "100%",
+            maxHeight: 400,
+            width: 300,
             position: "absolute",
-            display : (display ? "block" : "none")
+            right: "3%",
+            backgroundColor: "white",
+            borderRadius:10,
+            border:"1px solid blue",
+            overflowY: "scroll",
+            zIndex: 200,
           }}
         >
           <div
             style={{
-              height: 100,
               width: 100,
-              marginLeft: "auto",
+              height: 150,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            <Button style={{backgroundColor:"red" , color:"white"}} onClick={() => navigate("/")}>Sign Out</Button>
+            <img
+              src="https://orijeen.in/img/logoOrijeen.png"
+              alt="Logo"
+              style={{ height: "100%", marginLeft: "190px" }}
+            />
           </div>
+          <button onClick={() => navigate("/")}>Sign Out</button>
         </div>
-        </>
-    )
-}
+      )}
+    </>
+  );
+};
 
 export default TeacherNav;

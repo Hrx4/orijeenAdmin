@@ -208,7 +208,7 @@ const TeacherAllNote = () =>{
         <div
           className="table-scroll"
           style={{
-            width: "80%",
+            width: "95%",
             overflowX: "scroll",
             overflowY: "scroll",
             padding: 10,

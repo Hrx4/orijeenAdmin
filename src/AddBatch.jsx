@@ -25,6 +25,8 @@ const AddBatch  = () => {
   
         console.log(resJson);
         setCheck(!check);
+        alert("Batch Added")
+        setBatchDetails("")
       } catch (err) {
         console.log(err);
       }
@@ -44,6 +46,7 @@ const AddBatch  = () => {
   
         console.log(resJson);
         setBatchList(resJson);
+
       } catch (err) {
         console.log(err);
       }

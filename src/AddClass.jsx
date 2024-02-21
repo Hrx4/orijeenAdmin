@@ -25,6 +25,8 @@ const AddClass = () => {
 
       console.log(resJson);
       setCheck(!check);
+      alert("Class Added")
+        setClassDetails("")
     } catch (err) {
       console.log(err);
     }

@@ -26,6 +26,8 @@ const AddCourses = () => {
 
       console.log(resJson);
       setCheck(!check);
+      alert("Course Added")
+        setCourseDetails("")
     } catch (err) {
       console.log(err);
     }

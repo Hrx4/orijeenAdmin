@@ -24,7 +24,7 @@ const StudentForm = () => {
   const [studentPaymentType, setStudentPaymentType] =
     useState("Monthly Payment");
   const [studentSubjects, setstudentSubjects] = useState([]);
-  const [monthlyFee, setMonthlyFee] = useState("");
+  const [monthlyFee, setMonthlyFee] = useState(0);
   const [bloodGroup, setBloodGroup] = useState("");
   const [category, setCategory] = useState("General");
   const [classList, setClassList] = useState([]);
@@ -181,7 +181,7 @@ const StudentForm = () => {
           studentPhone: studentPhone,
           studentAddress: studentAddress,
           studentPaymentType: studentPaymentType,
-          studentFee: monthlyFee,
+          studentFee: parseInt(monthlyFee),
           studentBlood: bloodGroup,
           studentCategory: category,
           guardianName: fatherName,
@@ -200,15 +200,25 @@ const StudentForm = () => {
         });
         setStudentEnrollment("");
         setStudentName("");
+        setStudentDoj("")
         setStudentClass("");
         setStudentBatch("");
+        setPassword("")
+        setBloodGroup("")
+        setCategory("")
+        setMonthlyFee(0)
+        setstudentSubjects("")
         setStudentCourse("");
-        setSubjectList([]);
         setStudentPhone("");
         setStudentAddress("");
         setStudentPaymentType("");
         setFatherName("");
-      } else {
+        setAdmissionAmount(0)
+      }
+      else if(res.status===404) {
+        alert("Student already added")
+      }
+       else {
         toast.error("All field fill required", {
           position: toast.POSITION.TOP_CENTER,
         });
@@ -486,7 +496,7 @@ Admission Date              </label>
               </label>
               <br />
               <input
-                type="text"
+                type="number"
                 className="student__field"
                 value={monthlyFee}
                 onChange={(e) => setMonthlyFee(e.target.value)}
