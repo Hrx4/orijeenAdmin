@@ -4,9 +4,9 @@ const teacherPaymentModels = require('../models/teacherPaymentModels');
 
 const createTeacher = asyncHandler(async(req , res) => {
     const {teacherName , teacherAge , teacherGender , teacherEducation , teacherAddress , teacherSalary , teacherDoj ,teacherSubject , teacherClass , teacherCourse,teacherEmail , teacherPassword  } = req.body;
-    const studentCheck = teacherModels.find({teacherEmail : teacherEmail})
+    const studentCheck = await teacherModels.find({teacherEmail : teacherEmail})
 
-    if (studentCheck) {
+    if (!studentCheck) {
         return res.status(404).json({message : "log"});
         // throw new Error("teacher  found");
       }
