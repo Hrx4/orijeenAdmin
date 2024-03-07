@@ -32,7 +32,7 @@ const PaymentHistoryTab = ({
     "May",
     "June",
     "July",
-    "Augast",
+    "August",
     "September",
     "October",
     "November",

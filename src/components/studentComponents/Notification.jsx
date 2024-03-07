@@ -18,12 +18,12 @@ const Notification = () => {
   const navigate = useNavigate();
   const [notificationList, setNotificationList] = useState([]);
   const x = JSON.parse(localStorage.getItem("student"));
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const toggleBox = () => {
     setIsOpen(!isOpen);
   };
-    const [des, setDes] = useState();
+  const [des, setDes] = useState();
   const handleNotificationTable = async () => {
     try {
       const response = await fetch(`${backend}/notification/`, {
@@ -59,7 +59,8 @@ const Notification = () => {
     justifyContent: "space-evenly",
     // border: "2px solid white",
     borderRadius: 5,
-    backgroundColor: "cyan",
+    border: "1px solid cyan",
+    backgroundColor: "white",
   };
 
   useEffect(() => {
@@ -75,59 +76,56 @@ const Notification = () => {
               <ArrowBackIcon onClick={() => navigate(-1)} />
             </IconButton>
             <Typography variant="h6" style={{ flexGrow: 1 }}>
-            <img
-            src="https://orijeen.in/img/logoOrijeen.png"
-            alt="orijeen logo"
-            style={{
-              width: "150px",
-              height: "auto",
-              position: "absolute",
-              top: "-40px",
-              left: "50px",
-            }}
-          />
+              <img
+                src="https://orijeen.in/img/logoOrijeen.png"
+                alt="orijeen logo"
+                style={{
+                  width: "150px",
+                  height: "auto",
+                  position: "absolute",
+                  top: "-40px",
+                  left: "50px",
+                }}
+              />
             </Typography>
-            <div
-onClick={toggleBox} 
-             style={{ cursor: "pointer" }}
-            >
+            <div onClick={toggleBox} style={{ cursor: "pointer" }}>
               Hi, {x?.studentName}
             </div>
           </Toolbar>
         </AppBar>
         {isOpen && (
-        <div
-          className="navBox"
-          style={{
-            maxHeight: 400,
-            width: 300,
-            position: "absolute",
-            right: "3%",
-            backgroundColor: "white",
-            borderRadius:10,
-            border:"1px solid blue",
-            overflowY: "scroll",
-            zIndex: 200,
-          }}
-        >
           <div
+            className="navBox"
             style={{
-              width: 100,
-              height: 150,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              maxHeight: 400,
+              width: 300,
+              position: "absolute",
+              right: "3%",
+              backgroundColor: "white",
+              borderRadius: 10,
+              border: "1px solid blue",
+              overflowY: "scroll",
+              zIndex: 200,
             }}
           >
-            <img
-              src="https://orijeen.in/img/logoOrijeen.png"
-              alt="Logo"
-              style={{ height: "100%", marginLeft: "190px" }}
-            />
+            <div
+              style={{
+                width: 100,
+                height: 150,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <img
+                src="https://orijeen.in/img/logoOrijeen.png"
+                alt="Logo"
+                style={{ height: "100%", marginLeft: "190px" }}
+              />
+            </div>
+            <button onClick={() => navigate("/")}>Sign Out</button>
           </div>
-          <button onClick={() => navigate("/")}>Sign Out</button>
-        </div>
-      )}
+        )}
         <h1 style={{ margin: 10 }}>Dashboard {">"} Notification</h1>
         <div
           className="Nbox"
@@ -140,42 +138,48 @@ onClick={toggleBox}
             boxSizing: "border-box",
           }}
         >
-          <ul>
+          <ul style={{}}>
             {notificationList?.map((item, index) =>
               item.notificationDetails ? (
                 <li
-                  key={item._id}
+                  
+                >
+                  <div key={item._id}
                   onClick={() => {
                     setOpen(true);
                     setDes(item);
                   }}
-                  style={{ cursor: "pointer" , display:"flex" }}
-                >
-                  {item.notificationTitle}
-                  <div style={{ height: 30, width: 30 }}>
+                  style={{ cursor: "pointer", display: "flex" }}>
+                    {item.notificationTitle}
+                    <div style={{ height: 30, width: 30 }}>
+                      <img
+                        src={gif}
+                        alt=""
+                        style={{ height: "100%", width: "100%" }}
+                      />
+                    </div>
+                  </div>
+                </li>
+              ) : (
+                <li>
+                  <a
+                    href={item?.notificationLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    <div key={item._id} style={{ display: "flex" }}>
+                      {item.notificationTitle}
+                      <div style={{ height: 30, width: 30 }}>
                         <img
                           src={gif}
                           alt=""
                           style={{ height: "100%", width: "100%" }}
                         />
                       </div>
+                    </div>
+                  </a>
                 </li>
-              ) : (
-                <a
-                  href={item?.notificationLink}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{ textDecoration: "none" }}
-                >
-                  <li key={item._id} style={{display:"flex"}}>{item.notificationTitle}
-                  <div style={{ height: 30, width: 30 }}>
-                        <img
-                          src={gif}
-                          alt=""
-                          style={{ height: "100%", width: "100%" }}
-                        />
-                      </div></li>
-                </a>
               )
             )}
           </ul>

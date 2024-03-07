@@ -1,7 +1,6 @@
-import { Button } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Modal } from "@mui/material";
-import { Box } from "@mui/material";
+import { Box,Button } from "@mui/material";
 import backend from "./backend";
 import { Link } from "react-router-dom";
 

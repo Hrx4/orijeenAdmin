@@ -31,7 +31,7 @@ const PaymentModal = ({
     "May",
     "June",
     "July",
-    "Augast",
+    "August",
     "September",
     "October",
     "November",
@@ -75,7 +75,7 @@ const PaymentModal = ({
     } catch (err) {
       console.log(err);
     }
-    window.location.reload()
+    window.location.reload();
   };
 
   return (
@@ -140,7 +140,7 @@ const PaymentModal = ({
                       }
                       return null;
                     })}
-                {lastPaidMonth>=0 && lastPaidMonth<=2
+                {lastPaidMonth >= 0 && lastPaidMonth <= 2
                   ? data1.map((item, index) =>
                       index > lastPaidMonth ? (
                         <div className="form-group">
@@ -158,20 +158,16 @@ const PaymentModal = ({
                         </div>
                       )
                     )
-                  : data1.map((item, index) =>
-                       (
-                        <div className="form-group">
-                          <label>{item}:</label>
-                          <input
-                            type="checkbox"
-                            value={index}
-                            onClick={(e) => handleCheck(e)}
-                          />
-                        </div>
-                      ) 
-                      
-                    )}
-                
+                  : data1.map((item, index) => (
+                      <div className="form-group">
+                        <label>{item}:</label>
+                        <input
+                          type="checkbox"
+                          value={index}
+                          onClick={(e) => handleCheck(e)}
+                        />
+                      </div>
+                    ))}
 
                 <button type="submit">Submit</button>
               </form>

@@ -91,7 +91,6 @@ const AllExpenses = () => {
                   {item?.expenseDate}
                 </td>
                 <td style={{ border: "1px solid black", padding: 5 }}>
-                  <Button variant="contained">Edit</Button>{" "}
                   <Button
                     onClick={() => handleDelete(item._id)}
                     variant="contained"
