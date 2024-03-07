@@ -24,7 +24,7 @@ import AllExpenses from "./components/studentComponents/AllExpenses";
 import AddNotification from "./AddNotification";
 import AllNotification from "./AllNotification";
 import backend from './backend'
-import { Link } from "react-router-dom";
+import QueryForm from "./components/studentComponents/QueryForm";
 
 // import SnavBar from './SnavBar';
 
@@ -34,6 +34,8 @@ const SuperAdmin = () => {
   const [notificationList, setNotificationList] = useState([]);
   const [contactList, setContactList] = useState([]);
   const [applyList, setApplyList] = useState([]);
+  const [questionList, setQuestionList] = useState([]);
+
   const [noteView, setNoteView] = useState("Dashboard");
   const [slideOpen, setSlideOpen] = useState(false);
   const [teacherPart, setTeacherPart] = useState([
@@ -263,6 +265,33 @@ const SuperAdmin = () => {
   };
   const handleStudentPaymentForm = () => {
     setNoteView("studentPaymentForm");
+  };
+  const handleStudentPaymentForm1 = async() => {
+    
+    setNoteView("forum");
+    try {
+      const response = await fetch(`${backend}/answer/`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+
+      const resJson = await response.json();
+
+      if (response.status === 200) {
+        setQuestionList(resJson);
+        console.log("====================================");
+        console.log(resJson);
+        console.log("====================================");
+      } else {
+        console.log("Some error occured");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    
   };
   const handleBatchForm = () => {
     setNoteView("batchForm");
@@ -589,11 +618,11 @@ const SuperAdmin = () => {
             </ul>
           </div>
           <div
-            onClick={handleStudentPaymentForm}
+            onClick={handleStudentPaymentForm1}
             style={{ padding: 20, cursor: "pointer", paddingLeft: 30 }}
             className="note__btn"
           >
-           <Link to="/queryforum" style={{textDecoration: "none", color:"black"}}> ▶ Query Forum</Link>
+           <div style={{textDecoration: "none", color:"black"}} > ▶ Query Forum</div>
           </div>
         </div>
         <div
@@ -640,6 +669,8 @@ const SuperAdmin = () => {
           {noteView === "teacherPaymentForm" ? <TeacherPayment /> : null}
           {noteView === "addExtraExpenses" ? <AddExpenses /> : null}
           {noteView === "allExtraExpenses" ? <AllExpenses /> : null}
+          {noteView === "forum" ? <QueryForm questionList={questionList} setQuestionList={setQuestionList} /> : null}
+
         </div>
       </div>
     </>

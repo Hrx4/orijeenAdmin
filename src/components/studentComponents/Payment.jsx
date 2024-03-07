@@ -21,7 +21,7 @@ const Payment = () => {
     "May",
     "June",
     "July",
-    "Augast",
+    "August",
     "September",
     "October",
     "November",
@@ -38,7 +38,7 @@ const Payment = () => {
   const toggleBox = () => {
     setIsOpen(!isOpen);
   };
-const [modalInfo, setModalInfo] = useState({})
+  const [modalInfo, setModalInfo] = useState({});
   const handlePrint = () => {
     window.print();
   };
@@ -87,56 +87,56 @@ const [modalInfo, setModalInfo] = useState({})
               <ArrowBackIcon onClick={() => navigate(-1)} />
             </IconButton>
             <Typography variant="h6" style={{ flexGrow: 1 }}>
-            <img
-            src="https://orijeen.in/img/logoOrijeen.png"
-            alt="orijeen logo"
-            style={{
-              width: "150px",
-              height: "auto",
-              position: "absolute",
-              top: "-40px",
-              left: "50px",
-            }}
-          />
+              <img
+                src="https://orijeen.in/img/logoOrijeen.png"
+                alt="orijeen logo"
+                style={{
+                  width: "150px",
+                  height: "auto",
+                  position: "absolute",
+                  top: "-40px",
+                  left: "50px",
+                }}
+              />
             </Typography>
-            <div  onClick={toggleBox} style={{cursor:"pointer"}} >
+            <div onClick={toggleBox} style={{ cursor: "pointer" }}>
               Hi, {details?.studentName}
             </div>
           </Toolbar>
         </AppBar>
         {isOpen && (
-        <div
-          className="navBox"
-          style={{
-            maxHeight: 400,
-            width: 300,
-            position: "absolute",
-            right: "3%",
-            backgroundColor: "white",
-            borderRadius:10,
-            border:"1px solid blue",
-            overflowY: "scroll",
-            zIndex: 200,
-          }}
-        >
           <div
+            className="navBox"
             style={{
-              width: 100,
-              height: 150,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              maxHeight: 400,
+              width: 300,
+              position: "absolute",
+              right: "3%",
+              backgroundColor: "white",
+              borderRadius: 10,
+              border: "1px solid blue",
+              overflowY: "scroll",
+              zIndex: 200,
             }}
           >
-            <img
-              src="https://orijeen.in/img/logoOrijeen.png"
-              alt="Logo"
-              style={{ height: "100%", marginLeft: "190px" }}
-            />
+            <div
+              style={{
+                width: 100,
+                height: 150,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <img
+                src="https://orijeen.in/img/logoOrijeen.png"
+                alt="Logo"
+                style={{ height: "100%", marginLeft: "190px" }}
+              />
+            </div>
+            <button onClick={() => navigate("/")}>Sign Out</button>
           </div>
-          <button onClick={() => navigate("/")}>Sign Out</button>
-        </div>
-      )}
+        )}
         <div
           className="anocontact"
           style={{
@@ -223,7 +223,7 @@ const [modalInfo, setModalInfo] = useState({})
                         setOpen(true);
                         setInvoiceNo(index + 1);
                         setInvoiceDate(item.paymentDate);
-                        setModalInfo(paymentList?.paymentDetails[index])
+                        setModalInfo(paymentList?.paymentDetails[index]);
                       }}
                     >
                       View Invoice
@@ -472,8 +472,6 @@ const [modalInfo, setModalInfo] = useState({})
           </div>
 
           <div id="button">
-            
-
             <Button
               variant="contained"
               color="primary"

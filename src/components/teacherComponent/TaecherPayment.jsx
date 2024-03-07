@@ -4,7 +4,6 @@ import backend from "../../backend";
 import { Box, Button, Modal } from "@mui/material";
 
 const TeacherPayment = () => {
-
   const [open, setOpen] = useState(false);
   const [invoiceNo, setInvoiceNo] = useState();
   const [invoiceDate, setInvoiceDate] = useState();
@@ -26,7 +25,7 @@ const TeacherPayment = () => {
     "May",
     "June",
     "July",
-    "Augast",
+    "August",
     "September",
     "October",
     "November",
@@ -127,14 +126,18 @@ const TeacherPayment = () => {
                     {item.paymentDate}
                   </td>
                   <td className="actionButtons">
-                    
-                    <button className="actionButton"
-                     onClick={() => {
-                  console.log(paymentList[0]);
-                  setOpen(true);
-                  setInvoiceNo(index + 1);
-                  setInvoiceDate(item.paymentDate);
-                  setModalInfo(paymentList[index])}}>View Invoice</button>
+                    <button
+                      className="actionButton"
+                      onClick={() => {
+                        console.log(paymentList[0]);
+                        setOpen(true);
+                        setInvoiceNo(index + 1);
+                        setInvoiceDate(item.paymentDate);
+                        setModalInfo(paymentList[index]);
+                      }}
+                    >
+                      View Invoice
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -235,7 +238,7 @@ const TeacherPayment = () => {
             <p style={{ marginBottom: "0rem" }}>{x?.teacherPhone}</p>
             <p style={{ marginBottom: "0rem" }}>{x?.teacherAddress}</p>
           </div>
-          <div style={{ position: "absolute", top: "280px" , right:50 }}>
+          <div style={{ position: "absolute", top: "280px", right: 50 }}>
             <table
               style={{
                 width: "100%",
@@ -295,7 +298,6 @@ const TeacherPayment = () => {
                   >
                     Date
                   </th>
-                  
                 </tr>
               </thead>
               <tbody>
@@ -350,7 +352,6 @@ const TeacherPayment = () => {
                   >
                     {modalInfo.paymentDate}
                   </td>
-                  
                 </tr>
               </tbody>
             </table>

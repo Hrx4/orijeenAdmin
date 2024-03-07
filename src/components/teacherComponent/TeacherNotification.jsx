@@ -23,8 +23,8 @@ const TeacherNotification = () => {
     justifyContent: "space-evenly",
     // border: "2px solid white",
     borderRadius: 5,
-    backgroundColor: "cyan",
-  };
+    border: "1px solid cyan",
+    backgroundColor: "white",  };
 
   const handleNotificationTable = async () => {
     try {
@@ -69,42 +69,48 @@ const TeacherNotification = () => {
             boxSizing: "border-box",
           }}
         >
-          <ul>
+          <ul style={{}}>
             {notificationList?.map((item, index) =>
               item.notificationDetails ? (
                 <li
-                  key={item._id}
+                  
+                >
+                  <div key={item._id}
                   onClick={() => {
                     setOpen(true);
                     setDes(item);
                   }}
-                  style={{ cursor: "pointer", display:"flex" }}
-                >
-                  {item.notificationTitle}
-                  <div style={{ height: 30, width: 30 }}>
+                  style={{ cursor: "pointer", display: "flex" }}>
+                    {item.notificationTitle}
+                    <div style={{ height: 30, width: 30 }}>
+                      <img
+                        src={gif}
+                        alt=""
+                        style={{ height: "100%", width: "100%" }}
+                      />
+                    </div>
+                  </div>
+                </li>
+              ) : (
+                <li>
+                  <a
+                    href={item?.notificationLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    <div key={item._id} style={{ display: "flex" }}>
+                      {item.notificationTitle}
+                      <div style={{ height: 30, width: 30 }}>
                         <img
                           src={gif}
                           alt=""
                           style={{ height: "100%", width: "100%" }}
                         />
                       </div>
+                    </div>
+                  </a>
                 </li>
-              ) : (
-                <a
-                  href={item?.notificationLink}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{ textDecoration: "none" }}
-                >
-                  <li key={item._id} style={{display:"flex"}}>{item.notificationTitle}
-                  <div style={{ height: 30, width: 30 }}>
-                        <img
-                          src={gif}
-                          alt=""
-                          style={{ height: "100%", width: "100%" }}
-                        />
-                      </div></li>
-                </a>
               )
             )}
           </ul>
