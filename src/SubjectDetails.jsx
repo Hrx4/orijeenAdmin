@@ -44,7 +44,7 @@ const SubjectDetails = ({ subjectList }) => {
           <tbody>
             {subjectList?.map((item, index) => (
               <tr key={index + 1} style={{ backgroundColor: "#f2f2f2" }}>
-                <td style={{ border: "1px solid #000", padding: "8px" }}>1</td>
+                <td style={{ border: "1px solid #000", padding: "8px" }}>{index+1}</td>
                 <td style={{ border: "1px solid #000", padding: "8px" }}>
                   {item.subjectName}
                 </td>

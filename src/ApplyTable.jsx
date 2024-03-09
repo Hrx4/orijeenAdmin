@@ -1,11 +1,13 @@
 import { Button } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Table.css";
 import "./Form.css";
 import backend from './backend'
 
 
-const ApplyTable = (props) => {
+const ApplyTable = () => {
+  const [applyList, setApplyList] = useState([]);
+
   const handleDelete = async (id) => {
     const key = JSON.parse(id);
     console.log("====================================");
@@ -26,14 +28,45 @@ const ApplyTable = (props) => {
       console.log(response);
       console.log("====================================");
 
-      props.setApplyList([
-        ...props.applyList.filter((item) => item._id !== id),
+      setApplyList([
+        ...applyList.filter((item) => item._id !== id),
       ]);
       window.location.reload(true);
     } catch (err) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    const handleApplyTable = async () => {
+  
+      try {
+        const response = await fetch(`${backend}/apply/`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+  
+        const resJson = await response.json();
+  
+        if (response.status === 200) {
+          setApplyList(resJson);
+          console.log("====================================");
+          console.log(resJson);
+          console.log("====================================");
+        } else {
+          console.log("Some error occured");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    handleApplyTable()
+
+  }, [])
+  
 
   return (
     <>
@@ -68,7 +101,7 @@ const ApplyTable = (props) => {
                 </th>
               </tr>
             }
-            {props.applyList.map((item) => (
+            {applyList.map((item) => (
               <tr
                 style={{ border: "1px solid black", padding: 5 }}
                 key={item._id}

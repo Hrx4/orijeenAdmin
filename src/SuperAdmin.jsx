@@ -23,7 +23,6 @@ import AddExpenses from "./components/studentComponents/AddExpenses";
 import AllExpenses from "./components/studentComponents/AllExpenses";
 import AddNotification from "./AddNotification";
 import AllNotification from "./AllNotification";
-import backend from './backend'
 import QueryForum from "./components/studentComponents/QueryForum";
 
 // import SnavBar from './SnavBar';
@@ -32,11 +31,9 @@ const SuperAdmin = () => {
   const ref = useRef(null);
   const [noteList, setNoteList] = useState([]);
   const [notificationList, setNotificationList] = useState([]);
-  const [contactList, setContactList] = useState([]);
-  const [applyList, setApplyList] = useState([]);
-  const [questionList, setQuestionList] = useState([]);
-
-  const [noteView, setNoteView] = useState("Dashboard");
+  const [noteView, setNoteView] = useState(
+    JSON.parse(localStorage.getItem("superadmin")).noteView
+  );
   const [slideOpen, setSlideOpen] = useState(false);
   const [teacherPart, setTeacherPart] = useState([
     {
@@ -87,8 +84,6 @@ const SuperAdmin = () => {
       subItems: ["Add Student", "All Students"],
     },
   ]);
-  const [income, setIncome] = useState([]);
-  const [expenseDetails, setExpenseDetails] = useState([]);
 
   const toggleClassManagement = (itemId) => {
     setClassManagement((prevItems) =>
@@ -137,104 +132,33 @@ const SuperAdmin = () => {
     ref.current.classList.add("slider__close");
     ref.current.classList.remove("slider__open");
     setSlideOpen(false);
-    setNoteView("contacttable");
+    localStorage.setItem(
+      "superadmin",
+      JSON.stringify({ noteView: "contacttable" })
+    );
+    setNoteView("contacttable")
 
-    try {
-      const response = await fetch(`${backend}/contact/`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-
-      const resJson = await response.json();
-
-      if (response.status === 200) {
-        setContactList(resJson);
-        console.log("====================================");
-        console.log(resJson);
-        console.log("====================================");
-      } else {
-        console.log("Some error occured");
-      }
-    } catch (err) {
-      console.log(err);
-    }
   };
   const handleApplyTable = async () => {
     ref.current.classList.add("slider__close");
     ref.current.classList.remove("slider__open");
     setSlideOpen(false);
-    setNoteView("applytable");
+    localStorage.setItem(
+      "superadmin",
+      JSON.stringify({ noteView: "applytable" })
+    );
+    setNoteView("applytable")
 
-    try {
-      const response = await fetch(`${backend}/apply/`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-
-      const resJson = await response.json();
-
-      if (response.status === 200) {
-        setApplyList(resJson);
-        console.log("====================================");
-        console.log(resJson);
-        console.log("====================================");
-      } else {
-        console.log("Some error occured");
-      }
-    } catch (err) {
-      console.log(err);
-    }
   };
   const handleDashboard = async () => {
-    setNoteView("Dashboard");
+    localStorage.setItem(
+      "superadmin",
+      JSON.stringify({ noteView: "Dashboard" })
+    );
+    setNoteView("Dashboard")
     ref.current.classList.add("slider__close");
     ref.current.classList.remove("slider__open");
     setSlideOpen(false);
-
-    try {
-      const response = await fetch(`${backend}/student/getpayment/`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-
-      const resJson = await response.json();
-
-      if (response.status === 200) {
-        setIncome(resJson);
-        console.log("====================================");
-        console.log(resJson);
-        console.log("====================================");
-      } else {
-        console.log("Some error occured");
-      }
-    } catch (err) {
-      console.log(err);
-    }
-    try {
-      const res = await fetch(`${backend}/expense/details/`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-      let resJson = await res.json();
-      if (res.status === 200) {
-        console.log("fine");
-        setExpenseDetails(resJson);
-      }
-    } catch (err) {
-      console.log(err);
-    }
   };
 
   const btnclicked = () => {
@@ -249,83 +173,139 @@ const SuperAdmin = () => {
     }
   };
   const handleClassForm = () => {
-    setNoteView("classForm");
+    localStorage.setItem(
+      "superadmin",
+      JSON.stringify({ noteView: "classForm" })
+    );
+    setNoteView("classForm")
+
   };
   const handleSubjectForm = () => {
-    setNoteView("subjectForm");
+    localStorage.setItem(
+      "superadmin",
+      JSON.stringify({ noteView: "subjectForm" })
+    );
+    setNoteView("subjectForm")
+
   };
   const handleCourseForm = () => {
-    setNoteView("courseForm");
+    localStorage.setItem(
+      "superadmin",
+      JSON.stringify({ noteView: "courseForm" })
+    );
+    setNoteView("courseForm")
+
   };
   const handleAddStudentDetails = () => {
-    setNoteView("addStudentForm");
+    localStorage.setItem(
+      "superadmin",
+      JSON.stringify({ noteView: "addStudentForm" })
+    );
+    setNoteView("addStudentForm")
+
   };
   const handleAllStudentDetails = () => {
-    setNoteView("allStudentForm");
+    localStorage.setItem(
+      "superadmin",
+      JSON.stringify({ noteView: "allStudentForm" })
+    );
+    setNoteView("allStudentForm")
+
   };
   const handleStudentPaymentForm = () => {
-    setNoteView("studentPaymentForm");
+    localStorage.setItem(
+      "superadmin",
+      JSON.stringify({ noteView: "studentPaymentForm" })
+    );
+    setNoteView("studentPaymentForm")
+
   };
-  const handleStudentPaymentForm1 = async() => {
-    
-    setNoteView("forum");
-    try {
-      const response = await fetch(`${backend}/answer/`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
+  const handleStudentPaymentForm1 = async () => {
+    localStorage.setItem("superadmin", JSON.stringify({ noteView: "forum" }));
+    setNoteView("forum")
 
-      const resJson = await response.json();
-
-      if (response.status === 200) {
-        setQuestionList(resJson);
-        console.log("====================================");
-        console.log(resJson);
-        console.log("====================================");
-      } else {
-        console.log("Some error occured");
-      }
-    } catch (err) {
-      console.log(err);
-    }
-    
   };
   const handleBatchForm = () => {
-    setNoteView("batchForm");
+    localStorage.setItem(
+      "superadmin",
+      JSON.stringify({ noteView: "batchForm" })
+    );
+    setNoteView("batchForm")
+
   };
   const handleNoteForm = () => {
-    setNoteView("addNoteForm");
+    localStorage.setItem(
+      "superadmin",
+      JSON.stringify({ noteView: "addNoteForm" })
+    );
+    setNoteView("addNoteForm")
+
   };
   const handleNoteTable = () => {
-    setNoteView("allNoteTable");
+    localStorage.setItem(
+      "superadmin",
+      JSON.stringify({ noteView: "allNoteTable" })
+    );
+    setNoteView("allNoteTable")
+
   };
   const handleNotificationForm = () => {
-    setNoteView("addNotificationForm");
+    localStorage.setItem(
+      "superadmin",
+      JSON.stringify({ noteView: "addNotificationForm" })
+    );
+    setNoteView("addNotificationForm")
+
   };
   const handleNotificationTable = () => {
-    setNoteView("allNotificationTable");
+    localStorage.setItem(
+      "superadmin",
+      JSON.stringify({ noteView: "allNotificationTable" })
+    );
+    setNoteView("allNotificationTable")
+
   };
   const handleAddTeacherDetails = () => {
-    setNoteView("addTeacher");
+    localStorage.setItem(
+      "superadmin",
+      JSON.stringify({ noteView: "addTeacher" })
+    );
+    setNoteView("addTeacher")
   };
   const handleAllTeacherDetails = () => {
-    setNoteView("allTeacher");
+    localStorage.setItem(
+      "superadmin",
+      JSON.stringify({ noteView: "allTeacher" })
+    );
+    setNoteView("allTeacher")
+
   };
   const handleTeachertPaymentForm = () => {
-    setNoteView("teacherPaymentForm");
+    localStorage.setItem(
+      "superadmin",
+      JSON.stringify({ noteView: "teacherPaymentForm" })
+    );
+    setNoteView("teacherPaymentForm")
+
   };
   const handleAddExtraExpenses = () => {
-    setNoteView("addExtraExpenses");
+    localStorage.setItem(
+      "superadmin",
+      JSON.stringify({ noteView: "addExtraExpenses" })
+    );
+    setNoteView("addExtraExpenses")
+
   };
   const handleAllExtraExpenses = () => {
-    setNoteView("allExtraExpenses");
+    localStorage.setItem(
+      "superadmin",
+      JSON.stringify({ noteView: "allExtraExpenses" })
+    );
+    setNoteView("allExtraExpenses")
   };
 
   useEffect(() => {
-    handleDashboard();
+    // handleDashboard();
   }, []);
 
   return (
@@ -622,7 +602,10 @@ const SuperAdmin = () => {
             style={{ padding: 20, cursor: "pointer", paddingLeft: 30 }}
             className="note__btn"
           >
-           <div style={{textDecoration: "none", color:"black"}} > ▶ Query Forum</div>
+            <div style={{ textDecoration: "none", color: "black" }}>
+              {" "}
+              ▶ Query Forum
+            </div>
           </div>
         </div>
         <div
@@ -634,18 +617,9 @@ const SuperAdmin = () => {
             overflowY: "scroll",
           }}
         >
-          {noteView === "Dashboard" ? (
-            <Dashboard income={income} expenseDetails={expenseDetails} />
-          ) : null}
-          {noteView === "contacttable" ? (
-            <ContactTable
-              contactList={contactList}
-              setContactList={setContactList}
-            />
-          ) : null}
-          {noteView === "applytable" ? (
-            <ApplyTable applyList={applyList} setApplyList={setApplyList} />
-          ) : null}
+          {noteView === "Dashboard" ? <Dashboard /> : null}
+          {noteView === "contacttable" ? <ContactTable /> : null}
+          {noteView === "applytable" ? <ApplyTable /> : null}
           {noteView === "classForm" ? <AddClass /> : null}
           {noteView === "addNoteForm" ? <NoteForm /> : null}
           {noteView === "allNoteTable" ? (
@@ -669,8 +643,7 @@ const SuperAdmin = () => {
           {noteView === "teacherPaymentForm" ? <TeacherPayment /> : null}
           {noteView === "addExtraExpenses" ? <AddExpenses /> : null}
           {noteView === "allExtraExpenses" ? <AllExpenses /> : null}
-          {noteView === "forum" ? <QueryForum questionList={questionList} setQuestionList={setQuestionList} /> : null}
-
+          {noteView === "forum" ? <QueryForum /> : null}
         </div>
       </div>
     </>

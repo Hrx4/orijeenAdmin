@@ -4,21 +4,13 @@ import {
   Box,
   Divider,
 } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useNavigate } from "react-router-dom";
 import "./Notification.css";
 import backend from "../../backend";
 import gif from "./blink.gif";
 
 const Notification = () => {
-  const navigate = useNavigate();
   const [notificationList, setNotificationList] = useState([]);
-  const x = JSON.parse(localStorage.getItem("student"));
   const [open, setOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleBox = () => {
-    setIsOpen(!isOpen);
-  };
   const [des, setDes] = useState();
   const handleNotificationTable = async () => {
     try {
@@ -67,39 +59,7 @@ const Notification = () => {
     <>
       <div style={{width:"100%"}}>
         
-        {isOpen && (
-          <div
-            className="navBox"
-            style={{
-              maxHeight: 400,
-              width: 300,
-              position: "absolute",
-              right: "3%",
-              backgroundColor: "white",
-              borderRadius: 10,
-              border: "1px solid blue",
-              overflowY: "scroll",
-              zIndex: 200,
-            }}
-          >
-            <div
-              style={{
-                width: 100,
-                height: 150,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <img
-                src="https://orijeen.in/img/logoOrijeen.png"
-                alt="Logo"
-                style={{ height: "100%", marginLeft: "190px" }}
-              />
-            </div>
-            <button onClick={() => navigate("/")}>Sign Out</button>
-          </div>
-        )}
+      
         <h1 style={{ margin: 10 }}> Notification</h1>
         <div
           className="Nbox"

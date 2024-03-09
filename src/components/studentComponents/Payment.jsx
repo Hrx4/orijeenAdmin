@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
   Modal,
   Box,
   Button,
 } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useNavigate } from "react-router-dom";
 import backend from "../../backend";
 
 const Payment = () => {
@@ -28,16 +22,11 @@ const Payment = () => {
     "December",
   ];
 
-  const navigate = useNavigate();
   const [paymentList, setPaymentList] = useState([]);
   const [open, setOpen] = useState(false);
   const [invoiceNo, setInvoiceNo] = useState();
   const [invoiceDate, setInvoiceDate] = useState();
   const [details, setDetails] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleBox = () => {
-    setIsOpen(!isOpen);
-  };
   const [modalInfo, setModalInfo] = useState({});
   const handlePrint = () => {
     window.print();
@@ -82,39 +71,7 @@ const Payment = () => {
     <>
       <div style={{width:"100%"}}>
        
-        {isOpen && (
-          <div
-            className="navBox"
-            style={{
-              maxHeight: 400,
-              width: 300,
-              position: "absolute",
-              right: "3%",
-              backgroundColor: "white",
-              borderRadius: 10,
-              border: "1px solid blue",
-              overflowY: "scroll",
-              zIndex: 200,
-            }}
-          >
-            <div
-              style={{
-                width: 100,
-                height: 150,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <img
-                src="https://orijeen.in/img/logoOrijeen.png"
-                alt="Logo"
-                style={{ height: "100%", marginLeft: "190px" }}
-              />
-            </div>
-            <button onClick={() => navigate("/")}>Sign Out</button>
-          </div>
-        )}
+      
         <div
           className="anocontact"
           style={{

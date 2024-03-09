@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import TeacherNav from "./TeacherNav";
+// import TeacherNav from "./TeacherNav";
 import backend from "../../backend";
 import { Box, Button, Modal } from "@mui/material";
 

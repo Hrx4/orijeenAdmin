@@ -5,7 +5,7 @@ import { Modal, Button, CircularProgress } from "@mui/material";
 import { Box } from "@mui/material";
 import backend from "../../backend";
 
-const QueryForum = ({ questionList, setQuestionList }) => {
+const QueryForum = () => {
   const [close, setClose] = useState(true);
   const [classData, setClassData] = useState([]);
   const [classValue, setClassValue] = useState("");
@@ -22,7 +22,34 @@ const QueryForum = ({ questionList, setQuestionList }) => {
   const [answerList, setAnswerList] = useState([]);
   const [answerId, setAnswerId] = useState("");
   const [itemDetails, setItemDetails] = useState({});
+  const [questionList, setQuestionList] = useState([]);
+
   useEffect(() => {
+    const handleStudentPaymentForm1 = async () => {
+      try {
+        const response = await fetch(`${backend}/answer/`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+  
+        const resJson = await response.json();
+  
+        if (response.status === 200) {
+          setQuestionList(resJson);
+          console.log("====================================");
+          console.log(resJson);
+          console.log("====================================");
+        } else {
+          console.log("Some error occured");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    handleStudentPaymentForm1()
     const fetchClassValue = async () => {
       try {
         const response = await fetch(`${backend}/class/`, {

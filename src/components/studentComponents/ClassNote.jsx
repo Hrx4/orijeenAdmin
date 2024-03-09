@@ -31,6 +31,7 @@ const ClassNote = () => {
       });
 
       const resJson = await response.json();
+      
       navigate(`/course1/${route}`, { state: { noteList: resJson } });
       if (response.status === 200) {
         console.log(resJson);
