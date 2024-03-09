@@ -92,12 +92,12 @@ const getStudent = asyncHandler(async (req, res) => {
   if(studentClass === "" && studentCourse===""){
     return   res.status(200).json(students);
   }
-    if (studentCourse !== "select course" || studentCourse !== "") {
+    if (studentCourse !== "select course" && studentCourse !== "") {
       students = students.filter((item) => {
         return item.studentCourse.some((elem) => elem === studentCourse);
       });
     }
-    if (studentClass !== "select class"|| studentClass !== "") {
+    if (studentClass !== "select class"&& studentClass !== "") {
       students = students.filter((item) => {
         return item.studentClass === studentClass;
       });
