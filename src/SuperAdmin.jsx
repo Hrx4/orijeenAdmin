@@ -24,7 +24,7 @@ import AllExpenses from "./components/studentComponents/AllExpenses";
 import AddNotification from "./AddNotification";
 import AllNotification from "./AllNotification";
 import backend from './backend'
-import QueryForm from "./components/studentComponents/QueryForm";
+import QueryForum from "./components/studentComponents/QueryForum";
 
 // import SnavBar from './SnavBar';
 
@@ -669,7 +669,7 @@ const SuperAdmin = () => {
           {noteView === "teacherPaymentForm" ? <TeacherPayment /> : null}
           {noteView === "addExtraExpenses" ? <AddExpenses /> : null}
           {noteView === "allExtraExpenses" ? <AllExpenses /> : null}
-          {noteView === "forum" ? <QueryForm questionList={questionList} setQuestionList={setQuestionList} /> : null}
+          {noteView === "forum" ? <QueryForum questionList={questionList} setQuestionList={setQuestionList} /> : null}
 
         </div>
       </div>

@@ -10,7 +10,7 @@ import Result from "./components/studentComponents/Result";
 import Payment from "./components/studentComponents/Payment";
 import Routine from "./components/studentComponents/Routine";
 import Notification from "./components/studentComponents/Notification";
-import QueryForm from "./components/studentComponents/QueryForm";
+import QueryForm from "./components/studentComponents/QueryForum";
 import Support from "./components/studentComponents/Support";
 import Course1 from "./components/studentComponents/Course1";
 import TeacherPanel from "./components/teacherComponent/TeacherPanel";
