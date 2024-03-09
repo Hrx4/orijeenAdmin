@@ -92,7 +92,6 @@ const getStudent = asyncHandler(async (req, res) => {
   if(studentClass === "" && studentCourse===""){
     return   res.status(200).json(students);
   }
-  else {
     if (studentCourse !== "select course") {
       students = students.filter((item) => {
         return item.studentCourse.some((elem) => elem === studentCourse);
@@ -103,7 +102,7 @@ const getStudent = asyncHandler(async (req, res) => {
         return item.studentClass === studentClass;
       });
     }
-  }
+  
   res.status(200).json(students);
 });
 const getStudentPayment = asyncHandler(async (req, res) => {
