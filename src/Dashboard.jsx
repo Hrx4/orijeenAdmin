@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
 import { FaAddressBook } from "react-icons//fa6";
 import { FaCreativeCommonsBy } from "react-icons//fa6";
 import { FaCreativeCommonsNc } from "react-icons//fa6";
 import { FaCommentDollar } from "react-icons//fa6";
 import SubDashBoard from "./SubDashboard";
-// import backend from './backend'
+import backend from './backend'
 
-const Dashboard = ({ income, expenseDetails }) => {
+const Dashboard = () => {
   const [subDash, setSubDash] = useState("noteform");
-  // const [expenseDetails, setExpenseDetails] = useState([])
-
+  const [expenseDetails, setExpenseDetails] = useState([])
+  const [income, setIncome] = useState([])
   const handleMonthlyIncome = () => {
     setSubDash("MonthlyIncome");
   };
@@ -26,30 +26,50 @@ const Dashboard = ({ income, expenseDetails }) => {
   const handleTotalDue = () => {
     setSubDash("TotalDue");
   };
+useEffect(() => {
+  const handleDashboard = async () => {
+    try {
+      const response = await fetch(`${backend}/student/getpayment/`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
 
-  //   const handleAllStudentTable = async (e) => {
-  //     e.preventDefault();
-  //     try {
-  //       const res = await fetch(`${backend}/expense/details/`, {
-  //         method: "GET",
-  //         headers: {
-  //           Accept: "application/json",
-  //           "Content-Type": "application/json",
-  //         },
-  //       });
-  //       let resJson = await res.json();
-  //       if (res.status === 200) {
-  //         console.log("fine");
-  //         setExpenseDetails(resJson)
-  //       }
-  //     } catch (err) {
+      const resJson = await response.json();
 
-  //       console.log(err);
-  //     }
-  //   };
-  //   useEffect(() => {
-  //  handleAllStudentTable()
-  //   }, [])
+      if (response.status === 200) {
+        setIncome(resJson);
+        console.log("====================================");
+        console.log(resJson);
+        console.log("====================================");
+      } else {
+        console.log("Some error occured");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    try {
+      const res = await fetch(`${backend}/expense/details/`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      let resJson = await res.json();
+      if (res.status === 200) {
+        console.log("fine");
+        setExpenseDetails(resJson);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  handleDashboard()
+}, [])
+
 
   return (
     <div

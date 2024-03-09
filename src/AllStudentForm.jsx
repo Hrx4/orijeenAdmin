@@ -8,18 +8,17 @@ import Select from "@mui/material/Select";
 import Box from "@mui/material/Box";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import backend from './backend'
-
+import backend from "./backend";
 
 const AllStudentForm = () => {
   const [course, setCourse] = useState();
+  const [classs, setClasss] = useState();
   const [studentTab, setStudentTab] = useState();
   const [studentList, setStudentList] = useState([]);
   const [batchList, setBatchList] = useState([]);
   const [courseList, setCourseList] = useState([]);
   const [classList, setClassList] = useState([]);
   const [subjectList, setSubjectList] = useState([]);
-
 
   const getCourseList = async () => {
     try {
@@ -51,6 +50,7 @@ const AllStudentForm = () => {
         },
         body: JSON.stringify({
           studentCourse: course,
+          studentClass: classs,
         }),
       });
       let resJson = await res.json();
@@ -152,10 +152,40 @@ const AllStudentForm = () => {
                     setCourse(e.target.value);
                   }}
                 >
+                  <MenuItem value="select course">select course</MenuItem>
+
                   {courseList?.map((item, index) => (
                     <MenuItem value={item.courseName}>
                       {item.courseName}
                     </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+
+            <label>Class:</label>
+
+            <Box>
+              <FormControl
+                style={{ width: "60%", backgroundColor: "white" }}
+                className="student__field"
+              >
+                <InputLabel style={{ color: "black" }}>
+                  Select Your Class
+                </InputLabel>
+                <Select
+                  // value={courseForPay}
+                  label=""
+                  // onChange={(e) => setCourseForPay(e.target.value)}
+                  style={{ color: "black" }}
+                  value={classs}
+                  onChange={(e) => {
+                    setClasss(e.target.value);
+                  }}
+                >
+                  <MenuItem value="select class">select class</MenuItem>
+                  {classList?.map((item, index) => (
+                    <MenuItem value={item.className}>{item.className}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -168,11 +198,10 @@ const AllStudentForm = () => {
           <StudentInfo
             studentList={studentList}
             setStudentList={setStudentList}
-            courseList ={courseList}
+            courseList={courseList}
             subjectList={subjectList}
             classList={classList}
             batchList={batchList}
-
           />
         ) : null}
       </div>

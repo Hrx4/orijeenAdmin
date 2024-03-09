@@ -97,8 +97,17 @@ const Admin = () => {
           navigate("/student");
         } else if (path === "/teacher/all/details/") {
           localStorage.setItem("teacher", JSON.stringify(resJson.data));
+          localStorage.setItem(
+            "teacherview",
+            JSON.stringify({ noteView: "profile" })
+          );
+
           navigate("/teacher");
         } else {
+          localStorage.setItem(
+            "superadmin",
+            JSON.stringify({ noteView: "Dashboard" })
+          );
           navigate(path);
         }
       } else {
@@ -196,26 +205,27 @@ const Admin = () => {
       >
         <Box sx={style}>
           {path !== "/teacher/all/details/" ? (
-            path === "/superadmin/" ?
-            (<input
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-              id="username"
-              type="text"
-              placeholder="UserName"
-              style={{ height: 30 }}
-            />)
-            :
-            (<input
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-              id="username"
-              type="text"
-              placeholder="Enrollment No"
-              style={{ height: 30 }}
-            />)
+            path === "/superadmin/" ? (
+              <input
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+                id="username"
+                type="text"
+                placeholder="UserName"
+                style={{ height: 30 }}
+              />
+            ) : (
+              <input
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+                id="username"
+                type="text"
+                placeholder="Enrollment No"
+                style={{ height: 30 }}
+              />
+            )
           ) : (
             <input
               onChange={(e) => {

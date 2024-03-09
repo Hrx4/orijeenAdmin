@@ -1,10 +1,13 @@
 import { Button } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Table.css";
 import "./Form.css";
 import backend from './backend'
 
-const ContactTable = (props) => {
+const ContactTable = () => {
+
+  const [contactList, setContactList] = useState([]);
+
   const handleDelete = async (id) => {
     const key = JSON.parse(id);
     console.log("====================================");
@@ -25,8 +28,8 @@ const ContactTable = (props) => {
       console.log(response);
       console.log("====================================");
 
-      props.setContactList([
-        ...props.contactList.filter((item) => item._id !== id),
+      setContactList([
+        ...contactList.filter((item) => item._id !== id),
       ]);
       window.location.reload(true);
     } catch (err) {
@@ -67,6 +70,36 @@ const ContactTable = (props) => {
   //   window.location.reload();
   // };
 
+
+  useEffect(() => {
+    const handleContactTable = async () => {
+      try {
+        const response = await fetch(`${backend}/contact/`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+  
+        const resJson = await response.json();
+  
+        if (response.status === 200) {
+          setContactList(resJson);
+          console.log("====================================");
+          console.log(resJson);
+          console.log("====================================");
+        } else {
+          console.log("Some error occured");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    handleContactTable()
+  }, [])
+  
+
   return (
     <>
       <div
@@ -96,7 +129,7 @@ const ContactTable = (props) => {
                 </th>
               </tr>
             }
-            {props.contactList.map((item) => (
+            {contactList.map((item) => (
               <tr
                 style={{ border: "1px solid black", padding: 5 }}
                 key={item._id}

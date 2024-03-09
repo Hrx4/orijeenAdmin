@@ -1,14 +1,7 @@
-import React, { useState,useRef, useEffect } from "react";
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography
-  
-} from "@mui/material";
+import React, { useState, useRef, useEffect } from "react";
+import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import ClearIcon from "@mui/icons-material/Clear";
-
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import "./StudentPanel.css";
@@ -18,16 +11,20 @@ import QueryForm from "./QueryForm";
 import Payment from "./Payment";
 import Notification from "./Notification";
 import QueryForum from "./QueryForum";
-
+import backend from "../../backend";
+import Course1 from "./Course1";
 const StudentPanel = () => {
   const navigate = useNavigate();
-  const [classNote, setClassNote] = useState([ {
-    id: 1,
-    name: "▶ Class Note",
-    isOpen: false,
-    subItems: ["Basic", "Advance"],
-  },]);
   const x = JSON.parse(localStorage.getItem("student"));
+
+  const [classNote, setClassNote] = useState([
+    {
+      id: 1,
+      name: "▶ Class Note",
+      isOpen: false,
+      // subItems: x.studentCourse,
+    },
+  ]);
   const [isOpen, setIsOpen] = useState(false);
   const toggleBox = () => {
     setIsOpen(!isOpen);
@@ -36,7 +33,7 @@ const StudentPanel = () => {
 
   const [noteView, setNoteView] = useState("Dashboard");
   const [slideOpen, setSlideOpen] = useState(false);
-  const [questionList, setQuestionList] = useState([]);
+  const [noteList, setNoteList] = useState([])
 
   const toggleClassNote = (itemId) => {
     setClassNote((prevItems) =>
@@ -46,46 +43,72 @@ const StudentPanel = () => {
     );
   };
   const handleProfile = async () => {
-      setNoteView("profile");
+    setNoteView("profile");
+    ref.current.classList.add("slider__close");
+    ref.current.classList.remove("slider__open");
+    setSlideOpen(false);
+  };
+  const btnclicked = () => {
+    if (!slideOpen) {
+      ref.current.classList.remove("slider__close");
+      ref.current.classList.add("slider__open");
+      setSlideOpen(true);
+    } else {
       ref.current.classList.add("slider__close");
       ref.current.classList.remove("slider__open");
       setSlideOpen(false);
-    };
-    const btnclicked = () => {
-      if (!slideOpen) {
-        ref.current.classList.remove("slider__close");
-        ref.current.classList.add("slider__open");
-        setSlideOpen(true);
+    }
+  };
+  const handleQueryForm = () => {
+    setNoteView("queryForm");
+  };
+  const handleResult = () => {
+    setNoteView("result");
+  };
+  // const handleAllNote = () => {
+  //   setNoteView("allNote");
+  // };
+  const handlePayment = () => {
+    setNoteView("payment");
+  };
+  const handleNotification = () => {
+    setNoteView("notification");
+  };
+  const handleQueryForum = async () => {
+    setNoteView("queryForum");
+    
+  };
+  const handleNote = async (route) => {
+    try {
+      const response = await fetch(`${backend}/note/student/`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          noteCourse: route,
+          noteClass: x.studentClass,
+          noteBatch: x.studentBatch,
+        }),
+      });
+
+      const resJson = await response.json();
+      setNoteView("course")
+      // navigate(`/course1/${route}`, { state: { noteList: resJson } });
+      setNoteList(resJson)
+      if (response.status === 200) {
+        console.log(resJson);
       } else {
-        ref.current.classList.add("slider__close");
-        ref.current.classList.remove("slider__open");
-        setSlideOpen(false);
+        console.log("Some error occured");
       }
-    };
-    const handleQueryForm = () => {
-      setNoteView("queryForm");
-    };
-    const handleResult = () => {
-      setNoteView("result");
-    };
-    const handleAllNote = () => {
-      setNoteView("allNote");
-    };
-    const handlePayment = () => {
-      setNoteView("payment");
-    };
-    const handleNotification = () => {
-      setNoteView("notification");
-    };
-    const handleQueryForum = () => {
-      setNoteView("queryForum");
-    };
-
-    useEffect(() => {
-      handleProfile();
-    }, []);
-
-
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    handleProfile();
+  }, []);
 
   return (
     <>
@@ -96,56 +119,58 @@ const StudentPanel = () => {
               <ArrowBackIcon onClick={() => navigate(-1)} />
             </IconButton>
             <Typography variant="h6" style={{ flexGrow: 1 }}>
-            <img
-            src="https://orijeen.in/img/logoOrijeen.png"
-            alt="orijeen logo"
-            style={{
-              width: "150px",
-              height: "auto",
-              position: "absolute",
-              top: "-40px",
-              left: "50px",
-            }}
-          />
+              <img
+                src="https://orijeen.in/img/logoOrijeen.png"
+                alt="orijeen logo"
+                style={{
+                  width: "150px",
+                  height: "auto",
+                  position: "absolute",
+                  top: "-40px",
+                  left: "50px",
+                }}
+              />
             </Typography>
-            <div onClick={toggleBox} style={{cursor:"pointer"}} >Hi, {x?.studentName}</div>
+            <div onClick={toggleBox} style={{ cursor: "pointer" }}>
+              Hi, {x?.studentName}
+            </div>
           </Toolbar>
         </AppBar>
         {isOpen && (
-        <div
-          className="navBox"
-          style={{
-            maxHeight: 400,
-            width: 300,
-            position: "absolute",
-            right: "3%",
-            backgroundColor: "white",
-            borderRadius:10,
-            border:"1px solid blue",
-            overflowY: "scroll",
-            zIndex: 200,
-          }}
-        >
           <div
+            className="navBox"
             style={{
-              width: 100,
-              height: 150,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              maxHeight: 400,
+              width: 300,
+              position: "absolute",
+              right: "3%",
+              backgroundColor: "white",
+              borderRadius: 10,
+              border: "1px solid blue",
+              overflowY: "scroll",
+              zIndex: 200,
             }}
           >
-            <img
-              src="https://orijeen.in/img/logoOrijeen.png"
-              alt="Logo"
-              style={{ height: "100%", marginLeft: "190px" }}
-            />
+            <div
+              style={{
+                width: 100,
+                height: 150,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <img
+                src="https://orijeen.in/img/logoOrijeen.png"
+                alt="Logo"
+                style={{ height: "100%", marginLeft: "190px" }}
+              />
+            </div>
+            <button onClick={() => navigate("/")}>Sign Out</button>
           </div>
-          <button onClick={() => navigate("/")}>Sign Out</button>
-        </div>
-      )}
+        )}
 
-<div
+        <div
           className="super-container"
           style={{
             display: "flex",
@@ -186,35 +211,38 @@ const StudentPanel = () => {
               ▶ Query Form
             </div>
             <div
-            style={{ paddingTop: 20, cursor: "pointer", paddingBottom: 0 }}
-            className="note__btn"
-          >
-            <ul style={{ listStyleType: "none" }}>
-              {classNote.map((noteItems) => (
-                <li key={noteItems.id}>
-                  <span
-                    onClick={() => toggleClassNote(noteItems.id)}
-                    style={{
-                      cursor: "pointer",
-                      fontSize: 17,
-                      textAlign: "left",
+              style={{ paddingTop: 20, cursor: "pointer", paddingBottom: 0 }}
+              className="note__btn"
+            >
+              <ul style={{ listStyleType: "none" }}>
+                {classNote.map((noteItems) => (
+                  <li key={noteItems.id}>
+                    <span
+                      onClick={() => toggleClassNote(noteItems.id)}
+                      style={{
+                        cursor: "pointer",
+                        fontSize: 17,
+                        textAlign: "left",
+                      }}
+                      className="note__btn"
+                    >
+                      {noteItems.name}
+                    </span>
+                    {noteItems.isOpen && (
+                      <ul style={{ padding: 10 }}>
+                        {x.studentCourse.map((item) => (
+                          <li style={{ marginTop: 10 }}
+                          onClick={() => {
+                      handleNote(item);
                     }}
-                    className="note__btn"
-                  >
-                    {noteItems.name}
-                  </span>
-                  {noteItems.isOpen && (
-                    <ul style={{ padding: 10 }}>
-                      <li >Basic</li>
-                      <li style={{ marginTop: 10 }} >
-                        Advance
-                      </li>
-                    </ul>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
+                          >{item}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             <div
               onClick={handleResult}
@@ -231,7 +259,7 @@ const StudentPanel = () => {
             >
               ▶ Payment
             </div>
-           
+
             <div
               onClick={handleNotification}
               style={{ padding: 20, cursor: "pointer", paddingLeft: 30 }}
@@ -243,9 +271,9 @@ const StudentPanel = () => {
               onClick={handleQueryForum}
               style={{ padding: 20, cursor: "pointer", paddingLeft: 30 }}
               className="note__btn"
-            >▶ Query Forum
+            >
+              ▶ Query Forum
             </div>
-
           </div>
           <div
             style={{
@@ -256,22 +284,20 @@ const StudentPanel = () => {
               overflowY: "scroll",
             }}
           >
-            {noteView === "profile" ? (
-              <StudentProfile />
-            ) : null}
-            {noteView === "queryForm" ? (
-              <QueryForm/>
-            ) : null}
+            {noteView === "profile" ? <StudentProfile /> : null}
+            {noteView === "queryForm" ? <QueryForm /> : null}
             {noteView === "payment" ? <Payment /> : null}
-            {noteView === "notification" ? (
-              <Notification/> 
+            {noteView === "notification" ? <Notification /> : null}
+            {noteView === "queryForum" ? (
+              <QueryForum
+              />
             ) : null}
-           {noteView === "queryForum" ? <QueryForum questionList={questionList} setQuestionList={setQuestionList} /> : null}
-    
-
+            {
+              noteView==="course" ? <Course1 noteList={noteList} /> : null
+            }
           </div>
         </div>
-        </div>
+      </div>
     </>
   );
 };

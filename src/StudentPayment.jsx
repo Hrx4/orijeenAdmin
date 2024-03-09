@@ -8,13 +8,16 @@ import "./StudentPayment.css";
 import PayDetailsTab from "./PayDetailsTab";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import backend from './backend'
+import backend from "./backend";
 
 const StudentPayment = () => {
   const [course, setCourse] = useState();
   const [courseList, setCourseList] = useState([]);
   const [payDetails, setPayDetails] = useState();
   const [studentPayList, setStudentPayList] = useState([]);
+  const [classList, setClassList] = useState([]);
+  const [classs, setClasss] = useState();
+
   const handlePayDetails = async (e) => {
     e.preventDefault();
     setPayDetails("addPayDetails");
@@ -27,6 +30,8 @@ const StudentPayment = () => {
         },
         body: JSON.stringify({
           studentCourse: course,
+          studentClass: classs,
+
         }),
       });
       let resJson = await res.json();
@@ -65,6 +70,23 @@ const StudentPayment = () => {
   };
 
   useEffect(() => {
+    const fetchClassValue = async () => {
+      try {
+        const response = await fetch(`${backend}/class/`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+        const result = await response.json();
+        setClassList(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchClassValue();
     getCourseList();
   }, []);
 
@@ -98,10 +120,41 @@ const StudentPayment = () => {
                     setCourse(e.target.value);
                   }}
                 >
+                  <MenuItem value="select course">select course</MenuItem>
+
                   {courseList?.map((item, index) => (
                     <MenuItem value={item.courseName}>
                       {item.courseName}
                     </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+
+            <label style={{ marginBottom: 10 }}>Class Name:</label>
+
+            <Box>
+              <FormControl
+                style={{ width: "60%", backgroundColor: "white" }}
+                className="student__field"
+              >
+                <InputLabel style={{ color: "black" }}>
+                  Select Your Class
+                </InputLabel>
+                <Select
+                  // value={courseForPay}
+                  label=""
+                  // onChange={(e) => setCourseForPay(e.target.value)}
+                  style={{ color: "black" }}
+                  value={classs}
+                  onChange={(e) => {
+                    setClasss(e.target.value);
+                  }}
+                >
+                  <MenuItem value="select class">select class</MenuItem>
+
+                  {classList?.map((item, index) => (
+                    <MenuItem value={item.className}>{item.className}</MenuItem>
                   ))}
                 </Select>
               </FormControl>

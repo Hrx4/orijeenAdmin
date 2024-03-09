@@ -27,10 +27,11 @@ const createStudent = asyncHandler(async (req, res) => {
   } = req.body;
   console.log(studentPassword);
 
-  const studentCheck =await studentModels.find({studentEnrollment : studentEnrollment})
+  const studentCheck = await studentModels.find({
+    studentEnrollment: studentEnrollment,
+  });
   if (!studentCheck) {
-    return res.status(404).json({message : "log"});
-
+    return res.status(404).json({ message: "log" });
   }
   const student = await studentModels.create({
     studentEnrollment: studentEnrollment,
@@ -43,21 +44,19 @@ const createStudent = asyncHandler(async (req, res) => {
     studentPhone: studentPhone,
     studentAddress: studentAddress,
     studentPaymentType: studentPaymentType,
-    studentFee : studentFee,
-    studentPhoto : studentPhoto,
+    studentFee: studentFee,
+    studentPhoto: studentPhoto,
     studentPassword: studentPassword,
-    studentBlood : studentBlood,
-    studentCategory : studentCategory,
+    studentBlood: studentBlood,
+    studentCategory: studentCategory,
     guardianName: guardianName,
-    admissionAmount : admissionAmount,
-    createdMonth : createdMonth,
+    admissionAmount: admissionAmount,
+    createdMonth: createdMonth,
     createdYear: createdYear,
   });
 
-
   const d = new Date(studentDoj);
-  const payment = 
-  await paymentModels.create({
+  const payment = await paymentModels.create({
     paymentId: studentEnrollment,
     studentCourse: studentCourse,
     studentSubjects: studentSubjects,
@@ -87,12 +86,20 @@ const createStudent = asyncHandler(async (req, res) => {
 });
 
 const getStudent = asyncHandler(async (req, res) => {
-  const { studentCourse } = req.body;
+  const { studentCourse, studentClass } = req.body;
 
   let students = await studentModels.find();
+  if (studentCourse !== "select course") {
+    students = students.filter((item) => {
+      return item.studentCourse.some((elem) => elem === studentCourse);
+    });
+  }
+  if (studentClass !== "select class") {
   students = students.filter((item) => {
-    return item.studentCourse.some((elem) => elem === studentCourse);
-  });  res.status(200).json(students);
+    return item.studentClass === studentClass;
+  });
+}
+  res.status(200).json(students);
 });
 const getStudentPayment = asyncHandler(async (req, res) => {
   const { paymentId } = req.body;
@@ -148,16 +155,15 @@ const updateStudent = asyncHandler(async (req, res) => {
     studentBatch: studentBatch,
     studentCourse: studentCourse,
     studentSubjects: studentSubjects,
-    studentPhoto : studentPhoto,
-    studentPassword : studentPassword,
+    studentPhoto: studentPhoto,
+    studentPassword: studentPassword,
     studentPhone: studentPhone,
     studentAddress: studentAddress,
     studentPaymentType: studentPaymentType,
-    studentFee : studentFee,
-    studentBlood : studentBlood,
-    studentCategory : studentCategory,
+    studentFee: studentFee,
+    studentBlood: studentBlood,
+    studentCategory: studentCategory,
     guardianName: guardianName,
-    
   });
 
   res.status(201).json(student);
@@ -185,7 +191,6 @@ const updatePayment = asyncHandler(async (req, res) => {
   var totalFee = paymentMoney;
   var varTotalIncome = totalIncome;
   var lastPaymentMoney = 0;
-  
 
   const d = new Date();
   var paymentMonthArray = [];
@@ -199,7 +204,7 @@ const updatePayment = asyncHandler(async (req, res) => {
         paidYear: d.getFullYear(),
         paymentMoney: totalFee,
         paymentType: paymentType,
-        paymentDate:  d.toISOString().split("T")[0],
+        paymentDate: d.toISOString().split("T")[0],
       },
     ];
   });
@@ -231,29 +236,28 @@ const updatePayment = asyncHandler(async (req, res) => {
 const getMonthlyIncome = asyncHandler(async (req, res) => {
   var totalIncome = 0,
     monthlyIncome = 0,
-    monthlyDue=0,
-    totalDue=0;
+    monthlyDue = 0,
+    totalDue = 0;
   const d = new Date();
 
   const payments = await paymentModels.find();
   payments.map((item, index) => {
     if (d.getMonth() === item.lastIncomeMonth)
       monthlyIncome += item.lastIncomeMoney;
-      if (d.getMonth() -item.lastIncomeMonth === 1)
-      monthlyDue+=item.lastIncomeMoney
-      if (d.getMonth() > item.lastIncomeMonth )
-      totalDue+=((d.getMonth() - item.lastIncomeMonth) * item.lastIncomeMoney)
+    if (d.getMonth() - item.lastIncomeMonth === 1)
+      monthlyDue += item.lastIncomeMoney;
+    if (d.getMonth() > item.lastIncomeMonth)
+      totalDue += (d.getMonth() - item.lastIncomeMonth) * item.lastIncomeMoney;
 
     totalIncome += item.totalIncome;
   });
 
   res.status(200).json({
     monthlyIncome: monthlyIncome,
-    monthlyDue:monthlyDue,
+    monthlyDue: monthlyDue,
     totalIncome: totalIncome,
-    totalDue:totalDue,
+    totalDue: totalDue,
     totalStudent: payments.length,
-    
   });
 });
 
@@ -270,13 +274,13 @@ const getMonthlyIncomeDetails = asyncHandler(async (req, res) => {
 
   if (studentEnrollment !== "") {
     students = students.filter((item) => item.paymentId === studentEnrollment);
-    
   }
 
   if (studentCourse !== "") {
     students = students.filter((item) => {
       return item.studentCourse.some((elem) => elem === studentCourse);
-    });  }
+    });
+  }
   if (studentClass !== "")
     students = students.filter((item) => item.studentClass === studentClass);
 
@@ -284,7 +288,6 @@ const getMonthlyIncomeDetails = asyncHandler(async (req, res) => {
     students = students.filter((item) => {
       return item.studentSubjects.some((elem) => elem === studentSubject);
     });
-    
   }
 
   res.status(200).json(students);
@@ -296,10 +299,9 @@ const getTotalIncomeDetails = asyncHandler(async (req, res) => {
   const d = new Date();
 
   var students = await paymentModels.find({});
-  
+
   if (studentEnrollment !== "") {
     students = students.filter((item) => item.paymentId === studentEnrollment);
-    
   }
 
   if (studentCourse !== "") {
@@ -314,7 +316,6 @@ const getTotalIncomeDetails = asyncHandler(async (req, res) => {
     students = students.filter((item) => {
       return item.studentSubjects.some((elem) => elem === studentSubject);
     });
-    
   }
 
   res.status(200).json(students);
@@ -328,18 +329,19 @@ const getMonthlyDueDetails = asyncHandler(async (req, res) => {
   console.log("====================================");
   console.log(students, "285");
   console.log("====================================");
-  students = students.filter((item) =>  d.getMonth() - item.lastIncomeMonth===1);
+  students = students.filter(
+    (item) => d.getMonth() - item.lastIncomeMonth === 1
+  );
 
   if (studentEnrollment !== "") {
     students = students.filter((item) => item.paymentId === studentEnrollment);
-    
   }
 
   if (studentCourse !== "") {
     students = students.filter((item) => {
       return item.studentCourse.some((elem) => elem === studentCourse);
     });
-    }
+  }
   if (studentClass !== "")
     students = students.filter((item) => item.studentClass === studentClass);
 
@@ -347,7 +349,6 @@ const getMonthlyDueDetails = asyncHandler(async (req, res) => {
     students = students.filter((item) => {
       return item.studentSubjects.some((elem) => elem === studentSubject);
     });
-    
   }
 
   res.status(200).json(students);
@@ -360,19 +361,17 @@ const getTotalDueDetails = asyncHandler(async (req, res) => {
 
   var students = await paymentModels.find({});
 
-  students = students.filter((item) =>  d.getMonth() > item.lastIncomeMonth);
+  students = students.filter((item) => d.getMonth() > item.lastIncomeMonth);
 
-  
   if (studentEnrollment !== "") {
     students = students.filter((item) => item.paymentId === studentEnrollment);
-    
   }
 
   if (studentCourse !== "") {
     students = students.filter((item) => {
       return item.studentCourse.some((elem) => elem === studentCourse);
     });
-    }
+  }
   if (studentClass !== "")
     students = students.filter((item) => item.studentClass === studentClass);
 
@@ -380,7 +379,6 @@ const getTotalDueDetails = asyncHandler(async (req, res) => {
     students = students.filter((item) => {
       return item.studentSubjects.some((elem) => elem === studentSubject);
     });
-    
   }
 
   res.status(200).json(students);
@@ -397,5 +395,5 @@ module.exports = {
   getMonthlyIncomeDetails,
   getTotalIncomeDetails,
   getMonthlyDueDetails,
-  getTotalDueDetails
+  getTotalDueDetails,
 };
