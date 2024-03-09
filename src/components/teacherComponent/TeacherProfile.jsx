@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import TeacherNav from "./TeacherNav";
 import "./TeacherProfile.css";
 
 const TeacherProfile = () => {
@@ -9,8 +8,7 @@ const TeacherProfile = () => {
   }, []);
   return (
     <>
-      <div>
-        <TeacherNav />
+      <div style={{width:"100%"}}>
         <div
           className="anocontact"
           style={{
@@ -19,7 +17,7 @@ const TeacherProfile = () => {
             top: "38%",
             right: "5%",
             transform: "translateY(-50%)",
-            width: "20%",
+            width: "100%",
           }}
         >
           {/* <div
@@ -34,7 +32,7 @@ const TeacherProfile = () => {
           
         </div>
         <div>
-          <h1 style={{ margin: 10 }}>Dashboard {">"} Profile</h1>
+         
           <table
             className="sdtable"
             style={{
@@ -43,7 +41,7 @@ const TeacherProfile = () => {
               overflowY: "scroll",
               height: "100vh",
               border: "none",
-              marginLeft: "10px",
+              marginLeft: "20px",
             }}
           >
             <tbody>
@@ -52,7 +50,7 @@ const TeacherProfile = () => {
                   padding: "10px",
                   height: "65px",
                   border: "2px solid black",
-                  marginTop: "15px",
+                  marginTop: "45px",
                   width: "200%",
                   marginBottom: "-3px",
                   backgroundColor: "#00ffff",

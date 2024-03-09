@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import TeacherNav from "./TeacherNav";
 import { Box, Button, CircularProgress, Modal } from "@mui/material";
 import backend from "../../backend";
 
@@ -201,14 +200,13 @@ const TeacherAllNote = () =>{
     return(
         <>
         <div>
-        <TeacherNav />
                
 
-                <h1 style={{ margin: 10 }}>Dashboard {">"} All Note</h1>
+                <h1 style={{ marginTop:45, marginLeft:20 }}>All Note</h1>
         <div
           className="table-scroll"
           style={{
-            width: "95%",
+            width: "100%",
             overflowX: "scroll",
             overflowY: "scroll",
             padding: 10,

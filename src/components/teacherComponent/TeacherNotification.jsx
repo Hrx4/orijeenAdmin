@@ -54,10 +54,9 @@ const TeacherNotification = () => {
 
   return (
     <>
-      <div>
-        <TeacherNav />
+      <div style={{width:"100%"}}>
 
-        <h1 style={{ margin: 10 }}>Dashboard {">"} News and Notification</h1>
+        <h1 style={{ margin: 10 }}> News and Notification</h1>
         <div
           className="Nbox"
           style={{

@@ -3,7 +3,7 @@ import TeacherNav from "./TeacherNav";
 import backend from "../../backend";
 import { Box, Button, Modal } from "@mui/material";
 
-const TeacherPayment = () => {
+const TeacherPaymentForTeacherPanel = () => {
   const [open, setOpen] = useState(false);
   const [invoiceNo, setInvoiceNo] = useState();
   const [invoiceDate, setInvoiceDate] = useState();
@@ -62,10 +62,9 @@ const TeacherPayment = () => {
 
   return (
     <>
-      <div>
-        <TeacherNav />
+      <div style={{width:"100%"}}>
 
-        <h1 style={{ margin: 10 }}>Dashboard {">"} Payment</h1>
+        <h1 style={{ margin: 10 }}> Payment</h1>
         <div
           className="table-scroll"
           style={{
@@ -386,4 +385,4 @@ const TeacherPayment = () => {
   );
 };
 
-export default TeacherPayment;
+export default TeacherPaymentForTeacherPanel;
