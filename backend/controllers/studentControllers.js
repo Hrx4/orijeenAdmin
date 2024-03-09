@@ -89,12 +89,12 @@ const getStudent = asyncHandler(async (req, res) => {
   const { studentCourse, studentClass } = req.body;
 
   let students = await studentModels.find();
-  if (studentCourse !== "select course") {
+  if (studentCourse !== "select course" || studentCourse!=="") {
     students = students.filter((item) => {
       return item.studentCourse.some((elem) => elem === studentCourse);
     });
   }
-  if (studentClass !== "select class") {
+  if (studentClass !== "select class" || studentClass!=="") {
   students = students.filter((item) => {
     return item.studentClass === studentClass;
   });
