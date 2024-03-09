@@ -11,12 +11,12 @@ import "react-toastify/dist/ReactToastify.css";
 import backend from "./backend";
 
 const StudentPayment = () => {
-  const [course, setCourse] = useState();
+  const [course, setCourse] = useState("");
   const [courseList, setCourseList] = useState([]);
   const [payDetails, setPayDetails] = useState();
   const [studentPayList, setStudentPayList] = useState([]);
   const [classList, setClassList] = useState([]);
-  const [classs, setClasss] = useState();
+  const [classs, setClasss] = useState("");
 
   const handlePayDetails = async (e) => {
     e.preventDefault();

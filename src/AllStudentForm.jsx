@@ -11,8 +11,8 @@ import "react-toastify/dist/ReactToastify.css";
 import backend from "./backend";
 
 const AllStudentForm = () => {
-  const [course, setCourse] = useState();
-  const [classs, setClasss] = useState();
+  const [course, setCourse] = useState("");
+  const [classs, setClasss] = useState("");
   const [studentTab, setStudentTab] = useState();
   const [studentList, setStudentList] = useState([]);
   const [batchList, setBatchList] = useState([]);
