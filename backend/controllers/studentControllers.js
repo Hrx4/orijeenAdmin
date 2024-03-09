@@ -89,16 +89,21 @@ const getStudent = asyncHandler(async (req, res) => {
   const { studentCourse, studentClass } = req.body;
 
   let students = await studentModels.find();
-  if (studentCourse !== "select course" || studentCourse!=="") {
-    students = students.filter((item) => {
-      return item.studentCourse.some((elem) => elem === studentCourse);
-    });
+  if(studentClass === "" && studentCourse===""){
+    return   res.status(200).json(students);
   }
-  if (studentClass !== "select class" || studentClass!=="") {
-  students = students.filter((item) => {
-    return item.studentClass === studentClass;
-  });
-}
+  else {
+    if (studentCourse !== "select course") {
+      students = students.filter((item) => {
+        return item.studentCourse.some((elem) => elem === studentCourse);
+      });
+    }
+    if (studentClass !== "select class") {
+      students = students.filter((item) => {
+        return item.studentClass === studentClass;
+      });
+    }
+  }
   res.status(200).json(students);
 });
 const getStudentPayment = asyncHandler(async (req, res) => {
