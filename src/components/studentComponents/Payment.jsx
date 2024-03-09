@@ -80,30 +80,8 @@ const Payment = () => {
 
   return (
     <>
-      <div>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton edge="start" color="inherit" aria-label="back">
-              <ArrowBackIcon onClick={() => navigate(-1)} />
-            </IconButton>
-            <Typography variant="h6" style={{ flexGrow: 1 }}>
-              <img
-                src="https://orijeen.in/img/logoOrijeen.png"
-                alt="orijeen logo"
-                style={{
-                  width: "150px",
-                  height: "auto",
-                  position: "absolute",
-                  top: "-40px",
-                  left: "50px",
-                }}
-              />
-            </Typography>
-            <div onClick={toggleBox} style={{ cursor: "pointer" }}>
-              Hi, {details?.studentName}
-            </div>
-          </Toolbar>
-        </AppBar>
+      <div style={{width:"100%"}}>
+       
         {isOpen && (
           <div
             className="navBox"
@@ -148,7 +126,7 @@ const Payment = () => {
             width: "20%",
           }}
         ></div>
-        <h1 style={{ margin: 10 }}>Dashboard {">"} Payment</h1>
+        <h1 style={{ margin: 10 }}>Payment</h1>
         <div
           className="table-scroll"
           style={{

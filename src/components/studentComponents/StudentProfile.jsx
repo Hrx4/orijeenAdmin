@@ -1,39 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useNavigate } from "react-router-dom";
 import "./StudentProfile.css";
 
 const StudentProfile = () => {
-  const navigate = useNavigate();
   const [details, setDetails] = useState({});
   useEffect(() => {
     setDetails(JSON.parse(localStorage.getItem("student")));
   }, []);
   return (
     <>
-      <div>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton edge="start" color="inherit" aria-label="back">
-              <ArrowBackIcon onClick={() => navigate(-1)} />
-            </IconButton>
-            <Typography variant="h6" style={{ flexGrow: 1 }}>
-            <img
-            src="https://orijeen.in/img/logoOrijeen.png"
-            alt="orijeen logo"
-            style={{
-              width: "150px",
-              height: "auto",
-              position: "absolute",
-              top: "-40px",
-              left: "50px",
-            }}
-          />
-            </Typography>
-            <Typography variant="subtitle1">Hi, {details?.studentName}</Typography>
-          </Toolbar>
-        </AppBar>
+      <div style={{width:"100%"}}>
+        
         <div
           className="anocontact"
           style={{
@@ -48,7 +24,7 @@ const StudentProfile = () => {
           
         </div>
         <div>
-          <h1 style={{ margin: 10 }}>Dashboard {">"} Profile</h1>
+          {/* <h1 style={{ margin: 10 }}>Profile</h1> */}
           <table
             className="sdtable"
             style={{
@@ -68,7 +44,8 @@ const StudentProfile = () => {
                   padding: "10px",
                   height: "65px",
                   border: "2px solid black",
-                  marginTop: "15px",
+                  marginTop: "45px",
+
                   width: "200%",
                   marginBottom: "-3px",
                   backgroundColor: "#00ffff",
